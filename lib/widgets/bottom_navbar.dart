@@ -48,7 +48,7 @@ class BotNavBar extends StatelessWidget {
             ),
             child: InkWell(
               onTap: () {},
-              splashColor: Colors.blue,
+              splashColor: Colors.blue[100],
               child: SizedBox(
                 width: 100,
                 height: 70,
