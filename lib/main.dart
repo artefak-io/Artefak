@@ -1,5 +1,5 @@
-import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/screens/main/home.dart';
+import 'package:artefak/screens/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +20,8 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue[900],
       ),
       routes: {
-        '/': (context) => const Authenticate(),
+        '/': (context) => const SplashScreen(),
+        '/home': (context) => const Home(),
       },
       initialRoute: '/',
     );

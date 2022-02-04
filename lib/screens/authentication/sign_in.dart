@@ -9,7 +9,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  final Auth _auth = Auth();
+  final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +25,13 @@ class _SignInState extends State<SignIn> {
         child: Row(
           children: [
             FloatingActionButton(
-              onPressed: () {
-                _auth.signInAnon();
+              onPressed: () async {
+                dynamic result = await _auth.signInAnon();
+                if (result == null) {
+                  print('error signing up');
+                } else {
+                  print(result);
+                }
               },
             ),
             const SizedBox(
