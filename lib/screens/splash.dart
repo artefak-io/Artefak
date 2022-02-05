@@ -1,5 +1,4 @@
-import 'package:artefak/screens/authentication/authenticate.dart';
-// import 'package:artefak/screens/main/home.dart';
+import 'package:artefak/screens/main/home.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -7,6 +6,6 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Authenticate();
+    return const Home();
   }
 }

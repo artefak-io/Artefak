@@ -1,74 +1,81 @@
+import 'package:artefak/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class BotNavBar extends StatelessWidget {
   const BotNavBar({Key? key}) : super(key: key);
 
+  // BottomNavigationBarItem loginChecker() {
+  //   if (AuthService.user == null) {
+  //     return const BottomNavigationBarItem(
+  //       icon: Icon(
+  //         Icons.person,
+  //       ),
+  //       label: 'Login',
+  //     );
+  //   } else {
+  //     return const BottomNavigationBarItem(
+  //       icon: Icon(
+  //         Icons.person,
+  //       ),
+  //       label: 'Profile',
+  //     );
+  //   }
+  // }
+
+  void _onTap(index, context) {
+    if (AuthService.user == null) {
+      Navigator.pushNamed(context, '/authenticate');
+    } else {
+      switch (index) {
+        case 0:
+          Navigator.popUntil(context, ModalRoute.withName('/'));
+          break;
+        case 1:
+          Navigator.pushNamed(context, '/transaction');
+          break;
+        case 2:
+          Navigator.pushNamed(context, '/profile');
+          break;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return IntrinsicHeight(
-      child: Row(
-        children: [
-          Material(
-            color: Colors.amber,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(30.0),
-              bottomLeft: Radius.circular(30.0),
-            ),
-            child: InkWell(
-              onTap: () {},
-              splashColor: Colors.blue,
-              child: SizedBox(
-                width: 100,
-                height: 70,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Icon(
-                      Icons.search,
-                    ),
-                    Text(
-                      'Search',
-                    ),
-                  ],
-                ),
-              ),
-            ),
+    return BottomNavigationBar(
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.home,
           ),
-          const VerticalDivider(
-            thickness: 5.0,
-            width: 5.0,
-            color: Colors.black,
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.shopping_cart,
           ),
-          Material(
-            color: Colors.amber,
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(30.0),
-              bottomRight: Radius.circular(30.0),
-            ),
-            child: InkWell(
-              onTap: () {},
-              splashColor: Colors.blue[100],
-              child: SizedBox(
-                width: 100,
-                height: 70,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Icon(
-                      Icons.account_circle_outlined,
-                    ),
-                    Text(
-                      'Profile',
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          label: 'Cart',
+        ),
+        /* loginChecker(), */
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.person,
           ),
-        ],
-      ),
+          label: 'Profile',
+        ),
+      ],
+      onTap: (index) => _onTap(index, context),
+      // (index) {
+      //   switch (index) {
+      //     case 0:
+      //       break;
+      //     case 1:
+      //       Navigator.pushNamed(context, "/transaction");
+      //       break;
+      //     default:
+      //       break;
+      //   }
+      // }
     );
   }
 }

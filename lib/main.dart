@@ -1,3 +1,6 @@
+import 'package:artefak/screens/authentication/authenticate.dart';
+import 'package:artefak/screens/main/profile.dart';
+import 'package:artefak/screens/main/transaction.dart';
 import 'package:artefak/screens/main/home.dart';
 import 'package:artefak/screens/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,7 +24,11 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => const SplashScreen(),
+        // '/home' still unused, don't route to '/home' yet route to '/' instead
         '/home': (context) => const Home(),
+        '/profile': (context) => const Profile(),
+        '/transaction': (context) => const Transaction(),
+        '/authenticate': (context) => const Authenticate(),
       },
       initialRoute: '/',
     );

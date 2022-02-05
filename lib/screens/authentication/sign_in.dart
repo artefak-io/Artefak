@@ -24,7 +24,8 @@ class _SignInState extends State<SignIn> {
         ),
         child: Row(
           children: [
-            FloatingActionButton(
+            ElevatedButton(
+              child: const Text('sign in'),
               onPressed: () async {
                 dynamic result = await _auth.signInAnon();
                 if (result == null) {
@@ -37,9 +38,9 @@ class _SignInState extends State<SignIn> {
             const SizedBox(
               width: 40.0,
             ),
-            FloatingActionButton(
-              backgroundColor: Colors.red[900],
-              onPressed: () {
+            ElevatedButton(
+              child: const Text('Log out'),
+              onPressed: () async {
                 _auth.signOut();
               },
             ),

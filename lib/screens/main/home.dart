@@ -24,37 +24,26 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: SafeArea(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              FutureBuilder<List<Collection>>(
-                future: fetchCollection(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return const Center(
-                      child: Text('An error has occurred!'),
-                    );
-                  } else if (snapshot.hasData) {
-                    return CollectionList(collection: snapshot.data!);
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              ),
-              Positioned(
-                key: GlobalKey(),
-                bottom: 10.0,
-                child: const BotNavBar(),
-              ),
-            ],
-          ),
+    return Scaffold(
+      body: SafeArea(
+        child: FutureBuilder<List<Collection>>(
+          future: fetchCollection(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return const Center(
+                child: Text('An error has occurred!'),
+              );
+            } else if (snapshot.hasData) {
+              return CollectionList(collection: snapshot.data!);
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
         ),
       ),
+      bottomNavigationBar: const BotNavBar(),
     );
   }
 }
