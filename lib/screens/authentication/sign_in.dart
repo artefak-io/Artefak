@@ -39,7 +39,7 @@ class _SignInState extends State<SignIn> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: TextFormField(
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
@@ -55,7 +55,7 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: TextFormField(
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
@@ -80,7 +80,10 @@ class _SignInState extends State<SignIn> {
                   child: const Text('Sign In'),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      dynamic result = await _auth.signInAnon();
+                      dynamic result = await _auth.signInEmailPass(
+                        _emailController.text,
+                        _passwordController.text,
+                      );
                       if (result == null) {
                         print('error signing in');
                       } else {
@@ -92,16 +95,20 @@ class _SignInState extends State<SignIn> {
                 ElevatedButton(
                   child: const Text('sign in anon'),
                   onPressed: () async {
-                    dynamic result = await _auth.signInEmailPass(
-                      _emailController.text,
-                      _passwordController.text,
-                    );
+                    dynamic result = await _auth.signInAnon();
                     if (result == null) {
-                      print('error signing up');
+                      print('error signing in anonymously');
                     } else {
                       print(result);
                     }
                   },
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.popAndPushNamed(
+                    context,
+                    '/signup',
+                  ),
+                  child: const Text('Sign Up'),
                 ),
               ],
             ),

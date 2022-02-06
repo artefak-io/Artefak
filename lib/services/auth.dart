@@ -30,6 +30,15 @@ class AuthService {
     }
   }
 
+  Future signUpEmailPass(String email, String password) async {
+    try {
+      _auth.createUserWithEmailAndPassword(email: email, password: password);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
   Future<void> signOut() async {
     try {
       await _auth.signOut();
