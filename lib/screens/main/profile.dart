@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:artefak/services/auth.dart';
 
 class Profile extends StatelessWidget {
-  Profile({Key? key}) : super(key: key);
-
-  final AuthService _auth = AuthService();
+  const Profile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +15,7 @@ class Profile extends StatelessWidget {
         child: ElevatedButton(
           child: const Text('Log out'),
           onPressed: () async {
-            _auth.signOut();
+            AuthService().signOut();
           },
         ),
       ),
