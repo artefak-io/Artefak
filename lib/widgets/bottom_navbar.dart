@@ -24,7 +24,7 @@ class BotNavBar extends StatelessWidget {
 
   void _onTap(index, context) {
     if (AuthService.user == null) {
-      Navigator.pushNamed(context, '/authenticate');
+      Navigator.pushNamed(context, '/signin');
     } else {
       switch (index) {
         case 0:
