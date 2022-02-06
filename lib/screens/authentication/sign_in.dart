@@ -1,5 +1,6 @@
 import 'package:artefak/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -9,8 +10,6 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  final AuthService _auth = AuthService();
-
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -80,7 +79,7 @@ class _SignInState extends State<SignIn> {
                   child: const Text('Sign In'),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      dynamic result = await _auth.signInEmailPass(
+                      User? result = await AuthService().signInEmailPass(
                         _emailController.text,
                         _passwordController.text,
                       );
@@ -95,7 +94,7 @@ class _SignInState extends State<SignIn> {
                 ElevatedButton(
                   child: const Text('sign in anon'),
                   onPressed: () async {
-                    dynamic result = await _auth.signInAnon();
+                    User? result = await AuthService().signInAnon();
                     if (result == null) {
                       print('error signing in anonymously');
                     } else {

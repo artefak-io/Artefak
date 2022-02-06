@@ -3,6 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  static final AuthService _authService = AuthService._internal();
+
+  AuthService._internal();
+
+  factory AuthService() {
+    return _authService;
+  }
+
   static User? get user {
     return FirebaseAuth.instance.currentUser;
   }

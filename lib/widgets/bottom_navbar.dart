@@ -4,24 +4,6 @@ import 'package:flutter/material.dart';
 class BotNavBar extends StatelessWidget {
   const BotNavBar({Key? key}) : super(key: key);
 
-  // BottomNavigationBarItem loginChecker() {
-  //   if (AuthService.user == null) {
-  //     return const BottomNavigationBarItem(
-  //       icon: Icon(
-  //         Icons.person,
-  //       ),
-  //       label: 'Login',
-  //     );
-  //   } else {
-  //     return const BottomNavigationBarItem(
-  //       icon: Icon(
-  //         Icons.person,
-  //       ),
-  //       label: 'Profile',
-  //     );
-  //   }
-  // }
-
   void _onTap(index, context) {
     if (AuthService.user == null) {
       Navigator.pushNamed(context, '/signin');
@@ -31,7 +13,7 @@ class BotNavBar extends StatelessWidget {
           Navigator.popUntil(context, ModalRoute.withName('/'));
           break;
         case 1:
-          Navigator.pushNamed(context, '/transaction');
+          Navigator.pushNamed(context, '/cart');
           break;
         case 2:
           Navigator.pushNamed(context, '/profile');
@@ -56,7 +38,6 @@ class BotNavBar extends StatelessWidget {
           ),
           label: 'Cart',
         ),
-        /* loginChecker(), */
         BottomNavigationBarItem(
           icon: Icon(
             Icons.person,
@@ -65,17 +46,6 @@ class BotNavBar extends StatelessWidget {
         ),
       ],
       onTap: (index) => _onTap(index, context),
-      // (index) {
-      //   switch (index) {
-      //     case 0:
-      //       break;
-      //     case 1:
-      //       Navigator.pushNamed(context, "/transaction");
-      //       break;
-      //     default:
-      //       break;
-      //   }
-      // }
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:artefak/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -9,8 +10,6 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final AuthService _auth = AuthService();
-
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -79,7 +78,7 @@ class _SignUpState extends State<SignUp> {
                 child: const Text('Sign Up'),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    dynamic result = await _auth.signUpEmailPass(
+                    User? result = await AuthService().signUpEmailPass(
                       _emailController.text,
                       _passwordController.text,
                     );
