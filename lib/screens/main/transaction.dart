@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class Transaction extends StatelessWidget {
   const Transaction({Key? key}) : super(key: key);
 
+  static const index = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +13,9 @@ class Transaction extends StatelessWidget {
         title: const Text('Transaction'),
       ),
       body: Container(),
-      bottomNavigationBar: const BotNavBar(),
+      bottomNavigationBar: const BotNavBar(
+        currentIndex: index,
+      ),
     );
   }
 }

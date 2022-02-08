@@ -1,5 +1,7 @@
 import 'package:artefak/screens/authentication/sign_in.dart';
 import 'package:artefak/screens/authentication/sign_up.dart';
+import 'package:artefak/screens/authentication/update_profile.dart';
+import 'package:artefak/screens/main/asset.dart';
 import 'package:artefak/screens/main/profile.dart';
 import 'package:artefak/screens/main/transaction.dart';
 import 'package:artefak/screens/main/home.dart';
@@ -21,16 +23,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.red[900],
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.red,
+        ),
       ),
       routes: {
         '/': (context) => const SplashScreen(),
         // '/home' still unused, don't route to '/home' yet route to '/' instead
-        '/home': (context) => const Home(),
-        '/profile': (context) => const Profile(),
+        '/home': (context) => Home(),
+        '/profile': (context) => Profile(),
         '/cart': (context) => const Transaction(),
         '/signin': (context) => const SignIn(),
         '/signup': (context) => const SignUp(),
+        '/updateProfile': (context) => const UpdateProfile(),
+        '/asset': (context) => const Asset(),
       },
       initialRoute: '/',
     );

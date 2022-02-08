@@ -44,3 +44,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Probably would be used in the future
+lib/screens/main/home_old.dart
+lib/widgets/bottom_navbar_old.dart
+lib/widgets/collection_list.dart
