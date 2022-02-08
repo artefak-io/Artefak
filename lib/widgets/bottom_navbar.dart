@@ -2,7 +2,9 @@ import 'package:artefak/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class BotNavBar extends StatelessWidget {
-  const BotNavBar({Key? key}) : super(key: key);
+  const BotNavBar({Key? key, required this.currentIndex}) : super(key: key);
+
+  final int currentIndex;
 
   void _onTap(index, context) {
     if (AuthService.user == null) {
@@ -46,6 +48,7 @@ class BotNavBar extends StatelessWidget {
         ),
       ],
       onTap: (index) => _onTap(index, context),
+      currentIndex: currentIndex,
     );
   }
 }
