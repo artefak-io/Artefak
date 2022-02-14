@@ -1,4 +1,3 @@
-import 'package:artefak/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class BotNavBar extends StatelessWidget {
@@ -7,20 +6,16 @@ class BotNavBar extends StatelessWidget {
   final int currentIndex;
 
   void _onTap(index, context) {
-    if (AuthService.user == null) {
-      Navigator.pushNamed(context, '/signin');
-    } else {
-      switch (index) {
-        case 0:
-          Navigator.popUntil(context, ModalRoute.withName('/'));
-          break;
-        case 1:
-          Navigator.pushNamed(context, '/cart');
-          break;
-        case 2:
-          Navigator.pushNamed(context, '/profile');
-          break;
-      }
+    switch (index) {
+      case 0:
+        Navigator.popUntil(context, ModalRoute.withName('/'));
+        break;
+      case 1:
+        Navigator.pushNamed(context, '/bill');
+        break;
+      case 2:
+        Navigator.pushNamed(context, '/profile');
+        break;
     }
   }
 

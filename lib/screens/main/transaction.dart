@@ -1,3 +1,5 @@
+import 'package:artefak/screens/authentication/authenticate.dart';
+import 'package:artefak/services/auth.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 
@@ -8,14 +10,18 @@ class Transaction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Transaction'),
-      ),
-      body: Container(),
-      bottomNavigationBar: const BotNavBar(
-        currentIndex: index,
-      ),
-    );
+    if (AuthService.user == null) {
+      return const Authenticate();
+    } else {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Transaction'),
+        ),
+        body: Container(),
+        bottomNavigationBar: const BotNavBar(
+          currentIndex: index,
+        ),
+      );
+    }
   }
 }
