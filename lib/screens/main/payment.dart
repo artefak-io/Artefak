@@ -1,3 +1,4 @@
+import 'package:artefak/services/payment_service.dart';
 import 'package:flutter/material.dart';
 
 class Payment extends StatelessWidget {
@@ -16,6 +17,15 @@ class Payment extends StatelessWidget {
         children: [
           Text(_data['id']),
           Text(_data['price'].toString()),
+          ElevatedButton(
+            onPressed: () => PaymentService().getBalance(),
+            child: const Text('coba auth'),
+          ),
+          ElevatedButton(
+            onPressed: () => PaymentService()
+                .testVirtualAccount(_data['id'], _data['price'], 'BRI'),
+            child: const Text('coba virtual account'),
+          ),
         ],
       ),
     );
