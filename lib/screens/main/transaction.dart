@@ -4,6 +4,7 @@ import 'package:artefak/services/transaction_service.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Transaction extends StatelessWidget {
   Transaction({Key? key}) : super(key: key);
@@ -26,6 +27,7 @@ class Transaction extends StatelessWidget {
         body: StreamBuilder(
           stream: _transactionStream,
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            //should show something when null
             if (snapshot.hasError) {
               return const Center(
                 child: Text('An error has occurred!'),
@@ -34,11 +36,61 @@ class Transaction extends StatelessWidget {
               return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
-                    return Card();
+                    return Card(
+                      child: ListTile(
+                        title: Text(
+                          snapshot.data!.docs[index]['assetName'],
+                        ),
+                        subtitle: Text(
+                          "Status: ${snapshot.data!.docs[index]['status']}",
+                        ),
+                        onTap: () => showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: Text(
+                              snapshot.data!.docs[index]['assetName'],
+                            ),
+                            content: Column(
+                              children: <Widget>[
+                                const Text("Account Holder"),
+                                Text(snapshot.data!.docs[index]["vaHolder"]),
+                                const Text("Account Number"),
+                                Text(
+                                  '${snapshot.data!.docs[index]["bankName"]} ${snapshot.data!.docs[index]["vaNumber"]}',
+                                ),
+                                const Text("Amount"),
+                                Text(NumberFormat.currency(locale: 'id').format(
+                                    snapshot.data!.docs[index]["price"])),
+                                const Text("Due date"),
+                                Text(DateTime.fromMillisecondsSinceEpoch(
+                                        snapshot.data!.docs[index]["expTime"])
+                                    .toLocal()
+                                    .toString()),
+                              ],
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  "Cancel Transaction",
+                                  style: TextStyle(color: Colors.redAccent),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text("Close"),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
                   });
             } else {
               return const Center(
-                child: Text("You haven't made any transaction yet"),
+                child: CircularProgressIndicator(),
               );
             }
           },

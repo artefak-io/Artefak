@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.red,
+          primarySwatch: Colors.blue,
         ),
       ),
       localizationsDelegates: const [

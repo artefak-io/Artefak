@@ -32,9 +32,9 @@ class TransactionService {
     }
   }
 
-  Future newTransaction(
+  Future<Map<String, dynamic>> newTransaction(
       String assetId, String assetName, Map<String, dynamic> fromOy) async {
-    return _transactiondb.doc(fromOy["partner_trx_id"]).set({
+    _transactiondb.doc(fromOy["partner_trx_id"]).set({
       'assetId': assetId,
       'userId': fromOy["partner_user_id"],
       'price': fromOy["amount"],
@@ -45,6 +45,7 @@ class TransactionService {
       "vaHolder": fromOy["username_display"],
       "expTime": fromOy["expiration_time"],
     }).catchError((error) => Future.error('error in newTransaction $error'));
+    return fromOy;
   }
 
   Future<void> deleteTransaction(
