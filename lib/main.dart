@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         // '/home' still unused, don't route to '/home' yet route to '/' instead
         '/home': (context) => Home(),
         '/profile': (context) => Profile(),
-        '/bill': (context) => const Transaction(),
+        '/bill': (context) => Transaction(),
         '/updateProfile': (context) => const UpdateProfile(),
         '/asset': (context) => const Asset(),
         '/auth': (context) => const Authenticate(),

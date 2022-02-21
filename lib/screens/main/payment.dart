@@ -1,4 +1,7 @@
-import 'package:artefak/services/payment_service.dart';
+import 'package:artefak/services/auth.dart';
+import 'package:artefak/services/payment_service_firestore.dart';
+import 'package:artefak/services/payment_service_oy.dart';
+import 'package:artefak/services/transaction_service.dart';
 import 'package:flutter/material.dart';
 
 class Payment extends StatelessWidget {
@@ -18,12 +21,18 @@ class Payment extends StatelessWidget {
           Text(_data['id']),
           Text(_data['price'].toString()),
           ElevatedButton(
-            onPressed: () => PaymentService().getBalance(),
+            onPressed: () => PaymentServiceOy().getBalance(),
             child: const Text('coba auth'),
           ),
           ElevatedButton(
-            onPressed: () => PaymentService()
-                .testVirtualAccount(_data['id'], _data['price'], 'BRI'),
+            onPressed: () {
+              PaymentServiceOy()
+                  .testVirtualAccount(
+                      AuthService.user!.uid, '002', _data['price'])
+                  .then((value1) => PaymentFirestore().newPayment(value1))
+                  .then((value2) => TransactionService()
+                      .newTransaction(_data['id'], _data['assetName'], value2));
+            },
             child: const Text('coba virtual account'),
           ),
         ],

@@ -77,6 +77,7 @@ class Asset extends StatelessWidget {
                       arguments: <String, dynamic>{
                         'id': _data['id'],
                         'price': _data['price'],
+                        'assetName': _data['name'],
                       });
                 }
               },

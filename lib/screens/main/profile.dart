@@ -72,6 +72,7 @@ class Profile extends StatelessWidget {
                 child: StreamBuilder<QuerySnapshot>(
                   stream: _assetStream,
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    //needs to show something when user doesn't own any asset yet
                     if (snapshot.hasError) {
                       return const Center(
                         child: Text('An error has occurred!'),

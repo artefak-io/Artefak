@@ -50,6 +50,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   controller: _emailController,
                   validator: (value) {
+                    //needs email validator
                     if (value == null || value.isEmpty) {
                       return '*required';
                     }
