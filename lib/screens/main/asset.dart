@@ -33,9 +33,7 @@ class Asset extends StatelessWidget {
                 top: 10.0,
               ),
               child: Text(
-                  (Localizations.localeOf(context) == const Locale('id', ''))
-                      ? _data['descriptionIDN']
-                      : _data['description']),
+                  _data['description']),
             ),
             const Padding(
               padding: EdgeInsets.only(
