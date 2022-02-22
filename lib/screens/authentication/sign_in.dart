@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+  const SignIn({
+    Key? key,
+    required this.toggleView,
+  }) : super(key: key);
+
+  final VoidCallback toggleView;
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -25,7 +30,7 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('sign in'),
+        title: const Text('Sign In'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -103,10 +108,7 @@ class _SignInState extends State<SignIn> {
                   },
                 ),
                 ElevatedButton(
-                  onPressed: () => Navigator.popAndPushNamed(
-                    context,
-                    '/signup',
-                  ),
+                  onPressed: () => widget.toggleView(),
                   child: const Text('Sign Up'),
                 ),
               ],

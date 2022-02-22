@@ -34,12 +34,15 @@ class Home extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(context, '/asset',
                           arguments: <String, dynamic>{
+                            'id': snapshot.data!.docs[index].id,
                             'currentOwner': snapshot.data!.docs[index]
                                 ['currentOwner'],
                             'creator': snapshot.data!.docs[index]['creator'],
                             'name': snapshot.data!.docs[index]['name'],
                             'description': snapshot.data!.docs[index]
                                 ['description'],
+                            'descriptionIDN': snapshot.data!.docs[index]
+                                ['descriptionIDN'],
                             'coverImage': snapshot.data!.docs[index]
                                 ['coverImage'],
                             'views': snapshot.data!.docs[index]['views'],
@@ -48,6 +51,7 @@ class Home extends StatelessWidget {
                             'contractAddress': snapshot.data!.docs[index]
                                 ['contractAddress'],
                             'tokenId': snapshot.data!.docs[index]['tokenId'],
+                            'price': snapshot.data!.docs[index]['price'],
                           });
                     },
                     child:

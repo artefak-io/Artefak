@@ -1,4 +1,7 @@
+import 'package:artefak/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Asset extends StatelessWidget {
   const Asset({Key? key}) : super(key: key);
@@ -29,7 +32,10 @@ class Asset extends StatelessWidget {
               padding: const EdgeInsets.only(
                 top: 10.0,
               ),
-              child: Text(_data['description']),
+              child: Text(
+                  (Localizations.localeOf(context) == const Locale('id', ''))
+                      ? _data['descriptionIDN']
+                      : _data['description']),
             ),
             const Padding(
               padding: EdgeInsets.only(
@@ -42,6 +48,40 @@ class Asset extends StatelessWidget {
                 top: 10.0,
               ),
               child: Text(_data['views'].toString()),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                top: 10.0,
+              ),
+              child: Text('Price'),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 10.0,
+              ),
+              child: Text(
+                  NumberFormat.currency(locale: 'id').format(_data['price'])),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (AuthService.user == null) {
+                  Navigator.pushNamed(context, '/auth');
+                }
+                // else if (check if this user still has active unpaid account or not)
+
+                else {
+                  Navigator.pushNamed(context, '/payment',
+                      arguments: <String, dynamic>{
+                        'id': _data['id'],
+                        'price': _data['price'],
+                        'assetName': _data['name'],
+                      });
+                }
+              },
+              child: const Text('Buy'),
             ),
           ],
         ),
