@@ -32,7 +32,7 @@ class PaymentButton extends StatelessWidget {
             .then((value1) => PaymentFirestore().newPayment(value1))
             .then((value2) =>
                 TransactionService().newTransaction(assetId, assetName, value2))
-            .catchError((error) => Future.error(error));
+            .catchError((error) => print(error));
         return showDialog(
           context: context,
           builder: (BuildContext context) => FutureBuilder(

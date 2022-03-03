@@ -29,10 +29,19 @@ class Profile extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  const CircleAvatar(
-                    radius: 60,
-                    backgroundImage: AssetImage('assets/finn.jpg'),
-                  ),
+                  // there must be a better way to do this either by using
+                  // imagestream, imageprovider or another stream widget
+                  AuthService.user!.photoURL != null
+                      ? CircleAvatar(
+                          foregroundImage:
+                              NetworkImage(AuthService.user!.photoURL!),
+                          radius: 60,
+                          backgroundImage: const AssetImage('assets/finn.jpg'),
+                        )
+                      : const CircleAvatar(
+                          radius: 60,
+                          backgroundImage: AssetImage('assets/finn.jpg'),
+                        ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
