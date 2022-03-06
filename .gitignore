@@ -45,6 +45,9 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# XCode related
+Podfile.lock
+
 # Probably would be used in the future
 lib/screens/main/home_old.dart
 lib/widgets/bottom_navbar_old.dart
