@@ -19,6 +19,7 @@ class ProfilePictureService {
           .ref()
           .child('users')
           .child(user.uid)
+          .child('profile_picture')
           .putFile(profilePicture);
       result.then((p0) => p0.ref).then((value) async {
         String ppURL = await value.getDownloadURL();
