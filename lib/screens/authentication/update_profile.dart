@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/services/image_picker_service.dart';
 import 'package:artefak/services/profile_picture_service.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -42,7 +43,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
   void initState() {
     super.initState();
 
-    _restrieveLostData();
+    if (AuthService.user!.displayName != null) {
+      _nameController.text = AuthService.user!.displayName!;
+    }
+    if (kIsWeb != true && defaultTargetPlatform == TargetPlatform.android) {
+      _restrieveLostData();
+    }
   }
 
   @override
@@ -68,7 +74,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
             CircleAvatar(
               foregroundImage: _previewImage(),
               radius: 60,
-              backgroundImage: const AssetImage('assets/finn.jpg'),
+              backgroundColor: Colors.red,
+              child: AuthService.user!.displayName != null
+                  ? Text(AuthService.user!.displayName![0])
+                  : null,
             ),
             Form(
               key: _formKey,
@@ -77,10 +86,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: TextFormField(
-                      decoration: InputDecoration(
-                        border: const UnderlineInputBorder(),
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
                         labelText: 'Name',
-                        hintText: AuthService.user!.displayName,
                       ),
                       controller: _nameController,
                       validator: (value) {
@@ -107,14 +115,19 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   ElevatedButton(
                     child: const Text('Update'),
                     onPressed: () async {
-                      // if (_formKey.currentState!.validate()) {
-                      //   await AuthService()
-                      //       .changeUserInfo(_nameController.text);
-                      // }
+                      if (_formKey.currentState!.validate()) {
+                        await AuthService()
+                            .changeUserInfo(_nameController.text);
+                      }
                       ProfilePictureService()
                           .setPP(AuthService.user!, _profilePicture);
                     },
                   ),
+                  ElevatedButton(
+                      onPressed: () {
+                        ProfilePictureService().deletePP(AuthService.user!);
+                      },
+                      child: const Text('Delelete PP'))
                 ],
               ),
             ),

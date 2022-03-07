@@ -36,11 +36,17 @@ class Profile extends StatelessWidget {
                           foregroundImage:
                               NetworkImage(AuthService.user!.photoURL!),
                           radius: 60,
-                          backgroundImage: const AssetImage('assets/finn.jpg'),
+                          backgroundColor: Colors.red,
+                          child: AuthService.user!.displayName != null
+                              ? Text(AuthService.user!.displayName![0])
+                              : null,
                         )
-                      : const CircleAvatar(
+                      : CircleAvatar(
                           radius: 60,
-                          backgroundImage: AssetImage('assets/finn.jpg'),
+                          backgroundColor: Colors.red,
+                          child: AuthService.user!.displayName != null
+                              ? Text(AuthService.user!.displayName![0])
+                              : null,
                         ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

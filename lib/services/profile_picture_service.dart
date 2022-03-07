@@ -21,10 +21,14 @@ class ProfilePictureService {
           .child(user.uid)
           .putFile(profilePicture);
       result.then((p0) => p0.ref).then((value) async {
-        String peepee = await value.getDownloadURL();
-        print(peepee);
-        user.updatePhotoURL(peepee);
+        String ppURL = await value.getDownloadURL();
+        print(ppURL);
+        user.updatePhotoURL(ppURL);
       });
     }
+  }
+
+  void deletePP(User user) {
+    user.updatePhotoURL(null);
   }
 }
