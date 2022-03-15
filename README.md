@@ -13,6 +13,7 @@ Yes this is a new Flutter project.
 - Flutter dependency for image picker
     https://pub.dev/packages/image_picker
 - Need better database structure and scheme
+- Need semantics widgets
 
 ### INTERESTING LINK FOR THE FUTURE
 - When there is a need to separate project into production and development
