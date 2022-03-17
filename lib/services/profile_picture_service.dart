@@ -13,7 +13,7 @@ class ProfilePictureService {
 
   FirebaseStorage cloudStorage = FirebaseStorage.instance;
 
-  Future<void> setPP(User user, File? profilePicture) async {
+  Future<void> setProfilePicture(User user, File? profilePicture) async {
     if (profilePicture != null) {
       UploadTask result = cloudStorage
           .ref()
@@ -29,7 +29,7 @@ class ProfilePictureService {
     }
   }
 
-  void deletePP(User user) {
+  void deleteProfilePicture(User user) {
     user.updatePhotoURL(null);
   }
 }

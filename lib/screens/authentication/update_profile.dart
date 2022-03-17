@@ -119,13 +119,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         await AuthService()
                             .changeUserInfo(_nameController.text);
                       }
-                      ProfilePictureService()
-                          .setPP(AuthService.user!, _profilePicture);
+                      ProfilePictureService().setProfilePicture(
+                          AuthService.user!, _profilePicture);
                     },
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        ProfilePictureService().deletePP(AuthService.user!);
+                        ProfilePictureService()
+                            .deleteProfilePicture(AuthService.user!);
                       },
                       child: const Text('Delelete PP'))
                 ],
