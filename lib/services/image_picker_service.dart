@@ -3,7 +3,6 @@ import 'package:image_picker/image_picker.dart';
 // pretty useless class for now because the imagepicker method could be used
 // directly in the update profile screen
 class ImagePickerService {
-  XFile? image;
   static final _imagepickerservice = ImagePickerService._();
 
   ImagePickerService._();
@@ -27,7 +26,6 @@ class ImagePickerService {
   }
 
   Future<XFile?> retrieveImage() async {
-    image = await _picker.pickImage(source: ImageSource.gallery);
-    return image;
+    return _picker.pickImage(source: ImageSource.gallery);
   }
 }

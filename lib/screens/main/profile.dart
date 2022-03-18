@@ -1,5 +1,7 @@
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/services/asset_service.dart';
+import 'package:artefak/services/tatum.dart';
+import 'package:artefak/services/wallet_firestore.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +79,27 @@ class Profile extends StatelessWidget {
                 child: const Text('Update Profile'),
               ),
               ElevatedButton(
+                onPressed: () {
+                  WalletFirestore()
+                      .checkWallet(AuthService.user!.uid)
+                      .then((value) {
+                    if (value == false) {
+                      TatumService().createWalletBSC().then((value) =>
+                          WalletFirestore()
+                              .moveWallet(value, AuthService.user!.uid));
+                    }
+                  }).catchError((error) => print("error happens $error"));
+                },
+                child: const Text('Create Wallet'),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.pushNamed(
+                  context,
+                  '/mint',
+                ),
+                child: const Text('Mint'),
+              ),
+              ElevatedButton(
                 child: const Text('Log out'),
                 onPressed: () async {
                   AuthService().signOut();
@@ -126,6 +149,7 @@ class Profile extends StatelessWidget {
                                         ['tokenId'],
                                   });
                             },
+                            // needs loading indicator when image being reloaded
                             child: Image.network(
                                 snapshot.data!.docs[index]['coverImage']),
                           );
