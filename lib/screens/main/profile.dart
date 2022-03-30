@@ -1,6 +1,6 @@
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/services/asset_service.dart';
-import 'package:artefak/services/tatum.dart';
+import 'package:artefak/services/tatum_wallet.dart';
 import 'package:artefak/services/wallet_firestore.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -84,7 +84,7 @@ class Profile extends StatelessWidget {
                       .checkWallet(AuthService.user!.uid)
                       .then((value) {
                     if (value == false) {
-                      TatumService().createWalletBSC().then((value) =>
+                      TatumWalletService().createWalletBSC().then((value) =>
                           WalletFirestore()
                               .moveWallet(value, AuthService.user!.uid));
                     }

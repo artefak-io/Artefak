@@ -22,9 +22,9 @@ class ProfilePictureService {
           .child('profile_picture')
           .putFile(profilePicture);
       result.then((p0) => p0.ref).then((value) async {
-        String ppURL = await value.getDownloadURL();
-        print(ppURL);
-        user.updatePhotoURL(ppURL);
+        String profilePictureURL = await value.getDownloadURL();
+        print(profilePictureURL);
+        user.updatePhotoURL(profilePictureURL);
       });
     }
   }

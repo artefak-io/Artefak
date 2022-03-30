@@ -12,9 +12,10 @@ class WalletFirestore {
   final CollectionReference<Map<String, dynamic>> _walletdb =
       FirebaseFirestore.instance.collection('User');
 
-  Future moveWallet(Map<String, dynamic> fromTatum, String userId) async {
+  Future<void> moveWallet(Map<String, dynamic> fromTatum, String userId) async {
     _walletdb.doc(userId).set({
-      "address": fromTatum["address"],
+      "mnemonic": fromTatum["mnemonic"],
+      "publicKey": fromTatum["publicKey"],
       "privateKey": fromTatum["privateKey"],
     });
   }
@@ -25,5 +26,11 @@ class WalletFirestore {
     } catch (e) {
       return false;
     }
+  }
+
+  Future<String> getBaseAddress() async {
+    DocumentSnapshot<Map<String, dynamic>> result =
+        await _walletdb.doc("base").get();
+    return result.data()!["publicKey"];
   }
 }
