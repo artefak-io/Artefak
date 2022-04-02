@@ -87,7 +87,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: TextFormField(
                       decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
                         labelText: 'Name',
                       ),
                       controller: _nameController,
