@@ -46,7 +46,6 @@ class _SignInState extends State<SignIn> {
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
                       labelText: 'Email',
                     ),
                     controller: _emailController,
@@ -62,7 +61,6 @@ class _SignInState extends State<SignIn> {
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: TextFormField(
                     decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
                       labelText: 'Password',
                     ),
                     obscureText: true,

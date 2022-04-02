@@ -1,3 +1,4 @@
+import 'package:artefak/artefak_theme.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/screens/authentication/update_profile.dart';
 import 'package:artefak/screens/main/asset.dart';
@@ -27,11 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.blue,
-        ),
-      ),
+      theme: lightTheme,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
