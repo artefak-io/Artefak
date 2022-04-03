@@ -4,9 +4,7 @@ import 'package:artefak/services/auth.dart';
 import 'package:artefak/services/image_picker_service.dart';
 import 'package:artefak/services/profile_picture_service.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({Key? key}) : super(key: key);
@@ -31,10 +29,13 @@ class _UpdateProfileState extends State<UpdateProfile> {
   }
 
   Future<void> _restrieveLostData() async {
-    XFile? result = await ImagePickerService().retrieveLostData();
+    File? result = await ImagePickerService()
+        .retrieveLostData()
+        .then((value) => value != null ? File(value.path) : null)
+        .catchError((error) => print("error happen $error"));
     if (result != null) {
       setState(() {
-        _profilePicture = File(result.path);
+        _profilePicture = result;
       });
     }
   }
@@ -118,15 +119,18 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         await AuthService()
                             .changeUserInfo(_nameController.text);
                       }
-                      ProfilePictureService()
-                          .setPP(AuthService.user!, _profilePicture);
+                      ProfilePictureService().setProfilePicture(
+                          AuthService.user!, _profilePicture);
                     },
                   ),
+                  // for development use only
                   ElevatedButton(
-                      onPressed: () {
-                        ProfilePictureService().deletePP(AuthService.user!);
-                      },
-                      child: const Text('Delelete PP'))
+                    onPressed: () {
+                      ProfilePictureService()
+                          .deleteProfilePicture(AuthService.user!);
+                    },
+                    child: const Text('Delelete Profile Picture'),
+                  ),
                 ],
               ),
             ),

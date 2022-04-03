@@ -52,6 +52,7 @@ class Home extends StatelessWidget {
                             'price': snapshot.data!.docs[index]['price'],
                           });
                     },
+                    // needs loading indicator when image being reloaded
                     child:
                         Image.network(snapshot.data!.docs[index]['coverImage']),
                   );
