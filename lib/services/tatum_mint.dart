@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:artefak/services/wallet_firestore.dart';
 import 'package:http/http.dart';
+import 'package:artefak/api_key.dart' as api_key;
 
 class TatumMintService {
   TatumMintService._();
@@ -12,9 +13,6 @@ class TatumMintService {
     return _tatum;
   }
 
-  // USW test net api
-  final String ApiKey = "52a0d1b3-06b7-4a87-a4d5-e7ba5eba6529";
-
   Future nftExpress(String ipfs) async {
     Map<String, dynamic> body = {
       "chain": "BSC",
@@ -24,7 +22,7 @@ class TatumMintService {
     Response result = await post(
       Uri.parse('https://api-us-west1.tatum.io/v3/nft/mint?type=testnet'),
       headers: <String, String>{
-        "x-api-key": ApiKey,
+        "x-api-key": api_key.tatumApiKey,
         "Content-Type": "application/json",
       },
       body: jsonEncode(body),

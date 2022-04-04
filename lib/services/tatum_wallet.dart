@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:artefak/api_key.dart' as api_key;
 
 class TatumWalletService {
   TatumWalletService._();
@@ -11,14 +12,11 @@ class TatumWalletService {
     return _tatum;
   }
 
-  // USW test net api
-  final String ApiKey = "52a0d1b3-06b7-4a87-a4d5-e7ba5eba6529";
-
   Future<Map<String, dynamic>> generateWalletBSC() async {
     Response result = await get(
         Uri.parse('https://api-us-west1.tatum.io/v3/bsc/wallet?type=testnet'),
         headers: <String, String>{
-          "x-api-key": ApiKey,
+          "x-api-key": api_key.tatumApiKey,
         });
     if (result.statusCode == 200) {
       print(jsonDecode(result.body));
@@ -39,7 +37,7 @@ class TatumWalletService {
             index.toString() +
             '?type=testnet'),
         headers: <String, String>{
-          "x-api-key": ApiKey,
+          "x-api-key": api_key.tatumApiKey,
         });
     if (result.statusCode == 200) {
       print(jsonDecode(result.body));
@@ -58,7 +56,7 @@ class TatumWalletService {
       Uri.parse(
           'https://api-us-west1.tatum.io/v3/bsc/wallet/priv?type=testnet'),
       headers: <String, String>{
-        "x-api-key": ApiKey,
+        "x-api-key": api_key.tatumApiKey,
         "Content-Type": "application/json",
       },
       body: jsonEncode(body),
