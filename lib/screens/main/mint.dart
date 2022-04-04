@@ -1,8 +1,7 @@
 import 'dart:io';
 
-import 'package:artefak/services/asset_service.dart';
-import 'package:artefak/services/pinata.dart';
-import 'package:artefak/services/tatum_mint.dart';
+import 'package:artefak/services/mint_service.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:artefak/services/image_picker_service.dart';
@@ -142,21 +141,13 @@ class _MintState extends State<Mint> {
 
                       if (_formKey.currentState!.validate() &&
                           _mintImage != null) {
-                        PinataService()
-                            .pinIPFS(_nameController.text,
-                                _descriptionController.text, _mintImage!)
-                            .then((value) async {
-                          await TatumMintService()
-                              .nftExpress(value["IpfsHash"]);
-                          AssetService().newAsset(
-                              _mintImage!,
-                              _nameController.text,
-                              _descriptionController.text,
-                              value["IpfsHash"],
-                              "",
-                              "",
-                              int.parse(_priceController.text));
-                        }).catchError((error) => print("error occurs $error"));
+                        MintService().mint(
+                            _mintImage!,
+                            _nameController.text,
+                            _descriptionController.text,
+                            "contractAddress",
+                            "",
+                            int.parse(_priceController.text));
                       }
                     },
                   ),
