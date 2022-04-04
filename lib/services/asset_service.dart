@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:artefak/services/wallet_firestore.dart';
@@ -21,7 +22,39 @@ class AssetService {
   Future<String> assetPicture(File image, String name) async {
     UploadTask result =
         _assetCloud.ref().child('assets').child(name).putFile(image);
-    return result.then((p0) => p0.ref).then((value) => value.getDownloadURL());
+    try {
+      TaskSnapshot task = await result;
+      return task.ref.getDownloadURL();
+    } catch (error) {
+      print(result.snapshot);
+      return Future.error(error);
+    }
+  }
+
+  Future<String> assetJson(
+      String name, String description, String imageLink) async {
+    Map<String, dynamic> jsonBody = {
+      "name": name,
+      "description": description,
+      "image": imageLink
+    };
+
+    SettableMetadata metaData =
+        SettableMetadata(contentType: 'application/json');
+
+    UploadTask result = _assetCloud
+        .ref()
+        .child('assets')
+        .child("json")
+        .child(name + "JSON")
+        .putString(jsonEncode(jsonBody), metadata: metaData);
+    try {
+      TaskSnapshot task = await result;
+      return task.ref.getDownloadURL();
+    } catch (error) {
+      print(result.snapshot);
+      return Future.error(error);
+    }
   }
 
   Future<void> assetMetaData(
@@ -49,20 +82,16 @@ class AssetService {
         .catchError((error) => print('something error newAsset $error'));
   }
 
-  Future<void> newAsset(
-      File image,
-      String name,
-      String desc,
-      String externalLink,
-      String contractAddress,
-      String tokenId,
-      int price) async {
+  Future<String> newAsset(File image, String name, String desc,
+      String contractAddress, String tokenId, int price) async {
     try {
       String coverImage = await assetPicture(image, name);
-      assetMetaData(name, desc, coverImage, externalLink, contractAddress,
-          tokenId, price);
+      String jsonAddress = await assetJson(name, desc, coverImage);
+      assetMetaData(
+          name, desc, coverImage, jsonAddress, contractAddress, tokenId, price);
+      return jsonAddress;
     } catch (error) {
-      Future.error(error);
+      return Future.error(error);
     }
   }
 
