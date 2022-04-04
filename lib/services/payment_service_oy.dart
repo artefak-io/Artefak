@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:artefak/api_key.dart' as api_key;
 import 'package:http/http.dart';
 
 class PaymentServiceOy {
@@ -15,10 +16,6 @@ class PaymentServiceOy {
   static const String _ch =
       'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 
-  static const String apiKey = "b79a4f8c-2fed-4f9a-9196-520bf6e8efa3";
-
-  static const String userName = "sulistyoh";
-
   String getTransactionId() {
     Random _rnd = Random();
     return String.fromCharCodes(
@@ -32,8 +29,8 @@ class PaymentServiceOy {
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'x-oy-username': userName,
-          'x-api-key': apiKey,
+          'x-oy-username': api_key.oyUserName,
+          'x-api-key': api_key.oyApiKey,
         });
     if (result.statusCode == 200) {
       print(result.body);
@@ -50,8 +47,8 @@ class PaymentServiceOy {
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'x-oy-username': userName,
-          'x-api-key': apiKey,
+          'x-oy-username': api_key.oyUserName,
+          'x-api-key': api_key.oyApiKey,
         },
         body: jsonEncode(<String, dynamic>{
           "partner_user_id": userId,
