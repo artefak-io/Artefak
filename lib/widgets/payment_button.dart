@@ -1,6 +1,4 @@
 import 'package:artefak/services/auth.dart';
-import 'package:artefak/services/payment_service_firestore.dart';
-import 'package:artefak/services/payment_service_oy.dart';
 import 'package:artefak/services/transaction_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -27,12 +25,9 @@ class PaymentButton extends StatelessWidget {
       icon: bankLogo,
       iconSize: 50,
       onPressed: () async {
-        Future<Map<String, dynamic>> result = PaymentServiceOy()
-            .testVirtualAccount(AuthService.user!.uid, bankCode, price)
-            .then((value1) => PaymentFirestore().newPayment(value1))
-            .then((value2) =>
-                TransactionService().newTransaction(assetId, assetName, value2))
-            .catchError((error) => print(error));
+        Future<Map<String, dynamic>> result = TransactionService()
+            .paymentButton(
+                AuthService.user!.uid, bankCode, price, assetId, assetName);
         return showDialog(
           context: context,
           builder: (BuildContext context) => FutureBuilder(

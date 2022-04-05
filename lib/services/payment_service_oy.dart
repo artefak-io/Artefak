@@ -40,7 +40,7 @@ class PaymentServiceOy {
     }
   }
 
-  Future<Map<String, dynamic>> testVirtualAccount(
+  Future<Map<String, dynamic>> createVirtualAccount(
       String userId, String bankCode, int price) async {
     Response result = await post(
         Uri.parse('https://api-stg.oyindonesia.com/api/generate-static-va'),
@@ -66,7 +66,7 @@ class PaymentServiceOy {
       return value;
     } else {
       return Future.error(
-          'error in test virtual account ${result.reasonPhrase}');
+          'error in create virtual account ${result.reasonPhrase}');
     }
   }
 }

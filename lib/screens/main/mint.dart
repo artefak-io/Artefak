@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:artefak/services/mint_service.dart';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:artefak/services/image_picker_service.dart';
@@ -29,10 +28,7 @@ class _MintState extends State<Mint> {
   }
 
   Future<void> _restrieveLostData() async {
-    File? result = await ImagePickerService()
-        .retrieveLostData()
-        .then((value) => value != null ? File(value.path) : null)
-        .catchError((error) => print("error happen $error"));
+    File? result = await ImagePickerService().retrieveLostData();
     if (result != null) {
       setState(() {
         _mintImage = result;

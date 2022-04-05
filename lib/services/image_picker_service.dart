@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:image_picker/image_picker.dart';
 
 // pretty useless class for now because the imagepicker method could be used
@@ -13,12 +15,12 @@ class ImagePickerService {
 
   final ImagePicker _picker = ImagePicker();
 
-  Future<XFile?> retrieveLostData() async {
+  Future<File?> retrieveLostData() async {
     final LostDataResponse response = await _picker.retrieveLostData();
     if (response.isEmpty) {
       return null;
     } else if (response.file != null) {
-      return response.file;
+      return File(response.file!.path);
     } else {
       print(response.exception!.message);
       return null;

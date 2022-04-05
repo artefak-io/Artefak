@@ -29,10 +29,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   }
 
   Future<void> _restrieveLostData() async {
-    File? result = await ImagePickerService()
-        .retrieveLostData()
-        .then((value) => value != null ? File(value.path) : null)
-        .catchError((error) => print("error happen $error"));
+    File? result = await ImagePickerService().retrieveLostData();
     if (result != null) {
       setState(() {
         _profilePicture = result;
