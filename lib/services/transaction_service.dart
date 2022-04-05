@@ -1,3 +1,5 @@
+import 'package:artefak/services/payment_service_firestore.dart';
+import 'package:artefak/services/payment_service_oy.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TransactionService {
@@ -55,5 +57,19 @@ class TransactionService {
 
   Stream<QuerySnapshot<Object?>> personalTransaction(String id) {
     return _transactiondb.where('userId', isEqualTo: id).get().asStream();
+  }
+
+  Future<Map<String, dynamic>> paymentButton(String userId, String bankCode,
+      int price, String assetId, String assetName) async {
+    try {
+      Map<String, dynamic> fromOy = await PaymentServiceOy()
+          .createVirtualAccount(userId, bankCode, price);
+
+      PaymentFirestore().newPayment(fromOy);
+      return newTransaction(assetId, assetName, fromOy);
+    } catch (error) {
+      print("error happens $error");
+      return Future.error(error);
+    }
   }
 }

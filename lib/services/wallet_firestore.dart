@@ -1,3 +1,4 @@
+import 'package:artefak/services/tatum_wallet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class WalletFirestore {
@@ -12,7 +13,8 @@ class WalletFirestore {
   final CollectionReference<Map<String, dynamic>> _walletdb =
       FirebaseFirestore.instance.collection('User');
 
-  Future<void> moveWallet(Map<String, dynamic> fromTatum, String userId) async {
+  Future<void> _saveWallet(
+      Map<String, dynamic> fromTatum, String userId) async {
     _walletdb.doc(userId).set({
       "mnemonic": fromTatum["mnemonic"],
       "publicKey": fromTatum["publicKey"],
@@ -20,7 +22,7 @@ class WalletFirestore {
     });
   }
 
-  Future<bool> checkWallet(String userId) async {
+  Future<bool> _checkWallet(String userId) async {
     try {
       return _walletdb.doc(userId).get().then((value) => value.exists);
     } catch (e) {
@@ -32,5 +34,17 @@ class WalletFirestore {
     DocumentSnapshot<Map<String, dynamic>> result =
         await _walletdb.doc("base").get();
     return result.data()!["publicKey"];
+  }
+
+  Future<void> createWallet(String userId) async {
+    try {
+      if (await _checkWallet(userId) == false) {
+        Map<String, dynamic> fromTatum =
+            await TatumWalletService().createWalletBSC();
+        _saveWallet(fromTatum, userId);
+      }
+    } catch (error) {
+      print("error happens $error");
+    }
   }
 }

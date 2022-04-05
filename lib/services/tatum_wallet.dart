@@ -12,7 +12,7 @@ class TatumWalletService {
     return _tatum;
   }
 
-  Future<Map<String, dynamic>> generateWalletBSC() async {
+  Future<Map<String, dynamic>> _generateWalletBSC() async {
     Response result = await get(
         Uri.parse('https://api-us-west1.tatum.io/v3/bsc/wallet?type=testnet'),
         headers: <String, String>{
@@ -28,7 +28,7 @@ class TatumWalletService {
     }
   }
 
-  Future<Map<String, dynamic>> generatePublicKeyBSC(
+  Future<Map<String, dynamic>> _generatePublicKeyBSC(
       String xpub, int index) async {
     Response result = await get(
         Uri.parse('https://api-us-west1.tatum.io/v3/bsc/address/' +
@@ -49,7 +49,7 @@ class TatumWalletService {
     }
   }
 
-  Future<Map<String, dynamic>> generatePrivateKeyBSC(
+  Future<Map<String, dynamic>> _generatePrivateKeyBSC(
       String mnemonic, int index) async {
     Map<String, dynamic> body = {"index": index, "mnemonic": mnemonic};
     Response result = await post(
@@ -78,15 +78,15 @@ class TatumWalletService {
       String publicKey;
       String privateKey;
 
-      Map<String, dynamic> resultGenerateWalletBSC = await generateWalletBSC();
+      Map<String, dynamic> resultGenerateWalletBSC = await _generateWalletBSC();
       mnemonic = resultGenerateWalletBSC['mnemonic'];
 
       Map<String, dynamic> resultGeneratePublicKeyBSC =
-          await generatePublicKeyBSC(resultGenerateWalletBSC['xpub'], index);
+          await _generatePublicKeyBSC(resultGenerateWalletBSC['xpub'], index);
       publicKey = resultGeneratePublicKeyBSC['address'];
 
       Map<String, dynamic> resultGeneratePrivateKeyBSC =
-          await generatePrivateKeyBSC(mnemonic, index);
+          await _generatePrivateKeyBSC(mnemonic, index);
       privateKey = resultGeneratePrivateKeyBSC['key'];
 
       return {
