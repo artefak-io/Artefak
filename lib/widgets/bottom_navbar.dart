@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 
 class BotNavBar extends StatelessWidget {
   const BotNavBar({Key? key, required this.currentIndex}) : super(key: key);
@@ -21,29 +22,16 @@ class BotNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.home,
-          ),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.shopping_cart,
-          ),
-          label: 'Cart',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.person,
-          ),
-          label: 'Profile',
-        ),
-      ],
+    return FloatingNavbar(
+      backgroundColor: Colors.red,
+      selectedItemColor: Colors.red,
       onTap: (index) => _onTap(index, context),
       currentIndex: currentIndex,
+      items: [
+        FloatingNavbarItem(icon: Icons.home, title: 'Home'),
+        FloatingNavbarItem(icon: Icons.shopping_cart, title: 'Cart'),
+        FloatingNavbarItem(icon: Icons.person, title: 'Profile'),
+      ],
     );
   }
 }

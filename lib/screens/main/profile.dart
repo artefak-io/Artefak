@@ -89,7 +89,11 @@ class Profile extends StatelessWidget {
                                     radius: 60,
                                     backgroundColor: Colors.white30,
                                     child: AuthService.user!.displayName != null
-                                        ? Text(AuthService.user!.displayName![0])
+                                        ? Text(AuthService.user!.displayName![0], style: GoogleFonts.inter(
+                                        fontSize: 48,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color(0xFFB80D0D)
+                                    ))
                                         : null,
                                   ),
                                 ),
