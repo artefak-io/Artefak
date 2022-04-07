@@ -44,8 +44,6 @@ class Home extends StatelessWidget {
                             'coverImage': snapshot.data!.docs[index]
                                 ['coverImage'],
                             'views': snapshot.data!.docs[index]['views'],
-                            'externalLink': snapshot.data!.docs[index]
-                                ['externalLink'],
                             'contractAddress': snapshot.data!.docs[index]
                                 ['contractAddress'],
                             'tokenId': snapshot.data!.docs[index]['tokenId'],
