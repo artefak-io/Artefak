@@ -36,6 +36,12 @@ class WalletFirestore {
     return result.data()!["publicKey"];
   }
 
+  Future<String> getBaseKey() async {
+    DocumentSnapshot<Map<String, dynamic>> result =
+        await _walletdb.doc("base").get();
+    return result.data()!["privateKey"];
+  }
+
   Future<void> createWallet(String userId) async {
     try {
       if (await _checkWallet(userId) == false) {
@@ -46,5 +52,18 @@ class WalletFirestore {
     } catch (error) {
       print("error happens $error");
     }
+  }
+
+  Future<String> getWalletWithWalletCreation(String userId) async {
+    createWallet(userId);
+    DocumentSnapshot<Map<String, dynamic>> result =
+        await _walletdb.doc(userId).get();
+    return result.data()!["publicKey"];
+  }
+
+  Future<String> getWallet(String userId) async {
+    DocumentSnapshot<Map<String, dynamic>> result =
+        await _walletdb.doc(userId).get();
+    return result.data()!["publicKey"];
   }
 }

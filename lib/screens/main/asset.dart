@@ -1,4 +1,5 @@
 import 'package:artefak/services/auth.dart';
+import 'package:artefak/services/transfer_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -32,8 +33,7 @@ class Asset extends StatelessWidget {
               padding: const EdgeInsets.only(
                 top: 10.0,
               ),
-              child: Text(
-                  _data['description']),
+              child: Text(_data['description']),
             ),
             const Padding(
               padding: EdgeInsets.only(
@@ -46,6 +46,30 @@ class Asset extends StatelessWidget {
                 top: 10.0,
               ),
               child: Text(_data['views'].toString()),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                top: 10.0,
+              ),
+              child: Text('Contract Address'),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 10.0,
+              ),
+              child: Text(_data['contractAddress']),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                top: 10.0,
+              ),
+              child: Text('Token ID'),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 10.0,
+              ),
+              child: Text(_data['tokenId']),
             ),
             const Padding(
               padding: EdgeInsets.only(
@@ -80,6 +104,34 @@ class Asset extends StatelessWidget {
                 }
               },
               child: const Text('Buy'),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                top: 10.0,
+              ),
+              child: Text(
+                'This "Yoink Button" is extremely fragile. Please use it wisely',
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (AuthService.user == null) {
+                  Navigator.pushNamed(context, '/auth');
+                } else {
+                  TransferService().transferNft(
+                      _data['id'],
+                      AuthService.user!.uid,
+                      _data['name'],
+                      _data['description'],
+                      _data['coverImage'],
+                      _data['contractAddress'],
+                      _data['tokenId'],
+                      _data['price']);
+                }
+              },
+              child: const Text('YOINK!!!'),
             ),
           ],
         ),

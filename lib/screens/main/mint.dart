@@ -141,8 +141,6 @@ class _MintState extends State<Mint> {
                             _mintImage!,
                             _nameController.text,
                             _descriptionController.text,
-                            "contractAddress",
-                            "",
                             int.parse(_priceController.text));
                       }
                     },
