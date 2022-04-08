@@ -22,15 +22,13 @@ class BlockchainFirestore {
   Future<String> getTokenIdMeta() async {
     DocumentSnapshot<Map<String, dynamic>> result =
         await _blockchainDB.doc("BSC Testnet").get();
-    return result.data()!["tokenId"];
+    int resultInt = await result.data()!["tokenId"];
+    return resultInt.toString();
   }
 
   Future<void> incrementTokenIdMeta() async {
-    String tokenId = await getTokenIdMeta();
-    int newTokenId = int.parse(tokenId) + 1;
-    _blockchainDB.doc("BSC Testnet").set({
-      "contractAddress": await getContractAddress(),
-      "tokenId": newTokenId.toString()
-    });
+    _blockchainDB
+        .doc("BSC Testnet")
+        .update({"tokenId": FieldValue.increment(1)});
   }
 }
