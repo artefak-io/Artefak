@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:artefak/services/blockchain_firestore.dart';
 import 'package:artefak/services/mint_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
