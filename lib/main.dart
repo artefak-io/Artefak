@@ -8,6 +8,7 @@ import 'package:artefak/screens/main/profile.dart';
 import 'package:artefak/screens/main/transaction.dart';
 import 'package:artefak/screens/main/home.dart';
 import 'package:artefak/screens/splash.dart';
+import 'package:artefak/themes/theme_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -22,37 +23,99 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+ThemeManager _themeManager = ThemeManager();
 
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void dispose(){
+    _themeManager.removeListener(themeListener);
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _themeManager.addListener(themeListener);
+    super.initState();
+  }
+
+  themeListener(){
+    if(mounted){
+      setState(() {
+
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: lightTheme,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('en', ''),
-        Locale('id', ''),
-      ],
-      routes: {
-        '/': (context) => const SplashScreen(),
-        // '/home' still unused, don't route to '/home' yet route to '/' instead
-        '/home': (context) => Home(),
-        '/profile': (context) => Profile(),
-        '/bill': (context) => Transaction(),
-        '/updateProfile': (context) => const UpdateProfile(),
-        '/asset': (context) => const Asset(),
-        '/auth': (context) => const Authenticate(),
-        '/payment': (context) => const Payment(),
-        '/mint': (context) => const Mint(),
+    // return MaterialApp(
+    //   theme: lightTheme,
+    //   themeMode: _themeManager.themeMode,
+    //   localizationsDelegates: const [
+    //     AppLocalizations.delegate,
+    //     GlobalMaterialLocalizations.delegate,
+    //     GlobalWidgetsLocalizations.delegate,
+    //     GlobalCupertinoLocalizations.delegate,
+    //   ],
+    //   supportedLocales: const [
+    //     Locale('en', ''),
+    //     Locale('id', ''),
+    //   ],
+    //   routes: {
+    //     '/': (context) => const SplashScreen(),
+    //     // '/home' still unused, don't route to '/home' yet route to '/' instead
+    //     '/home': (context) => Home(),
+    //     '/profile': (context) => Profile(),
+    //     '/bill': (context) => Transaction(),
+    //     '/updateProfile': (context) => const UpdateProfile(),
+    //     '/asset': (context) => const Asset(),
+    //     '/auth': (context) => const Authenticate(),
+    //     '/payment': (context) => const Payment(),
+    //     '/mint': (context) => const Mint(),
+    //   },
+    //   initialRoute: '/',
+    // );
+    return FutureBuilder(
+      future: Future.delayed(Duration(seconds: 3)),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SplashScreen();
+        } else {
+          return MaterialApp(
+            theme: lightTheme,
+            themeMode: _themeManager.themeMode,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en', ''),
+              Locale('id', ''),
+            ],
+            routes: {
+              '/': (context) => Home(),
+              // '/home' still unused, don't route to '/home' yet route to '/' instead
+              '/home': (context) => Home(),
+              '/profile': (context) => Profile(),
+              '/bill': (context) => Transaction(),
+              '/updateProfile': (context) => const UpdateProfile(),
+              '/asset': (context) => const Asset(),
+              '/auth': (context) => const Authenticate(),
+              '/payment': (context) => const Payment(),
+              '/mint': (context) => const Mint(),
+            },
+            initialRoute: '/',
+          );
+        }
       },
-      initialRoute: '/',
     );
   }
 }
