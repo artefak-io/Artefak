@@ -1,7 +1,14 @@
+import 'package:artefak/screens/authentication/verify_email.dart';
 import 'package:artefak/services/auth.dart';
+import 'package:artefak/widgets/scroll_view_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+
+import '../../widgets/input_pin_widget.dart';
+import 'create_pin.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({
@@ -18,49 +25,117 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  ScrollController _scrollController1 = ScrollController();
+  String _emailText = "";
 
   @override
   void dispose() {
     _emailController.dispose();
-    _passwordController.dispose();
     super.dispose();
+  }
+
+  List movies1 = [
+    'image-1.png',
+    'image-2.png',
+    'image-3.png'
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      double minScrollExtent1 = _scrollController1.position.minScrollExtent;
+      double maxScrollExtent1 = _scrollController1.position.maxScrollExtent;
+      //
+      animateToMaxMin(maxScrollExtent1, minScrollExtent1, maxScrollExtent1, 25,
+          _scrollController1);
+    });
+
+    _emailController.addListener(() {
+      setState(() {
+        _emailText = _emailController.text;
+      });
+    });
+  }
+
+  animateToMaxMin(double max, double min, double direction, int seconds,
+      ScrollController scrollController) {
+    scrollController
+        .animateTo(direction,
+        duration: Duration(seconds: seconds), curve: Curves.linear)
+        .then((value) {
+      direction = direction == max ? min : max;
+      animateToMaxMin(max, min, direction, seconds, scrollController);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
+    TextTheme _textTheme = Theme.of(context).textTheme;
+    ThemeData _themeData = Theme.of(context);
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              _themeData.backgroundColor,
+              _themeData.shadowColor
+            ],
+          )),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: true,
         body: Stack(
           children: [
             SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  Container(
-                    height: size.height * 0.3,
-                    child: Stack(
-                      children: <Widget>[
+                  Stack(
+                    children: [
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        child:
                         Container(
-                          height: size.height * 0.3,
-                          decoration: BoxDecoration(
-                              image: new DecorationImage(
-                                image: AssetImage('assets/backgroundLogin.png'),
-                                fit: BoxFit.contain,
-                              ),
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(26),
-                                  bottomRight: Radius.circular(26)
-                              )
+                          margin: EdgeInsets.only(top: 10.0),
+                          width: MediaQuery.of(context).size.width - 10,
+                          height: 140,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 16, top: 85, bottom: 32),
+                            child: SvgPicture.asset('assets/logo.svg',width: 150, fit: BoxFit.scaleDown),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child:
+                          Text('Sapa Masa Depanmu',
+                                style: _textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+                                textAlign: TextAlign.start
+                            ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                          child:
+                          Text('Kita percaya masa depan selalu lebih baik, miliki dan mulai sekarang!',
+                              style: _textTheme.displaySmall?.copyWith(fontWeight: FontWeight.w400),
+                              textAlign: TextAlign.start
                           ),
                         ),
-
                       ],
                     ),
-                  ),
-                  SizedBox(
-                      height: 30
-                  ),
                   Padding(
                     padding: EdgeInsets.only(bottom: 16),
                     child: Row(
@@ -69,22 +144,12 @@ class _SignInState extends State<SignIn> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                  Text('Sign In/Sign Up', style: GoogleFonts.inter(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600
-                                  ),),
                                   SizedBox(
                                       height: 18
                                   ),
-                                  Text('You want to Login or Join Us? Insert Email and Password.', style: GoogleFonts.inter(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFFC4C4C4),
-                                  ),
-                                      textAlign: TextAlign.center
-                                  ),
+                                  Text('Masukkan email aktifmu', style: _textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400), textAlign: TextAlign.center),
                               ],
                             ),
                           ),
@@ -96,23 +161,33 @@ class _SignInState extends State<SignIn> {
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Form(
                       key: _formKey,
-                      child: Column (
+                      child:
+                      Column(
                           children: [
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
                               decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: _themeData.primaryColor,
                                   border: Border.all(
                                       width: 1,
                                       color: Colors.black26
                                   ),
-                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))
+                                  borderRadius: BorderRadius.all(Radius.circular(10))
                               ),
                               child: TextFormField(
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
+                                  icon: Icon(Icons.email_outlined, color: Colors.white,),
+                                  suffixIcon: _emailText.isEmpty ? null
+                                      : IconButton(icon: Icon(Icons.clear, color: Colors.white,),onPressed: () {
+                                    setState(() {
+                                      _emailController.clear();
+                                    });},
+                                  ),
                                   labelText: 'E-mail',
+                                  labelStyle: TextStyle(color: Colors.white),
                                 ),
+                                style: TextStyle(color: Colors.white),
                                 controller: _emailController,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -122,71 +197,73 @@ class _SignInState extends State<SignIn> {
                                 },
                               ),
                             ),
-                            Container(
-                              transform: Matrix4.translationValues(0.0, -1.0, 0.0),
-                              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                      width: 1,
-                                      color: Colors.black26
-                                  ),
-                                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10))
-                              ),
-                              child: TextFormField(
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  labelText: 'Password',
-                                ),
-                                controller: _passwordController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return '*required';
-                                  } else if (value.length < 6) {
-                                    return 'password must be at least 6 digits';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-
                             SizedBox(
                               height: 15,
                             ),
-                            ElevatedButton(
-                              child: const Text('Sign In / Sign Up', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),),
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: Size(size.width * 0.9, 54),
-                              ),
-                              onPressed: () async {
-                                if (_formKey.currentState!.validate()) {
-                                  User? result = await AuthService().signInEmailPass(
-                                    _emailController.text,
-                                    _passwordController.text
-                                  );
-                                  if (result == null) {
-                                    print('error signing in');
-                                  } else {
-                                    print(result);
-                                  }
-                                }
-                              },
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ElevatedButton(
+                                  child: Text('Mulai Sekarang!', style: _textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600,)),
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize: Size(size.width * 0.4, 54),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(32.0)),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => const VerifyEmail(email: "rzr@gmail.com"))//const CreatePin(phoneNumber: '+8837392732',)),
+                                    );
+                                  },
+                                  // onPressed: (){},
+                                  // onPressed: () async {
+                                  //   if (_formKey.currentState!.validate()) {
+                                  //     User? result = await AuthService().signInEmailPass(
+                                  //         _emailController.text,
+                                  //     );
+                                  //     if (result == null) {
+                                  //       print('error signing in');
+                                  //     } else {
+                                  //       print(result);
+                                  //     }
+                                  //   }
+                                  // },
+                                ),
+                              ],
                             ),
-                            ElevatedButton(
-                              child: const Text('Sign In Anonymous'),
-                              onPressed: () async {
-                                User? result = await AuthService().signInAnon();
-                                if (result == null) {
-                                  print('error signing in anonymously');
-                                } else {
-                                  print(result);
-                                }
-                              },
-                            ),
-                            ElevatedButton(
-                              onPressed: () => widget.toggleView(),
-                              child: const Text('Sign Up'),
+                          SizedBox(
+                            height: 12,
+                          ),
+                          Column(
+                              children: [
+                                ScrollViewSignIn(
+                                  scrollController: _scrollController1,
+                                  images: movies1,
+                                ),
+                                ]
+                          ),
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: 25,
+                                ),
+                                ElevatedButton(
+                                  child: Text('Sign In Anonymous', style: _textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600,),),
+                                  onPressed: () async {
+                                    User? result = await AuthService().signInAnon();
+                                    if (result == null) {
+                                      print('error signing in anonymously');
+                                    } else {
+                                      print(result);
+                                    }
+                                  },
+                                ),
+                                ElevatedButton(
+                                  onPressed: () => widget.toggleView,
+                                  child: Text('Sign Up', style: _textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600,)),
+                                ),
+                              ],
                             ),
                           ]
                       ),
@@ -195,22 +272,9 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
             ),
-            Positioned(
-                right: 20,
-                top: 50,
-                child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 2),
-                    height: 70,
-                    width: 70,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFFFFFF),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Image(image: ResizeImage(AssetImage('assets/whatsappicon.png'), width: 50, height: 50))
-                )
-            )
           ],
         )
+      ),
     );
   }
 }

@@ -20,6 +20,9 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    TextTheme _textTheme = Theme.of(context).textTheme;
+    ThemeData _themeData = Theme.of(context);
+
     if (AuthService.user == null) {
       return const Authenticate();
     } else {
@@ -36,17 +39,17 @@ class Profile extends StatelessWidget {
               ),
               onPressed: () {},
             ),
-            title: const Text('Profile'),
+            title: Text('Profile', style: _textTheme.headlineMedium,),
             actions: <Widget>[
               TextButton(
-                onPressed: () async {
-                  AuthService().signOut().then((value) => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Profile()),
-                  ));
-                  
-                },
-                child: Text('Log out', style: TextStyle(color: Colors.white),),
+                  onPressed: () async {
+                    AuthService().signOut().then((value) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Profile()),
+                    ));
+
+                  },
+                  child: Text('Log out', style: _textTheme.bodySmall,)
               ),
             ]
         ),
@@ -81,20 +84,10 @@ class Profile extends StatelessWidget {
                                     // NetworkImage(AuthService.user!.photoURL!),
                                     radius: 60,
                                     backgroundColor: Colors.white30,
-                                    child: AuthService.user!.displayName != null
-                                        ? Text(AuthService.user!.displayName![0])
-                                        : null,
-                                  )
-                                      : CircleAvatar(
-                                    radius: 60,
-                                    backgroundColor: Colors.white30,
-                                    child: AuthService.user!.displayName != null
-                                        ? Text(AuthService.user!.displayName![0], style: GoogleFonts.inter(
-                                        fontSize: 48,
-                                        fontWeight: FontWeight.w600,
-                                        color: Color(0xFFB80D0D)
-                                    ))
-                                        : null,
+                                  ) : CircleAvatar(
+                                      radius: 60,
+                                      backgroundColor: Colors.white30,
+                                      child: Text(AuthService.user?.providerData[0].displayName![0]?? "", style: _textTheme.titleLarge)
                                   ),
                                 ),
                                 SizedBox(
@@ -105,16 +98,8 @@ class Profile extends StatelessWidget {
                                   child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(AuthService.user?.providerData[0].displayName?? "[Edit Name]", style: GoogleFonts.inter(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFFFFFFFF)
-                                        ),),
-                                        Text(AuthService.user?.providerData[0].email ?? "[Edit Email]", style: GoogleFonts.inter(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFFFFFFFF)
-                                        ),),
+                                        Text(AuthService.user?.providerData[0].displayName?? "[Edit Name]", style: _textTheme.subtitle1?.copyWith(fontFamily: 'Inter', fontSize: 18, fontWeight: FontWeight.w600, color: Color(0xFFFFFFFF))),
+                                        Text(AuthService.user?.providerData[0].email ?? "[Edit Email]", style: _textTheme.subtitle2?.copyWith(fontFamily: 'Inter', fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFFFFFFFF)),),
                                       ]
                                   ),
                                 )
@@ -135,41 +120,37 @@ class Profile extends StatelessWidget {
                                   ),
                                   child: const Text('Mint', style: TextStyle(color: Colors.white)),
                                 ),
+                              GestureDetector(
+                                onTap: () => Navigator.pushNamed(
+                                  context,
+                                  '/updateProfile',
+                                ),
+                                child:
                                 Expanded(
-                                  child: Container(
-                                    alignment: Alignment.centerLeft,
-                                    margin: EdgeInsets.symmetric(vertical: 2),
-                                    padding: EdgeInsets.symmetric(horizontal: 18, vertical: 4),
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        border: Border.all(
-                                            width: 1,
-                                            color: Colors.white
-                                        ),
-                                        borderRadius: BorderRadius.circular(40)
-                                    ),
-                                    child:
-                                    GestureDetector(
-                                      onTap: () => Navigator.pushNamed(
-                                        context,
-                                        '/updateProfile',
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      margin: EdgeInsets.symmetric(vertical: 2),
+                                      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 4),
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                          color: Colors.transparent,
+                                          border: Border.all(
+                                              width: 1,
+                                              color: Colors.white
+                                          ),
+                                          borderRadius: BorderRadius.circular(40)
                                       ),
                                       child:
+
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                              Text('Edit Profile', style: GoogleFonts.inter(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Color(0xFFFFFFFF)
-                                              ),),
-
-                                              Icon(
-                                                Icons.chevron_right,
-                                                color: Colors.white,
-                                                size: 28.0,
-                                              ),
+                                          Text('Edit Profile', style: _textTheme.labelSmall,),
+                                          Icon(
+                                            Icons.chevron_right,
+                                            color: Colors.white,
+                                            size: 28.0,
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -255,139 +236,6 @@ class Profile extends StatelessWidget {
             ],
           ),
         ),
-        // body: SingleChildScrollView(
-        //   child: Column(
-        //     children: <Widget>[
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //         children: <Widget>[
-        //           // there must be a better way to do this either by using
-        //           // imagestream, imageprovider or another stream widget
-        //           AuthService.user!.photoURL != null
-        //               ? CircleAvatar(
-        //                   foregroundImage:
-        //                       NetworkImage(AuthService.user!.photoURL!),
-        //                   radius: 60,
-        //                   backgroundColor: Colors.red,
-        //                   child: AuthService.user!.displayName != null
-        //                       ? Text(AuthService.user!.displayName![0])
-        //                       : null,
-        //                 )
-        //               : CircleAvatar(
-        //                   radius: 60,
-        //                   backgroundColor: Colors.red,
-        //                   child: AuthService.user!.displayName != null
-        //                       ? Text(AuthService.user!.displayName![0])
-        //                       : null,
-        //                 ),
-        //           Column(
-        //             crossAxisAlignment: CrossAxisAlignment.start,
-        //             children: <Widget>[
-        //               const Text('Name'),
-        //               Padding(
-        //                 padding: const EdgeInsets.symmetric(
-        //                   vertical: 10.0,
-        //                 ),
-        //                 child: Text(AuthService.user!.displayName ?? ''),
-        //               ),
-        //               const Text('Email'),
-        //               Padding(
-        //                 padding: const EdgeInsets.only(
-        //                   top: 10,
-        //                 ),
-        //                 child: Text(AuthService.user!.email!),
-        //               ),
-        //             ],
-        //           ),
-        //         ],
-        //       ),
-        //       ElevatedButton(
-        //         onPressed: () => Navigator.pushNamed(
-        //           context,
-        //           '/updateProfile',
-        //         ),
-        //         child: const Text('Update Profile'),
-        //       ),
-        //       ElevatedButton(
-        //         onPressed: () {
-        //           WalletFirestore().createWallet(AuthService.user!.uid);
-        //         },
-        //         child: const Text('Create Wallet'),
-        //       ),
-        //       ElevatedButton(
-        //         onPressed: () => Navigator.pushNamed(
-        //           context,
-        //           '/mint',
-        //         ),
-        //         child: const Text('Mint'),
-        //       ),
-        //       ElevatedButton(
-        //         child: const Text('Log out'),
-        //         onPressed: () async {
-        //           AuthService().signOut();
-        //         },
-        //       ),
-        //       SizedBox(
-        //         height: 400,
-        //         child: StreamBuilder<QuerySnapshot>(
-        //           stream: _assetStream,
-        //           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        //             //needs to show something when user doesn't own any asset yet
-        //             if (snapshot.hasError) {
-        //               return const Center(
-        //                 child: Text('An error has occurred!'),
-        //               );
-        //             } else if (snapshot.hasData) {
-        //               return GridView.builder(
-        //                 scrollDirection: Axis.horizontal,
-        //                 itemCount: snapshot.data!.docs.length,
-        //                 gridDelegate:
-        //                     const SliverGridDelegateWithFixedCrossAxisCount(
-        //                   crossAxisCount: 3,
-        //                   crossAxisSpacing: 5.0,
-        //                   mainAxisSpacing: 5.0,
-        //                 ),
-        //                 itemBuilder: (context, index) {
-        //                   return GestureDetector(
-        //                     onTap: () {
-        //                       Navigator.pushNamed(context, '/asset',
-        //                           arguments: <String, dynamic>{
-        //                             'currentOwner': snapshot.data!.docs[index]
-        //                                 ['currentOwner'],
-        //                             'creator': snapshot.data!.docs[index]
-        //                                 ['creator'],
-        //                             'name': snapshot.data!.docs[index]['name'],
-        //                             'description': snapshot.data!.docs[index]
-        //                                 ['description'],
-        //                             'coverImage': snapshot.data!.docs[index]
-        //                                 ['coverImage'],
-        //                             'views': snapshot.data!.docs[index]
-        //                                 ['views'],
-        //                             'externalLink': snapshot.data!.docs[index]
-        //                                 ['externalLink'],
-        //                             'contractAddress': snapshot
-        //                                 .data!.docs[index]['contractAddress'],
-        //                             'tokenId': snapshot.data!.docs[index]
-        //                                 ['tokenId'],
-        //                           });
-        //                     },
-        //                     // needs loading indicator when image being reloaded
-        //                     child: Image.network(
-        //                         snapshot.data!.docs[index]['coverImage']),
-        //                   );
-        //                 },
-        //               );
-        //             } else {
-        //               return const Center(
-        //                 child: CircularProgressIndicator(),
-        //               );
-        //             }
-        //           },
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
         bottomNavigationBar: const BotNavBar(
           currentIndex: Profile.index,
         ),

@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:artefak/screens/main/profile.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/services/image_picker_service.dart';
 import 'package:artefak/services/profile_picture_service.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -57,9 +59,22 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme _textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Update Profile'),
+        leading: IconButton(
+          icon: Icon(
+            Icons.chevron_left,
+            color: Colors.white,
+            size: 30.0,
+          ),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (ctx) => Profile()
+            ));
+          },
+        ),
+        title: Text('Update Profile', style: _textTheme.headlineMedium),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -68,14 +83,16 @@ class _UpdateProfileState extends State<UpdateProfile> {
         ),
         child: SingleChildScrollView(
           child: Column(children: [
-            // there must be a better way too just like in the profile screen
+            AuthService.user!.photoURL != null ?
             CircleAvatar(
-              foregroundImage: _previewImage(),
-              radius: 60,
-              backgroundColor: Colors.red,
-              child: AuthService.user!.displayName != null
-                  ? Text(AuthService.user!.displayName![0])
-                  : null,
+                foregroundImage: CachedNetworkImageProvider(AuthService.user!.photoURL!),
+                // NetworkImage(AuthService.user!.photoURL!),
+                radius: 60,
+                backgroundColor: Colors.black26
+            ) : CircleAvatar(
+                radius: 60,
+                backgroundColor: Colors.black26,
+                child: Text(AuthService.user?.providerData[0].displayName![0]?? "", style: _textTheme.titleLarge)
             ),
             Form(
               key: _formKey,

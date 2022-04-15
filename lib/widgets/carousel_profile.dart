@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class Carousel extends StatefulWidget {
   @override
@@ -48,7 +49,7 @@ class _CarouselState extends State<Carousel> {
     );
   }
 
-  builder(int index) {
+  builder(int index, {String? currencyLabel, int? balance}) {
     return AnimatedBuilder(
         animation: controller,
         builder: (context, child) {
@@ -91,41 +92,19 @@ class _CarouselState extends State<Carousel> {
                     ),
                     borderRadius: BorderRadius.circular(10)
                 ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      child: Image.asset('assets/idr.png'),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('IDR Balance', style: GoogleFonts.inter(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFF000000)
-                        ),),
-                        Text('RP 0', style: GoogleFonts.inter(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF000000)
-                        ),),
-                      ],
-                    )
-                  ],
-                ),
+                child: _ProfileCarouselItem(currencyLabel: 'IDR', balance: 5000),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Top up', style: GoogleFonts.inter(
+                    Text('Top up', style: GoogleFonts.inter( // TODO: ada nft wallet, nggk a da cryptowallet
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                         color: Color(0xFF000000)
                     ),),
-                    Text('Withdraw', style: GoogleFonts.inter(
+                    Text('Withdraw', style: GoogleFonts.inter( // TODO:
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                         color: Color(0xFF000000)
@@ -141,6 +120,37 @@ class _CarouselState extends State<Carousel> {
             ],
           ),
         ),
+    );
+  }
+}
+
+class _ProfileCarouselItem extends StatelessWidget {
+  final String? currencyLabel;
+  final int? balance;
+
+  const _ProfileCarouselItem({Key? key, this.currencyLabel, this.balance}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    TextTheme _textTheme = Theme.of(context).textTheme;
+    return Row(
+      children: [
+        currencyLabel == 'IDR' ?
+        SizedBox(
+          child: Image.asset('assets/idr.png'),
+        ) :
+        SizedBox(
+          child: Image.asset('assets/idr.png'),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('IDR Balance', style: _textTheme.labelSmall?.copyWith(color: Color(0xFF000000))),
+            Text(NumberFormat.simpleCurrency(locale: 'in').format(balance), style: _textTheme.displayLarge),
+          ],
+        )
+      ],
     );
   }
 }

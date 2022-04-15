@@ -15,6 +15,7 @@ class Transaction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme _textTheme = Theme.of(context).textTheme;
     if (AuthService.user == null) {
       return const Authenticate();
     } else {
@@ -22,7 +23,7 @@ class Transaction extends StatelessWidget {
           TransactionService().personalTransaction(AuthService.user!.uid);
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Transaction'),
+          title: Text('Transaction', style: _textTheme.headlineMedium),
         ),
         body: StreamBuilder(
           stream: _transactionStream,
