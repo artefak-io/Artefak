@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:artefak/services/blockchain_firestore.dart';
 import 'package:artefak/services/mint_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -141,8 +142,6 @@ class _MintState extends State<Mint> {
                             _mintImage!,
                             _nameController.text,
                             _descriptionController.text,
-                            "contractAddress",
-                            "",
                             int.parse(_priceController.text));
                       }
                     },

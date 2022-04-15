@@ -200,6 +200,7 @@ class Profile extends StatelessWidget {
                             onTap: () {
                               Navigator.pushNamed(context, '/asset',
                                   arguments: <String, dynamic>{
+                                    'id': snapshot.data!.docs[index].id,
                                     'currentOwner': snapshot.data!.docs[index]
                                     ['currentOwner'],
                                     'creator': snapshot.data!.docs[index]
@@ -210,13 +211,13 @@ class Profile extends StatelessWidget {
                                     'coverImage': snapshot.data!.docs[index]
                                     ['coverImage'],
                                     'views': snapshot.data!.docs[index]
-                                    ['views'],
-                                    'externalLink': snapshot.data!.docs[index]
-                                    ['externalLink'],
+                                        ['views'],
                                     'contractAddress': snapshot
                                         .data!.docs[index]['contractAddress'],
                                     'tokenId': snapshot.data!.docs[index]
-                                    ['tokenId'],
+                                        ['tokenId'],
+                                    'price': snapshot.data!.docs[index]
+                                        ['price'],
                                   });
                             },
                             // needs loading indicator when image being reloaded
