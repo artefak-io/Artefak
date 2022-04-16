@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/main/profile.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/services/image_picker_service.dart';
@@ -60,95 +61,101 @@ class _UpdateProfileState extends State<UpdateProfile> {
   @override
   Widget build(BuildContext context) {
     TextTheme _textTheme = Theme.of(context).textTheme;
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.chevron_left,
-            color: Colors.white,
-            size: 30.0,
-          ),
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (ctx) => Profile()
-            ));
-          },
-        ),
-        title: Text('Update Profile', style: _textTheme.headlineMedium),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20.0,
-          vertical: 30.0,
-        ),
-        child: SingleChildScrollView(
-          child: Column(children: [
-            AuthService.user!.photoURL != null ?
-            CircleAvatar(
-                foregroundImage: CachedNetworkImageProvider(AuthService.user!.photoURL!),
-                // NetworkImage(AuthService.user!.photoURL!),
-                radius: 60,
-                backgroundColor: Colors.black26
-            ) : CircleAvatar(
-                radius: 60,
-                backgroundColor: Colors.black26,
-                child: Text(AuthService.user?.providerData[0].displayName![0]?? "", style: _textTheme.titleLarge)
+    return AppLayout(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        resizeToAvoidBottomInset: true,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              Icons.chevron_left,
+              color: Colors.white,
+              size: 30.0,
             ),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Name',
+            onPressed: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (ctx) => Profile()));
+            },
+          ),
+          title: Text('Update Profile', style: _textTheme.headlineMedium),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20.0,
+            vertical: 30.0,
+          ),
+          child: SingleChildScrollView(
+            child: Column(children: [
+              AuthService.user!.photoURL != null
+                  ? CircleAvatar(
+                      foregroundImage: CachedNetworkImageProvider(
+                          AuthService.user!.photoURL!),
+                      // NetworkImage(AuthService.user!.photoURL!),
+                      radius: 60,
+                      backgroundColor: Colors.black26)
+                  : CircleAvatar(
+                      radius: 60,
+                      backgroundColor: Colors.black26,
+                      child: Text(
+                          AuthService.user?.providerData[0].displayName![0] ??
+                              "",
+                          style: _textTheme.titleLarge)),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: 'Name',
+                        ),
+                        controller: _nameController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return '*required';
+                          }
+                          return null;
+                        },
                       ),
-                      controller: _nameController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return '*required';
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        ImagePickerService().retrieveImage().then((value) {
+                          setState(() {
+                            _profilePicture = File(value!.path);
+                          });
+                        }).catchError((error) => print('error happen $error'));
+                      },
+                      child: const Text('Select Picture'),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    ElevatedButton(
+                      child: const Text('Update'),
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          await AuthService()
+                              .changeUserInfo(_nameController.text);
                         }
-                        return null;
+                        ProfilePictureService().setProfilePicture(
+                            AuthService.user!, _profilePicture);
                       },
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      ImagePickerService().retrieveImage().then((value) {
-                        setState(() {
-                          _profilePicture = File(value!.path);
-                        });
-                      }).catchError((error) => print('error happen $error'));
-                    },
-                    child: const Text('Select Picture'),
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  ElevatedButton(
-                    child: const Text('Update'),
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        await AuthService()
-                            .changeUserInfo(_nameController.text);
-                      }
-                      ProfilePictureService().setProfilePicture(
-                          AuthService.user!, _profilePicture);
-                    },
-                  ),
-                  // for development use only
-                  ElevatedButton(
-                    onPressed: () {
-                      ProfilePictureService()
-                          .deleteProfilePicture(AuthService.user!);
-                    },
-                    child: const Text('Delelete Profile Picture'),
-                  ),
-                ],
+                    // for development use only
+                    ElevatedButton(
+                      onPressed: () {
+                        ProfilePictureService()
+                            .deleteProfilePicture(AuthService.user!);
+                      },
+                      child: const Text('Delelete Profile Picture'),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ]),
+            ]),
+          ),
         ),
       ),
     );
