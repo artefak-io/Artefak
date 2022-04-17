@@ -113,11 +113,8 @@ class Profile extends StatelessWidget {
                                                     .displayName ??
                                                 "[Edit Name]",
                                             style:
-                                                _textTheme.subtitle1?.copyWith(
-                                              fontFamily: 'Inter',
-                                              fontSize: 18,
+                                                _textTheme.bodyMedium?.copyWith(
                                               fontWeight: FontWeight.w600,
-                                              color: const Color(0xFFFFFFFF),
                                             ),
                                           ),
                                           Text(
@@ -125,11 +122,8 @@ class Profile extends StatelessWidget {
                                                     .email ??
                                                 "[Edit Email]",
                                             style:
-                                                _textTheme.subtitle2?.copyWith(
-                                              fontFamily: 'Inter',
-                                              fontSize: 14,
+                                                _textTheme.bodySmall?.copyWith(
                                               fontWeight: FontWeight.w600,
-                                              color: const Color(0xFFFFFFFF),
                                             ),
                                           ),
                                         ]),

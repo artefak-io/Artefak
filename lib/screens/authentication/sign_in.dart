@@ -95,7 +95,7 @@ class _SignInState extends State<SignIn> {
                         children: [
                           Padding(
                             padding:
-                                EdgeInsets.only(left: 16, top: 85, bottom: 32),
+                                EdgeInsets.only(left: 16, top: 60, bottom: 40),
                             child: SvgPicture.asset('assets/logo.svg',
                                 width: 150, fit: BoxFit.scaleDown),
                           ),

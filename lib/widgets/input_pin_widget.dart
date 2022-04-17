@@ -134,6 +134,7 @@ class _InputPinWidgetState extends State<InputPinWidget> {
                       errorAnimationController: errorController,
                       controller: textEditingController,
                       keyboardType: TextInputType.number,
+                      autoFocus: true,
                       boxShadows: [
                         BoxShadow(
                           offset: Offset(0, 1),
