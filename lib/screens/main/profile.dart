@@ -1,5 +1,4 @@
 import 'package:artefak/screens/authentication/authenticate.dart';
-import 'package:artefak/screens/authentication/sign_in.dart';
 import 'package:artefak/services/asset_service.dart';
 import 'package:artefak/services/wallet_firestore.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
@@ -7,7 +6,6 @@ import 'package:artefak/widgets/carousel_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:artefak/services/auth.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class Profile extends StatelessWidget {
@@ -81,7 +79,6 @@ class Profile extends StatelessWidget {
                                   AuthService.user!.photoURL != null ?
                                   CircleAvatar(
                                     foregroundImage: CachedNetworkImageProvider(AuthService.user!.photoURL!),
-                                    // NetworkImage(AuthService.user!.photoURL!),
                                     radius: 60,
                                     backgroundColor: Colors.white30,
                                   ) : CircleAvatar(

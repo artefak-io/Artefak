@@ -79,18 +79,6 @@ class EmailCheck extends StatelessWidget {
                                           borderRadius: BorderRadius.circular(32.0)),
                                     ),
                                     onPressed: (){},
-                                    // onPressed: () async {
-                                    //   if (_formKey.currentState!.validate()) {
-                                    //     User? result = await AuthService().signInEmailPass(
-                                    //         _emailController.text,
-                                    //     );
-                                    //     if (result == null) {
-                                    //       print('error signing in');
-                                    //     } else {
-                                    //       print(result);
-                                    //     }
-                                    //   }
-                                    // },
                                   ),
                                 )
                               ],

@@ -1,4 +1,3 @@
-import 'package:artefak/screens/main/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -7,8 +6,6 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
-    // return Home();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(

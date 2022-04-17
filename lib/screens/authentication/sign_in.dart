@@ -4,11 +4,6 @@ import 'package:artefak/widgets/scroll_view_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
-
-import '../../widgets/input_pin_widget.dart';
-import 'create_pin.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({
@@ -25,7 +20,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  ScrollController _scrollController1 = ScrollController();
+  ScrollController _scrollController = ScrollController();
   String _emailText = "";
 
   @override
@@ -44,11 +39,11 @@ class _SignInState extends State<SignIn> {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      double minScrollExtent1 = _scrollController1.position.minScrollExtent;
-      double maxScrollExtent1 = _scrollController1.position.maxScrollExtent;
+      double minScrollExtent1 = _scrollController.position.minScrollExtent;
+      double maxScrollExtent1 = _scrollController.position.maxScrollExtent;
       //
       animateToMaxMin(maxScrollExtent1, minScrollExtent1, maxScrollExtent1, 25,
-          _scrollController1);
+          _scrollController);
     });
 
     _emailController.addListener(() {
@@ -216,19 +211,6 @@ class _SignInState extends State<SignIn> {
                                       MaterialPageRoute(builder: (context) => const VerifyEmail(email: "rzr@gmail.com"))//const CreatePin(phoneNumber: '+8837392732',)),
                                     );
                                   },
-                                  // onPressed: (){},
-                                  // onPressed: () async {
-                                  //   if (_formKey.currentState!.validate()) {
-                                  //     User? result = await AuthService().signInEmailPass(
-                                  //         _emailController.text,
-                                  //     );
-                                  //     if (result == null) {
-                                  //       print('error signing in');
-                                  //     } else {
-                                  //       print(result);
-                                  //     }
-                                  //   }
-                                  // },
                                 ),
                               ],
                             ),
@@ -238,7 +220,7 @@ class _SignInState extends State<SignIn> {
                           Column(
                               children: [
                                 ScrollViewSignIn(
-                                  scrollController: _scrollController1,
+                                  scrollController: _scrollController,
                                   images: movies1,
                                 ),
                                 ]

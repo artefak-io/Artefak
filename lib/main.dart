@@ -54,33 +54,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp(
-    //   theme: lightTheme,
-    //   themeMode: _themeManager.themeMode,
-    //   localizationsDelegates: const [
-    //     AppLocalizations.delegate,
-    //     GlobalMaterialLocalizations.delegate,
-    //     GlobalWidgetsLocalizations.delegate,
-    //     GlobalCupertinoLocalizations.delegate,
-    //   ],
-    //   supportedLocales: const [
-    //     Locale('en', ''),
-    //     Locale('id', ''),
-    //   ],
-    //   routes: {
-    //     '/': (context) => const SplashScreen(),
-    //     // '/home' still unused, don't route to '/home' yet route to '/' instead
-    //     '/home': (context) => Home(),
-    //     '/profile': (context) => Profile(),
-    //     '/bill': (context) => Transaction(),
-    //     '/updateProfile': (context) => const UpdateProfile(),
-    //     '/asset': (context) => const Asset(),
-    //     '/auth': (context) => const Authenticate(),
-    //     '/payment': (context) => const Payment(),
-    //     '/mint': (context) => const Mint(),
-    //   },
-    //   initialRoute: '/',
-    // );
     return FutureBuilder(
       future: Future.delayed(Duration(seconds: 3)),
       builder: (context, snapshot) {
@@ -102,7 +75,6 @@ class _MyAppState extends State<MyApp> {
             ],
             routes: {
               '/': (context) => Home(),
-              // '/home' still unused, don't route to '/home' yet route to '/' instead
               '/home': (context) => Home(),
               '/profile': (context) => Profile(),
               '/bill': (context) => Transaction(),

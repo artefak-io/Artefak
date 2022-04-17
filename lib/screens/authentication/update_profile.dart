@@ -83,16 +83,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
         ),
         child: SingleChildScrollView(
           child: Column(children: [
-            AuthService.user!.photoURL != null ?
             CircleAvatar(
                 foregroundImage: CachedNetworkImageProvider(AuthService.user!.photoURL!),
                 // NetworkImage(AuthService.user!.photoURL!),
                 radius: 60,
                 backgroundColor: Colors.black26
-            ) : CircleAvatar(
-                radius: 60,
-                backgroundColor: Colors.black26,
-                child: Text(AuthService.user?.providerData[0].displayName![0]?? "", style: _textTheme.titleLarge)
             ),
             Form(
               key: _formKey,
