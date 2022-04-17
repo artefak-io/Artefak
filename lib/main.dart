@@ -1,4 +1,4 @@
-import 'package:artefak/artefak_theme.dart';
+import 'package:artefak/themes/artefak_theme.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/screens/authentication/update_profile.dart';
 import 'package:artefak/screens/main/asset.dart';
@@ -33,7 +33,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  void dispose(){
+  void dispose() {
     _themeManager.removeListener(themeListener);
     super.dispose();
   }
@@ -44,21 +44,19 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  themeListener(){
-    if(mounted){
-      setState(() {
-
-      });
+  themeListener() {
+    if (mounted) {
+      setState(() {});
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future.delayed(Duration(seconds: 3)),
+      future: Future.delayed(const Duration(seconds: 3)),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return SplashScreen();
+          return const SplashScreen();
         } else {
           return MaterialApp(
             theme: lightTheme,

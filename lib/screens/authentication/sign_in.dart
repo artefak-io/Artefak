@@ -1,3 +1,4 @@
+import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/authentication/verify_email.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/widgets/scroll_view_sign_in.dart';
@@ -29,11 +30,7 @@ class _SignInState extends State<SignIn> {
     super.dispose();
   }
 
-  List movies1 = [
-    'image-1.png',
-    'image-2.png',
-    'image-3.png'
-  ];
+  List movies1 = ['image-1.png', 'image-2.png', 'image-3.png'];
 
   @override
   void initState() {
@@ -57,7 +54,7 @@ class _SignInState extends State<SignIn> {
       ScrollController scrollController) {
     scrollController
         .animateTo(direction,
-        duration: Duration(seconds: seconds), curve: Curves.linear)
+            duration: Duration(seconds: seconds), curve: Curves.linear)
         .then((value) {
       direction = direction == max ? min : max;
       animateToMaxMin(max, min, direction, seconds, scrollController);
@@ -69,19 +66,13 @@ class _SignInState extends State<SignIn> {
     Size size = MediaQuery.of(context).size;
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
-    return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              _themeData.backgroundColor,
-              _themeData.shadowColor
-            ],
-          )),
+    return AppLayout(
       child: Scaffold(
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: true,
+        appBar: AppBar(
+          title: const Text('Masuk'),
+        ),
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -94,8 +85,7 @@ class _SignInState extends State<SignIn> {
                         left: 0,
                         right: 0,
                         top: 0,
-                        child:
-                        Container(
+                        child: Container(
                           margin: EdgeInsets.only(top: 10.0),
                           width: MediaQuery.of(context).size.width - 10,
                           height: 140,
@@ -104,33 +94,35 @@ class _SignInState extends State<SignIn> {
                       Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(left: 16, top: 85, bottom: 32),
-                            child: SvgPicture.asset('assets/logo.svg',width: 150, fit: BoxFit.scaleDown),
+                            padding:
+                                EdgeInsets.only(left: 16, top: 85, bottom: 32),
+                            child: SvgPicture.asset('assets/logo.svg',
+                                width: 150, fit: BoxFit.scaleDown),
                           ),
                         ],
                       ),
                     ],
                   ),
                   Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          child:
-                          Text('Sapa Masa Depanmu',
-                                style: _textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
-                                textAlign: TextAlign.start
-                            ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                          child:
-                          Text('Kita percaya masa depan selalu lebih baik, miliki dan mulai sekarang!',
-                              style: _textTheme.displaySmall?.copyWith(fontWeight: FontWeight.w400),
-                              textAlign: TextAlign.start
-                          ),
-                        ),
-                      ],
-                    ),
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text('Sapa Masa Depanmu',
+                            style: _textTheme.headlineLarge
+                                ?.copyWith(fontWeight: FontWeight.w700),
+                            textAlign: TextAlign.start),
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                        child: Text(
+                            'Kita percaya masa depan selalu lebih baik, miliki dan mulai sekarang!',
+                            style: _textTheme.displaySmall
+                                ?.copyWith(fontWeight: FontWeight.w400),
+                            textAlign: TextAlign.start),
+                      ),
+                    ],
+                  ),
                   Padding(
                     padding: EdgeInsets.only(bottom: 16),
                     child: Row(
@@ -141,10 +133,11 @@ class _SignInState extends State<SignIn> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                  SizedBox(
-                                      height: 18
-                                  ),
-                                  Text('Masukkan email aktifmu', style: _textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400), textAlign: TextAlign.center),
+                                SizedBox(height: 18),
+                                Text('Masukkan email aktifmu',
+                                    style: _textTheme.bodyMedium
+                                        ?.copyWith(fontWeight: FontWeight.w400),
+                                    textAlign: TextAlign.center),
                               ],
                             ),
                           ),
@@ -156,106 +149,131 @@ class _SignInState extends State<SignIn> {
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Form(
                       key: _formKey,
-                      child:
-                      Column(
+                      child: Column(children: [
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                          decoration: BoxDecoration(
+                              color: _themeData.primaryColor,
+                              border:
+                                  Border.all(width: 1, color: Colors.black26),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              icon: Icon(
+                                Icons.email_outlined,
+                                color: Colors.white,
+                              ),
+                              suffixIcon: _emailText.isEmpty
+                                  ? null
+                                  : IconButton(
+                                      icon: Icon(
+                                        Icons.clear,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _emailController.clear();
+                                        });
+                                      },
+                                    ),
+                              labelText: 'E-mail',
+                              labelStyle: TextStyle(color: Colors.white),
+                            ),
+                            style: TextStyle(color: Colors.white),
+                            controller: _emailController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return '*required';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-                              decoration: BoxDecoration(
-                                  color: _themeData.primaryColor,
-                                  border: Border.all(
-                                      width: 1,
-                                      color: Colors.black26
-                                  ),
-                                  borderRadius: BorderRadius.all(Radius.circular(10))
-                              ),
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  icon: Icon(Icons.email_outlined, color: Colors.white,),
-                                  suffixIcon: _emailText.isEmpty ? null
-                                      : IconButton(icon: Icon(Icons.clear, color: Colors.white,),onPressed: () {
-                                    setState(() {
-                                      _emailController.clear();
-                                    });},
-                                  ),
-                                  labelText: 'E-mail',
-                                  labelStyle: TextStyle(color: Colors.white),
+                            ElevatedButton(
+                              child: Text(
+                                'Mulai Sekarang!',
+                                style: _textTheme.labelMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                style: TextStyle(color: Colors.white),
-                                controller: _emailController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return '*required';
-                                  }
-                                  return null;
-                                },
                               ),
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: Size(size.width * 0.4, 54),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(32.0),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const VerifyEmail(
+                                        email: "rzr@gmail.com"),
+                                  ),
+                                );
+                              },
                             ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        Column(
+                          children: [
+                            ScrollViewSignIn(
+                              scrollController: _scrollController,
+                              images: movies1,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
                             SizedBox(
-                              height: 15,
+                              height: 25,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                ElevatedButton(
-                                  child: Text('Mulai Sekarang!', style: _textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600,)),
-                                  style: ElevatedButton.styleFrom(
-                                    minimumSize: Size(size.width * 0.4, 54),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(32.0)),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => const VerifyEmail(email: "rzr@gmail.com"))//const CreatePin(phoneNumber: '+8837392732',)),
-                                    );
-                                  },
+                            ElevatedButton(
+                              child: Text(
+                                'Sign In Anonymous',
+                                style: _textTheme.labelMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
                                 ),
-                              ],
+                              ),
+                              onPressed: () async {
+                                User? result = await AuthService().signInAnon();
+                                if (result == null) {
+                                  print('error signing in anonymously');
+                                } else {
+                                  print(result);
+                                }
+                              },
                             ),
-                          SizedBox(
-                            height: 12,
-                          ),
-                          Column(
-                              children: [
-                                ScrollViewSignIn(
-                                  scrollController: _scrollController,
-                                  images: movies1,
+                            ElevatedButton(
+                              onPressed: () => widget.toggleView,
+                              child: Text(
+                                'Sign Up',
+                                style: _textTheme.labelMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                ]
-                          ),
-                            Column(
-                              children: [
-                                SizedBox(
-                                  height: 25,
-                                ),
-                                ElevatedButton(
-                                  child: Text('Sign In Anonymous', style: _textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600,),),
-                                  onPressed: () async {
-                                    User? result = await AuthService().signInAnon();
-                                    if (result == null) {
-                                      print('error signing in anonymously');
-                                    } else {
-                                      print(result);
-                                    }
-                                  },
-                                ),
-                                ElevatedButton(
-                                  onPressed: () => widget.toggleView,
-                                  child: Text('Sign Up', style: _textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600,)),
-                                ),
-                              ],
+                              ),
                             ),
-                          ]
-                      ),
+                          ],
+                        ),
+                      ]),
                     ),
                   ),
                 ],
               ),
             ),
           ],
-        )
+        ),
       ),
     );
   }
