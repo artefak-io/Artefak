@@ -73,7 +73,6 @@ class _MyAppState extends State<MyApp> {
             ],
             routes: {
               '/': (context) => Home(),
-              // '/home' still unused, don't route to '/home' yet route to '/' instead
               '/home': (context) => Home(),
               '/profile': (context) => Profile(),
               '/bill': (context) => Transaction(),

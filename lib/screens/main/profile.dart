@@ -1,15 +1,14 @@
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
-import 'package:artefak/screens/authentication/sign_in.dart';
 import 'package:artefak/services/asset_service.dart';
 import 'package:artefak/services/wallet_firestore.dart';
-import 'package:artefak/widgets/bottom_navbar.dart';
-import 'package:artefak/widgets/carousel_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:artefak/services/auth.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+
+import '../../widgets/bottom_navbar.dart';
+import '../../widgets/carousel_profile.dart';
 
 class Profile extends StatelessWidget {
   Profile({Key? key}) : super(key: key);
@@ -22,7 +21,6 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme _textTheme = Theme.of(context).textTheme;
-    ThemeData _themeData = Theme.of(context);
 
     if (AuthService.user == null) {
       return const Authenticate();
@@ -34,33 +32,32 @@ class Profile extends StatelessWidget {
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(
-                Icons.chevron_left,
-                color: Colors.white,
-                size: 30.0,
-              ),
-              onPressed: () {},
-            ),
-            title: Text(
-              'Profile',
-              style: _textTheme.headlineMedium,
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () async {
-                  AuthService().signOut().then((value) => Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Profile()),
-                      ));
-                },
-                child: Text(
-                  'Log out',
-                  style: _textTheme.bodySmall,
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.chevron_left,
+                  color: Colors.white,
+                  size: 30.0,
                 ),
+                onPressed: () {},
               ),
-            ],
-          ),
+              title: Text(
+                'Profile',
+                style: _textTheme.headlineMedium,
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () async {
+                    AuthService().signOut().then((value) => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Profile()),
+                        ));
+                  },
+                  child: Text(
+                    'Log out',
+                    style: _textTheme.bodySmall,
+                  ),
+                ),
+              ]),
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -89,7 +86,6 @@ class Profile extends StatelessWidget {
                                                 CachedNetworkImageProvider(
                                                     AuthService
                                                         .user!.photoURL!),
-                                            // NetworkImage(AuthService.user!.photoURL!),
                                             radius: 60,
                                             backgroundColor: Colors.white30,
                                           )
@@ -102,7 +98,8 @@ class Profile extends StatelessWidget {
                                                         ?.providerData[0]
                                                         .displayName![0] ??
                                                     "",
-                                                style: _textTheme.titleLarge)),
+                                                style: _textTheme.headlineLarge),
+                                          ),
                                   ),
                                   const SizedBox(width: 18),
                                   Flexible(
@@ -112,28 +109,22 @@ class Profile extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                              AuthService.user?.providerData[0]
-                                                      .displayName ??
-                                                  "[Edit Name]",
-                                              style: _textTheme.subtitle1
-                                                  ?.copyWith(
-                                                      fontFamily: 'Inter',
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: const Color(
-                                                          0xFFFFFFFF))),
+                                            AuthService.user?.providerData[0]
+                                                    .displayName ??
+                                                "[Edit Name]",
+                                            style:
+                                                _textTheme.bodyMedium?.copyWith(
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
                                           Text(
                                             AuthService.user?.providerData[0]
                                                     .email ??
                                                 "[Edit Email]",
-                                            style: _textTheme.subtitle2
-                                                ?.copyWith(
-                                                    fontFamily: 'Inter',
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: const Color(
-                                                        0xFFFFFFFF)),
+                                            style:
+                                                _textTheme.bodySmall?.copyWith(
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                           ),
                                         ]),
                                   )

@@ -5,11 +5,6 @@ import 'package:artefak/widgets/scroll_view_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
-
-import '../../widgets/input_pin_widget.dart';
-import '../../widgets/create_pin.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({
@@ -26,7 +21,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  ScrollController _scrollController1 = ScrollController();
+  ScrollController _scrollController = ScrollController();
   String _emailText = "";
 
   @override
@@ -41,11 +36,11 @@ class _SignInState extends State<SignIn> {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      double minScrollExtent1 = _scrollController1.position.minScrollExtent;
-      double maxScrollExtent1 = _scrollController1.position.maxScrollExtent;
+      double minScrollExtent1 = _scrollController.position.minScrollExtent;
+      double maxScrollExtent1 = _scrollController.position.maxScrollExtent;
       //
       animateToMaxMin(maxScrollExtent1, minScrollExtent1, maxScrollExtent1, 25,
-          _scrollController1);
+          _scrollController);
     });
 
     _emailController.addListener(() {
@@ -100,7 +95,7 @@ class _SignInState extends State<SignIn> {
                         children: [
                           Padding(
                             padding:
-                                EdgeInsets.only(left: 16, top: 85, bottom: 32),
+                                EdgeInsets.only(left: 16, top: 60, bottom: 40),
                             child: SvgPicture.asset('assets/logo.svg',
                                 width: 150, fit: BoxFit.scaleDown),
                           ),
@@ -113,7 +108,7 @@ class _SignInState extends State<SignIn> {
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Text('Sapa Masa Depanmu',
-                            style: _textTheme.titleLarge
+                            style: _textTheme.headlineLarge
                                 ?.copyWith(fontWeight: FontWeight.w700),
                             textAlign: TextAlign.start),
                       ),
@@ -204,49 +199,41 @@ class _SignInState extends State<SignIn> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             ElevatedButton(
-                              child: Text('Mulai Sekarang!',
-                                  style: _textTheme.labelMedium?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                  )),
+                              child: Text(
+                                'Mulai Sekarang!',
+                                style: _textTheme.labelMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                               style: ElevatedButton.styleFrom(
                                 minimumSize: Size(size.width * 0.4, 54),
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(32.0)),
+                                  borderRadius: BorderRadius.circular(32.0),
+                                ),
                               ),
                               onPressed: () {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const VerifyEmail(
-                                            email:
-                                                "rzr@gmail.com")) //const CreatePin(phoneNumber: '+8837392732',)),
-                                    );
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const VerifyEmail(
+                                        email: "rzr@gmail.com"),
+                                  ),
+                                );
                               },
-                              // onPressed: (){},
-                              // onPressed: () async {
-                              //   if (_formKey.currentState!.validate()) {
-                              //     User? result = await AuthService().signInEmailPass(
-                              //         _emailController.text,
-                              //     );
-                              //     if (result == null) {
-                              //       print('error signing in');
-                              //     } else {
-                              //       print(result);
-                              //     }
-                              //   }
-                              // },
                             ),
                           ],
                         ),
                         SizedBox(
                           height: 12,
                         ),
-                        Column(children: [
-                          ScrollViewSignIn(
-                            scrollController: _scrollController1,
-                            images: movies1,
-                          ),
-                        ]),
+                        Column(
+                          children: [
+                            ScrollViewSignIn(
+                              scrollController: _scrollController,
+                              images: movies1,
+                            ),
+                          ],
+                        ),
                         Column(
                           children: [
                             SizedBox(
@@ -270,10 +257,12 @@ class _SignInState extends State<SignIn> {
                             ),
                             ElevatedButton(
                               onPressed: () => widget.toggleView,
-                              child: Text('Sign Up',
-                                  style: _textTheme.labelMedium?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                  )),
+                              child: Text(
+                                'Sign Up',
+                                style: _textTheme.labelMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
                           ],
                         ),

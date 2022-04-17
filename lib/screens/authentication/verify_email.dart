@@ -1,6 +1,5 @@
 import 'dart:async';
 
-// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/widgets/create_pin.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class VerifyEmail extends StatefulWidget {
   final String email;
+
   const VerifyEmail({Key? key, required this.email}) : super(key: key);
 
   @override
@@ -15,20 +15,18 @@ class VerifyEmail extends StatefulWidget {
 }
 
 class _VerifyEmailState extends State<VerifyEmail> {
-  bool isVerified = false;
+  bool _isVerified = false;
   bool canResendEmail = false;
-  Timer? timer;
+  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
 
-    // isVerified = FirebaseAuth.instance.currentUser!.emailVerified;
-
-    if (!isVerified) {
+    if (!_isVerified) {
       sendVerificationEmail();
 
-      timer =
+      _timer =
           Timer.periodic(const Duration(seconds: 3), (_) => checkVerified());
     }
   }
@@ -36,15 +34,15 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Future checkVerified() async {
     // await FirebaseAuth.instance.currentUser!.reload();
     setState(() {
-      // isVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+      // _isVerified = FirebaseAuth.instance.currentUser!.emailVerified;
     });
 
-    if (isVerified) timer?.cancel();
+    if (_isVerified) _timer?.cancel();
   }
 
   @override
   void dispose() {
-    timer?.cancel();
+    _timer?.cancel();
 
     super.dispose();
   }
@@ -66,6 +64,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme _textTheme = Theme.of(context).textTheme;
+    ThemeData _themeData = Theme.of(context);
 
     return AppLayout(
       child: Scaffold(
@@ -106,10 +105,10 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       Row(
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(
+                            padding: EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 16),
                             child: Text('Cek E-mail',
-                                style: _textTheme.titleLarge?.copyWith(
+                                style: _textTheme.headlineLarge?.copyWith(
                                   fontWeight: FontWeight.w700,
                                 ),
                                 textAlign: TextAlign.start),
@@ -117,31 +116,33 @@ class _VerifyEmailState extends State<VerifyEmail> {
                         ],
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 16),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                         child: Text(
                             'E-mail verifikasi telah dikirimkan ke akun kamu dengan e-mail, ',
                             style: _textTheme.displaySmall
                                 ?.copyWith(fontWeight: FontWeight.w400),
                             textAlign: TextAlign.start),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 16,
                       ),
-                      ElevatedButton(
-                        child: Text(
-                          'Buka E-mail Saya',
-                          style: _textTheme.labelMedium
-                              ?.copyWith(fontWeight: FontWeight.w400),
+                      Container(
+                        child: ElevatedButton(
+                          child: Text(
+                            'Buka E-mail Saya',
+                            style: _textTheme.labelMedium
+                                ?.copyWith(fontWeight: FontWeight.w400),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(size.width * 0.9, 48),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(32.0)),
+                          ),
+                          onPressed: () {},
                         ),
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(size.width * 0.9, 48),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32.0)),
-                        ),
-                        onPressed: () {},
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 40,
                       ),
                       Container(
@@ -152,7 +153,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                             textAlign: TextAlign.start),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        padding: EdgeInsets.symmetric(horizontal: 24),
                         alignment: Alignment.centerLeft,
                         child: OutlinedButton(
                           child: Text(
@@ -161,25 +162,27 @@ class _VerifyEmailState extends State<VerifyEmail> {
                                 ?.copyWith(fontWeight: FontWeight.w400),
                           ),
                           style: OutlinedButton.styleFrom(
-                              primary: Colors.transparent,
-                              minimumSize: Size(size.width * 0.3, 40),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(32.0),
-                              ),
-                              side: const BorderSide(color: Colors.white70)),
+                            primary: Colors.transparent,
+                            minimumSize: Size(size.width * 0.3, 40),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                            ),
+                            side: BorderSide(color: Colors.white70),
+                          ),
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const CreatePin(
-                                      phoneNumber: '+8837392732',
-                                      title: 'Kunci Akses Baru',
-                                      subTitle:
-                                          'Masukkan 6 digit Pin yang dibuat untuk memudahkan akses dan keamanan yang lebih baik.')),
+                                builder: (context) => const CreatePin(
+                                    phoneNumber: '+8837392732',
+                                    title: 'Kunci Akses Baru',
+                                    subTitle:
+                                        'Masukkan 6 digit Pin yang dibuat untuk memudahkan akses dan keamanan yang lebih baik.'),
+                              ),
                             );
                           },
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ],

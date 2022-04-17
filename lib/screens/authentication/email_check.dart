@@ -45,7 +45,7 @@ class EmailCheck extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     child: Text('Cek E-mail',
-                        style: _textTheme.titleLarge
+                        style: _textTheme.headlineLarge
                             ?.copyWith(fontWeight: FontWeight.w700),
                         textAlign: TextAlign.start),
                   ),
