@@ -39,14 +39,14 @@ class _SignUpState extends State<SignUp> {
           SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                Container(
+                SizedBox(
                   height: size.height * 0.3,
                   child: Stack(
                     children: <Widget>[
                       Container(
                         height: size.height * 0.3,
-                        decoration: BoxDecoration(
-                            image: new DecorationImage(
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
                               image: AssetImage('assets/backgroundLogin.png'),
                               fit: BoxFit.contain,
                             ),
@@ -57,9 +57,9 @@ class _SignUpState extends State<SignUp> {
                     ],
                   ),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Padding(
-                  padding: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(bottom: 16),
                   child: Row(
                     children: [
                       Expanded(
@@ -73,7 +73,7 @@ class _SignUpState extends State<SignUp> {
                                       fontFamily: 'Inter',
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600)),
-                              SizedBox(height: 18),
+                              const SizedBox(height: 18),
                               Text(
                                   'You want to Join Us? Insert Email and Password.',
                                   style: _textTheme.displayMedium,
@@ -86,25 +86,27 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Form(
                     key: _formKey,
                     child: Column(children: [
                       Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 0),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(width: 1, color: Colors.black26),
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 topRight: Radius.circular(10))),
                         child: TextFormField(
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             labelText: 'E-mail',
                           ),
                           controller: _emailController,
+                          // needs proper validator
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return '*required';
@@ -115,17 +117,17 @@ class _SignUpState extends State<SignUp> {
                       ),
                       Container(
                         transform: Matrix4.translationValues(0.0, -1.0, 0.0),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 0),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(width: 1, color: Colors.black26),
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                                 bottomLeft: Radius.circular(10),
                                 bottomRight: Radius.circular(10))),
                         child: TextFormField(
                           obscureText: true,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             labelText: 'Password',
                           ),
@@ -140,7 +142,7 @@ class _SignUpState extends State<SignUp> {
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       ElevatedButton(
@@ -149,7 +151,7 @@ class _SignUpState extends State<SignUp> {
                                 fontFamily: 'Inter',
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFFFFFFFF))),
+                                color: const Color(0xFFFFFFFF))),
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(size.width * 0.9, 54),
                         ),
@@ -174,7 +176,7 @@ class _SignUpState extends State<SignUp> {
                                 fontFamily: 'Inter',
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFFFFFFFF))),
+                                color: const Color(0xFFFFFFFF))),
                       ),
                     ]),
                   ),

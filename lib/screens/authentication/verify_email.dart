@@ -105,7 +105,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       Row(
                         children: [
                           Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 16),
                             child: Text('Cek E-mail',
                                 style: _textTheme.headlineLarge?.copyWith(
@@ -116,44 +116,40 @@ class _VerifyEmailState extends State<VerifyEmail> {
                         ],
                       ),
                       Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 16),
                         child: Text(
                             'E-mail verifikasi telah dikirimkan ke akun kamu dengan e-mail, ',
                             style: _textTheme.displaySmall
                                 ?.copyWith(fontWeight: FontWeight.w400),
                             textAlign: TextAlign.start),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
-                      Container(
-                        child: ElevatedButton(
-                          child: Text(
-                            'Buka E-mail Saya',
-                            style: _textTheme.labelMedium
-                                ?.copyWith(fontWeight: FontWeight.w400),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(size.width * 0.9, 48),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(32.0)),
-                          ),
-                          onPressed: () {},
+                      ElevatedButton(
+                        child: Text(
+                          'Buka E-mail Saya',
+                          style: _textTheme.labelMedium
+                              ?.copyWith(fontWeight: FontWeight.w400),
                         ),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(size.width * 0.9, 48),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32.0)),
+                        ),
+                        onPressed: () {},
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 40,
                       ),
+                      Text('Apakah ingin mengganti alamat e-mail?',
+                          style: _textTheme.displaySmall?.copyWith(
+                            fontWeight: FontWeight.w400,
+                          ),
+                          textAlign: TextAlign.start),
                       Container(
-                        child: Text('Apakah ingin mengganti alamat e-mail?',
-                            style: _textTheme.displaySmall?.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                            textAlign: TextAlign.start),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 24),
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
                         alignment: Alignment.centerLeft,
                         child: OutlinedButton(
                           child: Text(
@@ -167,7 +163,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32.0),
                             ),
-                            side: BorderSide(color: Colors.white70),
+                            side: const BorderSide(color: Colors.white70),
                           ),
                           onPressed: () {
                             Navigator.push(

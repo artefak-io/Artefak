@@ -24,7 +24,7 @@ class EmailCheck extends StatelessWidget {
                     right: 0,
                     top: 0,
                     child: Container(
-                      margin: EdgeInsets.only(top: 10.0),
+                      margin: const EdgeInsets.only(top: 10.0),
                       width: MediaQuery.of(context).size.width - 10,
                       height: 140,
                     ),
@@ -32,7 +32,8 @@ class EmailCheck extends StatelessWidget {
                   Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: 16, top: 85, bottom: 32),
+                        padding: const EdgeInsets.only(
+                            left: 16, top: 85, bottom: 32),
                         child: SvgPicture.asset('assets/logo.svg',
                             width: 150, fit: BoxFit.scaleDown),
                       ),
@@ -43,35 +44,35 @@ class EmailCheck extends StatelessWidget {
               Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     child: Text('Cek E-mail',
                         style: _textTheme.headlineLarge
                             ?.copyWith(fontWeight: FontWeight.w700),
                         textAlign: TextAlign.start),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     child: Text(
                         'Kami telah mengirimkan e-mail verifikasi untuk akun kamu, wicaksonorc@gmail.com',
                         style: _textTheme.displaySmall
                             ?.copyWith(fontWeight: FontWeight.w400),
                         textAlign: TextAlign.start),
                   ),
-                  Container(
-                    child: ElevatedButton(
-                      child: Text('Mulai Sekarang!',
-                          style: _textTheme.button?.copyWith(
-                              fontFamily: 'Inter',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFFFFFFFF))),
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(size.width * 0.4, 54),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(32.0)),
-                      ),
-                      onPressed: () {},
+                  ElevatedButton(
+                    child: Text('Mulai Sekarang!',
+                        style: _textTheme.button?.copyWith(
+                            fontFamily: 'Inter',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xFFFFFFFF))),
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(size.width * 0.4, 54),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32.0)),
                     ),
+                    onPressed: () {},
                   )
                 ],
               )

@@ -61,7 +61,7 @@ class Profile extends StatelessWidget {
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                Container(
+                SizedBox(
                   height: size.height * 0.45,
                   child: Stack(
                     children: <Widget>[
@@ -69,9 +69,9 @@ class Profile extends StatelessWidget {
                         height: size.height * 0.45 - 60,
                         decoration: const BoxDecoration(
                             color: Colors.red,
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(20),
-                                bottomRight: const Radius.circular(20))),
+                                bottomRight: Radius.circular(20))),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Column(
@@ -98,7 +98,8 @@ class Profile extends StatelessWidget {
                                                         ?.providerData[0]
                                                         .displayName![0] ??
                                                     "",
-                                                style: _textTheme.headlineLarge),
+                                                style:
+                                                    _textTheme.headlineLarge),
                                           ),
                                   ),
                                   const SizedBox(width: 18),
@@ -198,7 +199,7 @@ class Profile extends StatelessWidget {
                           child: Container(
                             margin: const EdgeInsets.symmetric(horizontal: 8),
                             height: 120,
-                            child: Carousel(),
+                            child: const Carousel(),
                           ))
                     ],
                   ),

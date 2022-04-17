@@ -4,11 +4,12 @@ class ScrollViewSignIn extends StatelessWidget {
   final ScrollController scrollController;
   final List images;
 
-  const ScrollViewSignIn({Key? key, required this.scrollController, required this.images})
+  const ScrollViewSignIn(
+      {Key? key, required this.scrollController, required this.images})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 120,
       child: ListView.builder(
           controller: scrollController,
@@ -17,7 +18,7 @@ class ScrollViewSignIn extends StatelessWidget {
           itemCount: images.length,
           itemBuilder: (context, index) {
             return Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
               ),

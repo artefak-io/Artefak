@@ -8,14 +8,20 @@ class InputPinWidget extends StatefulWidget {
   final String phoneNumber;
   final String title;
   final String subTitle;
-  const InputPinWidget({Key? key, required this.phoneNumber, required this.title, required this.subTitle}) : super(key: key);
+  const InputPinWidget(
+      {Key? key,
+      required this.phoneNumber,
+      required this.title,
+      required this.subTitle})
+      : super(key: key);
 
   @override
   State<InputPinWidget> createState() => _InputPinWidgetState();
 }
 
 class _InputPinWidgetState extends State<InputPinWidget> {
-  StreamController<ErrorAnimationType> errorController = StreamController<ErrorAnimationType>();
+  StreamController<ErrorAnimationType> errorController =
+      StreamController<ErrorAnimationType>();
   var onTapRecognizer;
   TextEditingController textEditingController = TextEditingController();
   bool hasError = false;
@@ -40,13 +46,11 @@ class _InputPinWidgetState extends State<InputPinWidget> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
-
 
     return Scaffold(
       backgroundColor: Colors.blue.shade50,
@@ -60,43 +64,44 @@ class _InputPinWidgetState extends State<InputPinWidget> {
         child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFF434343),
-                  Color(0xFF000000)
-                ],
-              )),
+            begin: Alignment.topLeft,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFF434343), Color(0xFF000000)],
+          )),
           child: ListView(
             children: <Widget>[
-              SizedBox(height: 30),
-              Container(
-                child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 16,bottom: 20, right: 16),
-                            child: Text(widget.title,
-                                style: TextStyle(fontFamily: 'Inter', fontSize: 24, fontWeight: FontWeight.w700, color: Color(0xFFF3F4F6)),
-                                textAlign: TextAlign.start
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 16,bottom: 16, right: 16),
-                        child: Text(widget.subTitle,
-                            style: TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.w400, color: Color(0xFFD1D5DB)),
-                            textAlign: TextAlign.start
-                        ),
-                      ),
-                    ]
+              const SizedBox(height: 30),
+              Column(children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 16, bottom: 20, right: 16),
+                      child: Text(widget.title,
+                          style: const TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFFF3F4F6)),
+                          textAlign: TextAlign.start),
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(height: 30),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 16, bottom: 16, right: 16),
+                  child: Text(widget.subTitle,
+                      style: const TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFFD1D5DB)),
+                      textAlign: TextAlign.start),
+                ),
+              ]),
+              const SizedBox(height: 30),
               Form(
                 key: formKey,
                 child: Padding(
@@ -118,24 +123,24 @@ class _InputPinWidgetState extends State<InputPinWidget> {
                           borderRadius: BorderRadius.circular(15),
                           fieldHeight: 50,
                           fieldWidth: 45,
-                          activeFillColor:
-                          hasError ? Colors.orange : Color(0xFF333333),
-                          selectedFillColor: Color(0xFF3D3D3D),
-                          activeColor: Color(0xFF3D3D3D),
-                          selectedColor: Color(0xFF333333),
-                          inactiveColor: Color(0xFF3D3D3D),
-                          inactiveFillColor: Color(0xFF3D3D3D)
-                      ),
+                          activeFillColor: hasError
+                              ? Colors.orange
+                              : const Color(0xFF333333),
+                          selectedFillColor: const Color(0xFF3D3D3D),
+                          activeColor: const Color(0xFF3D3D3D),
+                          selectedColor: const Color(0xFF333333),
+                          inactiveColor: const Color(0xFF3D3D3D),
+                          inactiveFillColor: const Color(0xFF3D3D3D)),
                       cursorColor: Colors.white70,
-                      animationDuration: Duration(milliseconds: 300),
-                      textStyle: TextStyle(fontSize: 14, height: 1.6),
+                      animationDuration: const Duration(milliseconds: 300),
+                      textStyle: const TextStyle(fontSize: 14, height: 1.6),
                       backgroundColor: Colors.transparent,
                       enableActiveFill: true,
                       errorAnimationController: errorController,
                       controller: textEditingController,
                       keyboardType: TextInputType.number,
                       autoFocus: true,
-                      boxShadows: [
+                      boxShadows: const [
                         BoxShadow(
                           offset: Offset(0, 1),
                           color: Colors.black12,
@@ -162,7 +167,7 @@ class _InputPinWidgetState extends State<InputPinWidget> {
                       },
                     )),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Row(
@@ -171,7 +176,12 @@ class _InputPinWidgetState extends State<InputPinWidget> {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: ElevatedButton(
-                      child: Text('Lanjut', style: _textTheme.button?.copyWith(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.w400, color: Color(0xFFFFFFFF))),
+                      child: Text('Lanjut',
+                          style: _textTheme.button?.copyWith(
+                              fontFamily: 'Inter',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: const Color(0xFFFFFFFF))),
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(size.width * 0.4, 54),
                         shape: RoundedRectangleBorder(
