@@ -30,6 +30,30 @@ class Asset extends StatelessWidget {
                 padding: EdgeInsets.only(
                   top: 10.0,
                 ),
+                child: Text('Creator'),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 10.0,
+                ),
+                child: Text(_data['creator']),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(
+                  top: 10.0,
+                ),
+                child: Text('Current Owner'),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 10.0,
+                ),
+                child: Text(_data['currentOwner']),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(
+                  top: 10.0,
+                ),
                 child: Text('Description'),
               ),
               Padding(
