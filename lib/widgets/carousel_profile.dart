@@ -138,6 +138,7 @@ class _ProfileCarouselItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme _textTheme = Theme.of(context).textTheme;
+    ThemeData _themeData = Theme.of(context);
     return Row(
       children: [
         currencyLabel == 'IDR'
@@ -152,10 +153,9 @@ class _ProfileCarouselItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('IDR Balance',
-                style: _textTheme.labelSmall
-                    ?.copyWith(color: const Color(0xFF000000))),
+                style: _textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w500)),
             Text(NumberFormat.simpleCurrency(locale: 'in').format(balance),
-                style: _textTheme.displayLarge),
+                style: _textTheme.headlineMedium?.copyWith(color: _themeData.highlightColor)),
           ],
         )
       ],
