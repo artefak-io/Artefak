@@ -22,7 +22,7 @@ class WalletFirestore {
     });
   }
 
-  Future<bool> _checkWallet(String userId) async {
+  Future<bool> checkWallet(String userId) async {
     try {
       return _walletdb.doc(userId).get().then((value) => value.exists);
     } catch (e) {
@@ -44,7 +44,7 @@ class WalletFirestore {
 
   Future<void> createWallet(String userId) async {
     try {
-      if (await _checkWallet(userId) == false) {
+      if (await checkWallet(userId) == false) {
         Map<String, dynamic> fromTatum =
             await TatumWalletService().createWalletBSC();
         _saveWallet(fromTatum, userId);

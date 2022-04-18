@@ -116,10 +116,14 @@ class AssetService {
 
 // still not quite sure about this yield* and async* things need more research
   Stream<QuerySnapshot<Object?>> personalAssets(String userId) async* {
-    String userAddress = await WalletFirestore().getWallet(userId);
-    yield* _assetdb
-        .where('currentOwner', isEqualTo: userAddress)
-        .get()
-        .asStream();
+    if (await WalletFirestore().checkWallet(userId) == false) {
+      yield* const Stream.empty();
+    } else {
+      String userAddress = await WalletFirestore().getWallet(userId);
+      yield* _assetdb
+          .where('currentOwner', isEqualTo: userAddress)
+          .get()
+          .asStream();
+    }
   }
 }

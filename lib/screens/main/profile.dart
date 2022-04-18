@@ -92,14 +92,15 @@ class Profile extends StatelessWidget {
                                         : CircleAvatar(
                                             radius: 60,
                                             backgroundColor: Colors.white30,
-                                            child: Text(
-                                                AuthService
-                                                        .user
-                                                        ?.providerData[0]
-                                                        .displayName![0] ??
-                                                    "",
-                                                style:
-                                                    _textTheme.headlineLarge),
+                                            child:
+                                                AuthService.user!.displayName !=
+                                                        ""
+                                                    ? Text(
+                                                        AuthService.user!
+                                                            .displayName![0],
+                                                        style: _textTheme
+                                                            .headlineLarge)
+                                                    : null,
                                           ),
                                   ),
                                   const SizedBox(width: 18),
@@ -110,18 +111,18 @@ class Profile extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            AuthService.user?.providerData[0]
-                                                    .displayName ??
-                                                "[Edit Name]",
+                                            AuthService.user!.displayName != ""
+                                                ? AuthService.user!.displayName!
+                                                : "[Edit Name]",
                                             style:
                                                 _textTheme.bodyMedium?.copyWith(
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
                                           Text(
-                                            AuthService.user?.providerData[0]
-                                                    .email ??
-                                                "[Edit Email]",
+                                            AuthService.user!.email != ""
+                                                ? AuthService.user!.email!
+                                                : "[Edit Email]",
                                             style:
                                                 _textTheme.bodySmall?.copyWith(
                                               fontWeight: FontWeight.w600,
