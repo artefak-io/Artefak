@@ -21,7 +21,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   String _emailText = "";
 
   @override
@@ -86,7 +86,7 @@ class _SignInState extends State<SignIn> {
                         right: 0,
                         top: 0,
                         child: Container(
-                          margin: EdgeInsets.only(top: 10.0),
+                          margin: const EdgeInsets.only(top: 10.0),
                           width: MediaQuery.of(context).size.width - 10,
                           height: 140,
                         ),
@@ -94,8 +94,8 @@ class _SignInState extends State<SignIn> {
                       Row(
                         children: [
                           Padding(
-                            padding:
-                                EdgeInsets.only(left: 16, top: 60, bottom: 40),
+                            padding: const EdgeInsets.only(
+                                left: 16, top: 60, bottom: 40),
                             child: SvgPicture.asset('assets/logo.svg',
                                 width: 150, fit: BoxFit.scaleDown),
                           ),
@@ -106,15 +106,15 @@ class _SignInState extends State<SignIn> {
                   Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text('Sapa Masa Depanmu',
                             style: _textTheme.headlineLarge
                                 ?.copyWith(fontWeight: FontWeight.w700),
                             textAlign: TextAlign.start),
                       ),
                       Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 16),
                         child: Text(
                             'Kita percaya masa depan selalu lebih baik, miliki dan mulai sekarang!',
                             style: _textTheme.displaySmall
@@ -124,7 +124,7 @@ class _SignInState extends State<SignIn> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.only(bottom: 16),
                     child: Row(
                       children: [
                         Expanded(
@@ -133,7 +133,7 @@ class _SignInState extends State<SignIn> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(height: 18),
+                                const SizedBox(height: 18),
                                 Text('Masukkan email aktifmu',
                                     style: _textTheme.bodyMedium
                                         ?.copyWith(fontWeight: FontWeight.w400),
@@ -146,30 +146,31 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Form(
                       key: _formKey,
                       child: Column(children: [
                         Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 0),
                           decoration: BoxDecoration(
                               color: _themeData.primaryColor,
                               border:
                                   Border.all(width: 1, color: Colors.black26),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
+                                  const BorderRadius.all(Radius.circular(10))),
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.email_outlined,
                                 color: Colors.white,
                               ),
                               suffixIcon: _emailText.isEmpty
                                   ? null
                                   : IconButton(
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.clear,
                                         color: Colors.white,
                                       ),
@@ -180,9 +181,9 @@ class _SignInState extends State<SignIn> {
                                       },
                                     ),
                               labelText: 'E-mail',
-                              labelStyle: TextStyle(color: Colors.white),
+                              labelStyle: const TextStyle(color: Colors.white),
                             ),
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             controller: _emailController,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -192,7 +193,7 @@ class _SignInState extends State<SignIn> {
                             },
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Row(
@@ -223,7 +224,7 @@ class _SignInState extends State<SignIn> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 12,
                         ),
                         Column(
@@ -236,7 +237,7 @@ class _SignInState extends State<SignIn> {
                         ),
                         Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 25,
                             ),
                             ElevatedButton(

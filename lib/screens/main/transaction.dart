@@ -86,7 +86,7 @@ class Transaction extends StatelessWidget {
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text("Close"),
+                                  child: const Text("Close"),
                                 ),
                               ],
                             ),
