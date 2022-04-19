@@ -14,20 +14,17 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _themeData = Theme.of(context);
-    TextTheme _textTheme = Theme.of(context).textTheme;
     return AppLayout(
       child: Scaffold(
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          title: SvgPicture.asset('assets/logo.svg', width: 100,),
+          title: SvgPicture.asset('assets/logo.svg', width: 120,),
           actions: [
             IconButton(
                 icon: Icon(
                   Icons.notifications_none,
-                    // color: const Color(0xFF0000FF),
-                    // size: 34.0
+                    size: 34.0
                 ),
                 onPressed: (){}
             ),
