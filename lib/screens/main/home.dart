@@ -2,6 +2,7 @@ import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
@@ -13,11 +14,22 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _themeData = Theme.of(context);
     return AppLayout(
       child: Scaffold(
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: true,
+        appBar: AppBar(
+          title: SvgPicture.asset('assets/logo.svg', width: 120,),
+          actions: [
+            IconButton(
+                icon: Icon(
+                  Icons.notifications_none,
+                    size: 34.0
+                ),
+                onPressed: (){}
+            ),
+          ],
+        ),
         body: SafeArea(
           child: StreamBuilder<QuerySnapshot>(
             stream: _assetStream,

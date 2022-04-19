@@ -257,6 +257,25 @@ class _SignInState extends State<SignIn> {
                               },
                             ),
                             ElevatedButton(
+                              child: Text('Sign In', style: _textTheme.button?.copyWith(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFFFFFFFF))),
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: Size(size.width * 0.9, 54),
+                              ),
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  User? result = await AuthService().signInEmailPass(
+                                      "razor1@gmail.com",
+                                      "123qwe"
+                                  );
+                                  if (result == null) {
+                                    print('error signing in');
+                                  } else {
+                                    print(result);
+                                  }
+                                }
+                              },
+                            ),
+                            ElevatedButton(
                               onPressed: () => widget.toggleView,
                               child: Text(
                                 'Sign Up',

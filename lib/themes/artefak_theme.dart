@@ -4,10 +4,11 @@ const _primaryColor = Color(0xFF333333);
 
 ThemeData lightTheme = ThemeData(
   primaryColor: _primaryColor,
-  backgroundColor: const Color(0xFF434343),
   // combo color with shadowColor
-  shadowColor: const Color(0xFF000000),
+  backgroundColor: const Color(0xFF434343),
   // combo color with backgroundColor
+  shadowColor: const Color(0xFF000000),
+  highlightColor: const Color(0xDA333333),
 
   // App Bar
   appBarTheme: const AppBarTheme(
@@ -57,6 +58,11 @@ ThemeData lightTheme = ThemeData(
       fontFamily: 'Inter',
       fontSize: 16,
       color: Colors.white,
+    ),
+    labelSmall: TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 12,
+      color: Colors.black,
     ),
     displaySmall: TextStyle(
       fontFamily: 'Inter',

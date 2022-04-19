@@ -133,6 +133,8 @@ class Profile extends StatelessWidget {
                                 ],
                               ),
                               Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   TextButton(
                                     onPressed: () {
@@ -175,7 +177,9 @@ class Profile extends StatelessWidget {
                                           children: [
                                             Text(
                                               'Edit Profile',
-                                              style: _textTheme.labelSmall,
+                                              style: _textTheme.labelSmall
+                                                  ?.copyWith(
+                                                      color: Colors.white),
                                             ),
                                             const Icon(
                                               Icons.chevron_right,
