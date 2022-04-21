@@ -9,6 +9,8 @@ ThemeData lightTheme = ThemeData(
   // combo color with backgroundColor
   shadowColor: const Color(0xFF000000),
   highlightColor: const Color(0xDA333333),
+  indicatorColor: const Color(0xFFD1D5DB),
+  selectedRowColor: const Color(0xFF2563EB),
 
   // App Bar
   appBarTheme: const AppBarTheme(
@@ -18,6 +20,14 @@ ThemeData lightTheme = ThemeData(
     centerTitle: false,
     elevation: 15,
   ),
+
+  textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        textStyle: const TextStyle(
+            color: Color(0xFF7CA1F3),
+            fontSize: 12,
+            fontWeight: FontWeight.bold),
+      )),
 
   // Buttons
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -52,6 +62,11 @@ ThemeData lightTheme = ThemeData(
     bodyMedium: TextStyle(
       fontFamily: 'Inter',
       fontSize: 18,
+      color: Colors.white,
+    ),
+    bodyLarge: TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 24,
       color: Colors.white,
     ),
     labelMedium: TextStyle(

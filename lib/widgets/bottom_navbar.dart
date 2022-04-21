@@ -22,9 +22,10 @@ class BotNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData _themeData = Theme.of(context);
     return FloatingNavbar(
-      backgroundColor: Colors.red,
-      selectedItemColor: Colors.red,
+      backgroundColor: _themeData.highlightColor,
+      selectedItemColor: _themeData.highlightColor,
       onTap: (index) => _onTap(index, context),
       currentIndex: currentIndex,
       items: [
