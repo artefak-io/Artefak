@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:artefak/screens/app_layout.dart';
-import 'package:artefak/widgets/create_pin.dart';
+import 'package:artefak/screens/authentication/create_pin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -64,7 +64,6 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme _textTheme = Theme.of(context).textTheme;
-    ThemeData _themeData = Theme.of(context);
 
     return AppLayout(
       child: Scaffold(

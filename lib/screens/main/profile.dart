@@ -68,10 +68,11 @@ class Profile extends StatelessWidget {
                       Container(
                         height: size.height * 0.45 - 60,
                         decoration: const BoxDecoration(
-                            color: Colors.red,
+                            color: Color(0xDA333333),
                             borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20))),
+                                bottomLeft: Radius.circular(40),
+                                bottomRight: Radius.circular(40)),
+                        ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Column(
