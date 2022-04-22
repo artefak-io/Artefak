@@ -33,23 +33,23 @@ class _ItemCardCustomState extends State<ItemCardCustom> {
     TextTheme _textTheme = Theme.of(context).textTheme;
     return Container(
       margin: widget.isHorizontal
-          ? const EdgeInsets.only(left: 10.0)
-          : const EdgeInsets.only(bottom: 15.0),
+          ? const EdgeInsets.only(left: 16.0)
+          : const EdgeInsets.only(bottom: 16.0),
       child: Column(
         children: <Widget>[
           Container(
             height: widget.heightPhoto,
             width: widget.widthPhoto,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-            ),
             child: Stack(
               fit: StackFit.expand,
               children: [
                 Container(
                   width: double.infinity,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
+                    ),
                     child: Image.network(
                       widget.dataEach['coverImage'],
                       fit: BoxFit.cover,
@@ -83,12 +83,11 @@ class _ItemCardCustomState extends State<ItemCardCustom> {
             height: 80,
             width: widget.widthPhoto,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xFF404040), Color(0xFF363636)],
+              color: Color(0xFF252525),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(16),
+                bottomRight: Radius.circular(16),
               ),
-              borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -102,8 +101,8 @@ class _ItemCardCustomState extends State<ItemCardCustom> {
                             horizontal: 0, vertical: 0),
                         child: Text(
                           '${truncateWithEllipsis(10, widget.dataEach['name'])}',
-                          style: _textTheme.labelMedium
-                              ?.copyWith(fontWeight: FontWeight.w700),
+                          style: _textTheme.bodyLarge
+                              ?.copyWith(fontWeight: FontWeight.w400),
                         ),
                       ),
                     ),
@@ -112,8 +111,9 @@ class _ItemCardCustomState extends State<ItemCardCustom> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 0, vertical: 0),
                         child: Text(
-                          '${NumberFormat.currency(locale: 'id').format(widget.dataEach['price'])}',
-                          style: _textTheme.labelMedium,
+                          'Rp${widget.dataEach['price']}',
+                          style: _textTheme.bodyLarge
+                              ?.copyWith(fontWeight: FontWeight.w400),
                         ),
                       ),
                     ),

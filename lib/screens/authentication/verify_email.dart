@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:artefak/screens/app_layout.dart';
-import 'package:artefak/screens/authentication/create_pin.dart';
+import 'package:artefak/widgets/create_pin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

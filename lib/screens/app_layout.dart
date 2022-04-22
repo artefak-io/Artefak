@@ -7,19 +7,9 @@ class AppLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _themeData = Theme.of(context);
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [_themeData.backgroundColor, _themeData.shadowColor],
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: child,
-      ),
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: child,
     );
   }
 }

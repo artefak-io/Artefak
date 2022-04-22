@@ -27,7 +27,11 @@ class Transaction extends StatelessWidget {
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
-            title: Text('Transaction', style: _textTheme.headlineMedium),
+            title: Text(
+              'Transaction',
+              style:
+                  _textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
+            ),
           ),
           body: StreamBuilder(
             stream: _transactionStream,
