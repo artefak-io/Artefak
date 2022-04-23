@@ -23,20 +23,28 @@ class Home extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          title: SvgPicture.asset(
-            'assets/logo.svg',
-            width: 120,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(64),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AppBar(
+                title: SvgPicture.asset(
+                  'assets/logo.svg',
+                  width: 100,
+                ),
+                actions: [
+                  IconButton(
+                      icon: Icon(Icons.notifications_none, size: 25.0),
+                      onPressed: () {}),
+                ],
+              ),
+            ],
           ),
-          actions: [
-            IconButton(
-                icon: Icon(Icons.notifications_none, size: 25.0),
-                onPressed: () {}),
-          ],
         ),
         body: SafeArea(
           child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: ClampingScrollPhysics(),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -48,13 +56,16 @@ class Home extends StatelessWidget {
                     children: [
                       SubHeadTitle(
                         title: "Proyek Terbaik saat ini",
+                        isSeeAll: false,
                       ),
                       SubHeadTitle(
                         title: "Sedang Popular",
+                        isSeeAll: true,
                       ),
                       Container(
+                        margin: EdgeInsets.only(right: 16.0),
                         height: 200,
-                        child: ItemHorizontalScroll(
+                        child: ItemTwoAxisScroll(
                           assetStream: _assetStream,
                           isHorizontal: true,
                           heightPhoto: 120,
@@ -63,8 +74,9 @@ class Home extends StatelessWidget {
                       ),
                       SubHeadTitle(
                         title: "Segera Hadir!",
+                        isSeeAll: true,
                       ),
-                      ItemHorizontalScroll(
+                      ItemTwoAxisScroll(
                         assetStream: _assetStream,
                         isHorizontal: false,
                         heightPhoto: 270,
@@ -85,8 +97,8 @@ class Home extends StatelessWidget {
   }
 }
 
-class ItemHorizontalScroll extends StatelessWidget {
-  const ItemHorizontalScroll({
+class ItemTwoAxisScroll extends StatelessWidget {
+  const ItemTwoAxisScroll({
     Key? key,
     required Stream<QuerySnapshot<Object?>> assetStream,
     required this.isHorizontal,
@@ -113,7 +125,7 @@ class ItemHorizontalScroll extends StatelessWidget {
             itemCount: snapshot.data!.docs.length,
             scrollDirection: isHorizontal ? Axis.horizontal : Axis.vertical,
             physics: isHorizontal
-                ? BouncingScrollPhysics()
+                ? ClampingScrollPhysics()
                 : NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
@@ -158,28 +170,37 @@ class ItemHorizontalScroll extends StatelessWidget {
 
 class SubHeadTitle extends StatelessWidget {
   final String title;
+  final bool isSeeAll;
 
   const SubHeadTitle({
     Key? key,
     required this.title,
+    required this.isSeeAll,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     TextTheme _textTheme = Theme.of(context).textTheme;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(title,
-              style: _textTheme.headlineMedium
+              style: _textTheme.displaySmall
                   ?.copyWith(fontWeight: FontWeight.w700),
               textAlign: TextAlign.start),
           Spacer(),
-          TextButton(
-            child: Text("Lihat Semua"),
-            onPressed: () {},
-          ),
+          isSeeAll
+              ? TextButton(
+                  child: Text(
+                    "Lihat Semua",
+                    style: _textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.w700, color: Color(0xFF7CA1F3)),
+                  ),
+                  onPressed: () {},
+                )
+              : Container(),
         ],
       ),
     );

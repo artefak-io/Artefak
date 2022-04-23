@@ -8,6 +8,7 @@ class InputPinWidget extends StatefulWidget {
   final String phoneNumber;
   final String title;
   final String subTitle;
+
   const InputPinWidget(
       {Key? key,
       required this.phoneNumber,
@@ -56,7 +57,9 @@ class _InputPinWidgetState extends State<InputPinWidget> {
       backgroundColor: Colors.blue.shade50,
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text('Buat Pin', style: _textTheme.headlineMedium),
+        title: Text('Buat Pin',
+            style:
+                _textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400)),
         backgroundColor: _themeData.primaryColor,
       ),
       body: GestureDetector(
@@ -161,8 +164,6 @@ class _InputPinWidgetState extends State<InputPinWidget> {
                       },
                       beforeTextPaste: (text) {
                         print("Allowing to paste $text");
-                        //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                        //but you can show anything you want here, like your pop up saying wrong paste format or etc
                         return true;
                       },
                     )),
@@ -176,16 +177,16 @@ class _InputPinWidgetState extends State<InputPinWidget> {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: ElevatedButton(
-                      child: Text('Lanjut',
-                          style: _textTheme.button?.copyWith(
-                              fontFamily: 'Inter',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xFFFFFFFF))),
+                      child: Text(
+                        'Lanjut',
+                        style: _textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
                       style: ElevatedButton.styleFrom(
-                        minimumSize: Size(size.width * 0.4, 54),
+                        minimumSize: Size(size.width * 0.9, 48),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(32.0)),
+                            borderRadius: BorderRadius.circular(100.0)),
                       ),
                       onPressed: () {},
                     ),

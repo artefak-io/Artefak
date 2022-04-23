@@ -42,7 +42,6 @@ dependencies:
   intl: ^0.17.0 
   image_picker: ^0.8.4+10  
   firebase_storage: ^10.2.9
-  floating_bottom_navigation_bar: ^1.5.2
   google_fonts: ^2.3.1
   cached_network_image: ^3.2.0
   pin_code_fields: ^7.4.0
@@ -83,7 +82,7 @@ flutter:
   fonts:
     - family: Inter
       fonts:
-        - asset: assets/fonts/Inter-VariableFont_slnt,wght.ttf
+      - asset: assets/fonts/Inter-VariableFont_slnt,wght.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
