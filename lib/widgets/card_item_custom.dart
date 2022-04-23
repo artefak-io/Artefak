@@ -100,7 +100,7 @@ class _ItemCardCustomState extends State<ItemCardCustom> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 0, vertical: 0),
                         child: Text(
-                          '${truncateWithEllipsis(10, widget.dataEach['name'])}',
+                          '${truncateWithEllipsis(20, widget.dataEach['name'])}',
                           style: _textTheme.bodyLarge
                               ?.copyWith(fontWeight: FontWeight.w400),
                         ),
@@ -111,7 +111,7 @@ class _ItemCardCustomState extends State<ItemCardCustom> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 0, vertical: 0),
                         child: Text(
-                          'Rp${widget.dataEach['price']}',
+                          'Rp${NumberFormat.decimalPattern('id').format(widget.dataEach['price'])}',
                           style: _textTheme.bodyLarge
                               ?.copyWith(fontWeight: FontWeight.w400),
                         ),
