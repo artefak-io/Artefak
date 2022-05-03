@@ -4,7 +4,6 @@ import 'package:artefak/services/auth.dart';
 import 'package:artefak/widgets/scroll_view_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({
@@ -22,6 +21,7 @@ class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController2 = ScrollController();
   String _emailText = "";
 
   @override
@@ -31,6 +31,7 @@ class _SignInState extends State<SignIn> {
   }
 
   List movies1 = ['image-1.png', 'image-2.png', 'image-3.png'];
+  List movies2 = ['image-3.png', 'image-1.png', 'image-2.png'];
 
   @override
   void initState() {
@@ -38,9 +39,13 @@ class _SignInState extends State<SignIn> {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       double minScrollExtent1 = _scrollController.position.minScrollExtent;
       double maxScrollExtent1 = _scrollController.position.maxScrollExtent;
+      double minScrollExtent2 = _scrollController2.position.minScrollExtent;
+      double maxScrollExtent2 = _scrollController2.position.maxScrollExtent;
       //
       animateToMaxMin(maxScrollExtent1, minScrollExtent1, maxScrollExtent1, 25,
           _scrollController);
+      animateToMaxMin(maxScrollExtent2, minScrollExtent2, maxScrollExtent2, 15,
+          _scrollController2);
     });
 
     _emailController.addListener(() {
@@ -70,9 +75,6 @@ class _SignInState extends State<SignIn> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          title: const Text('Masuk'),
-        ),
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -81,59 +83,57 @@ class _SignInState extends State<SignIn> {
                   Stack(
                     children: [
                       Positioned(
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        child: Container(
-                          margin: const EdgeInsets.only(top: 10.0),
-                          width: MediaQuery.of(context).size.width - 10,
-                          height: 140,
-                        ),
-                      ),
-                      Row(
+                          left: 0,
+                          right: -120,
+                          top: -100,
+                          child: Image.asset(
+                            'assets/bggrad.png',
+                            fit: BoxFit.fitHeight,
+                            height: 350,
+                          )),
+                      Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 16, top: 60, bottom: 40),
-                            child: SvgPicture.asset('assets/logo.svg',
-                                width: 150, fit: BoxFit.scaleDown),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 16, top: 56, bottom: 24),
+                                child: Image.asset('assets/logoColor.png',
+                                    width: 215, fit: BoxFit.fitWidth),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Text('Sapa Masa Depanmu',
+                                style: _textTheme.displayLarge
+                                    ?.copyWith(fontWeight: FontWeight.w700),
+                                textAlign: TextAlign.start),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(
+                                top: 8, left: 16, right: 16),
+                            child: Text(
+                                'Kita percaya masa depan selalu lebih baik, miliki dan mulai sekarang!',
+                                style: _textTheme.bodyLarge
+                                    ?.copyWith(fontWeight: FontWeight.w400),
+                                textAlign: TextAlign.start),
                           ),
                         ],
                       ),
                     ],
                   ),
-                  Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Text('Sapa Masa Depanmu',
-                            style: _textTheme.headlineLarge
-                                ?.copyWith(fontWeight: FontWeight.w700),
-                            textAlign: TextAlign.start),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 16),
-                        child: Text(
-                            'Kita percaya masa depan selalu lebih baik, miliki dan mulai sekarang!',
-                            style: _textTheme.displaySmall
-                                ?.copyWith(fontWeight: FontWeight.w400),
-                            textAlign: TextAlign.start),
-                      ),
-                    ],
-                  ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.only(bottom: 8),
                     child: Row(
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const SizedBox(height: 18),
+                                const SizedBox(height: 40),
                                 Text('Masukkan email aktifmu',
                                     style: _textTheme.bodyMedium
                                         ?.copyWith(fontWeight: FontWeight.w400),
@@ -194,7 +194,7 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                         const SizedBox(
-                          height: 15,
+                          height: 8,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -202,7 +202,7 @@ class _SignInState extends State<SignIn> {
                             ElevatedButton(
                               child: Text(
                                 'Mulai Sekarang!',
-                                style: _textTheme.labelMedium?.copyWith(
+                                style: _textTheme.bodyLarge?.copyWith(
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -225,13 +225,17 @@ class _SignInState extends State<SignIn> {
                           ],
                         ),
                         const SizedBox(
-                          height: 12,
+                          height: 54,
                         ),
                         Column(
                           children: [
                             ScrollViewSignIn(
                               scrollController: _scrollController,
                               images: movies1,
+                            ),
+                            ScrollViewSignIn(
+                              scrollController: _scrollController2,
+                              images: movies2,
                             ),
                           ],
                         ),
@@ -257,16 +261,20 @@ class _SignInState extends State<SignIn> {
                               },
                             ),
                             ElevatedButton(
-                              child: Text('Sign In', style: _textTheme.button?.copyWith(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFFFFFFFF))),
+                              child: Text('Sign In',
+                                  style: _textTheme.button?.copyWith(
+                                      fontFamily: 'Inter',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xFFFFFFFF))),
                               style: ElevatedButton.styleFrom(
                                 minimumSize: Size(size.width * 0.9, 54),
                               ),
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  User? result = await AuthService().signInEmailPass(
-                                      "razor1@gmail.com",
-                                      "123qwe"
-                                  );
+                                  User? result = await AuthService()
+                                      .signInEmailPass(
+                                          "razor1@gmail.com", "123qwe");
                                   if (result == null) {
                                     print('error signing in');
                                   } else {

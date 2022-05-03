@@ -1,7 +1,7 @@
 import 'package:artefak/themes/artefak_theme.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/screens/authentication/update_profile.dart';
-import 'package:artefak/screens/main/asset.dart';
+import 'package:artefak/screens/main/detailPage.dart';
 import 'package:artefak/screens/main/mint.dart';
 import 'package:artefak/screens/main/payment.dart';
 import 'package:artefak/screens/main/profile.dart';
@@ -78,7 +78,7 @@ class _MyAppState extends State<MyApp> {
               '/profile': (context) => Profile(),
               '/bill': (context) => Transaction(),
               '/updateProfile': (context) => const UpdateProfile(),
-              '/asset': (context) => const Asset(),
+              '/asset': (context) => ProductDetail(),
               '/auth': (context) => const Authenticate(),
               '/payment': (context) => const Payment(),
               '/mint': (context) => const Mint(),
