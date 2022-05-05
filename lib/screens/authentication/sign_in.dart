@@ -2,6 +2,7 @@ import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/authentication/verify_email.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/widgets/scroll_view_sign_in.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -30,8 +31,8 @@ class _SignInState extends State<SignIn> {
     super.dispose();
   }
 
-  List movies1 = ['image-1.png', 'image-2.png', 'image-3.png'];
-  List movies2 = ['image-3.png', 'image-1.png', 'image-2.png'];
+  List movies1 = ['image_1.png', 'image_2.png', 'image_3.png'];
+  List movies2 = ['image_3.png', 'image_1.png', 'image_2.png'];
 
   @override
   void initState() {
@@ -98,7 +99,7 @@ class _SignInState extends State<SignIn> {
                               Padding(
                                 padding: const EdgeInsets.only(
                                     left: 16, top: 56, bottom: 24),
-                                child: Image.asset('assets/logoColor.png',
+                                child: Image.asset('assets/logo_color.png',
                                     width: 215, fit: BoxFit.fitWidth),
                               ),
                             ],

@@ -1,7 +1,7 @@
 import 'package:artefak/themes/artefak_theme.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/screens/authentication/update_profile.dart';
-import 'package:artefak/screens/main/detailPage.dart';
+import 'package:artefak/screens/main/detail_page.dart';
 import 'package:artefak/screens/main/mint.dart';
 import 'package:artefak/screens/main/payment.dart';
 import 'package:artefak/screens/main/profile.dart';

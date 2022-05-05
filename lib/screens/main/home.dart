@@ -2,11 +2,10 @@ import 'dart:async';
 
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
+import 'package:artefak/widgets/card_item_custom.dart';
+import 'package:artefak/widgets/sub_head_title.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-import '../../widgets/card_item_custom.dart';
-import '../../widgets/sub_head_title.dart';
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
@@ -29,7 +28,7 @@ class Home extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AppBar(
-                title: Image.asset('assets/logoColor.png', width: 100),
+                title: Image.asset('assets/logo_color.png', width: 100),
                 actions: [
                   IconButton(
                       icon: Icon(Icons.notifications_none, size: 25.0),

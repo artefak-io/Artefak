@@ -1,0 +1,83 @@
+import 'package:flutter/material.dart';
+
+class AssetPreview extends StatelessWidget {
+  const AssetPreview({
+    Key? key,
+    required this.size,
+    required Map<String, dynamic> data,
+    required ThemeData themeData,
+    required TextTheme textTheme,
+  })  : _data = data,
+        _themeData = themeData,
+        _textTheme = textTheme,
+        super(key: key);
+
+  final Size size;
+  final Map<String, dynamic> _data;
+  final ThemeData _themeData;
+  final TextTheme _textTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size.width,
+      child: Stack(
+        children: [
+          Column(
+            children: [
+              Container(
+                width: size.width,
+                alignment: Alignment.center,
+                child: Image.network(
+                  _data['coverImage'],
+                  fit: BoxFit.cover,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
+          Positioned(
+            bottom: 0,
+            right: 20,
+            child: Container(
+              decoration: BoxDecoration(
+                color: _themeData.highlightColor,
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+              ),
+              child: SizedBox(
+                width: 40,
+                height: 40,
+                child: Icon(
+                  Icons.favorite_border,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 20,
+            child: Container(
+              decoration: BoxDecoration(
+                color: _themeData.highlightColor,
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+              ),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.center,
+                height: 40,
+                child: Text("12 Jam 30 Detik",
+                    style: _textTheme.labelSmall?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 0.0)),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

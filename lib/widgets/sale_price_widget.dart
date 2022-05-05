@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../screens/main/detailPage.dart';
-import 'input_number_step.dart';
+import 'package:artefak/screens/main/detail_page.dart';
+import 'package:artefak/widgets/input_number_step.dart';
 
 class listSaleWidget extends StatelessWidget {
   const listSaleWidget({
@@ -16,7 +16,7 @@ class listSaleWidget extends StatelessWidget {
 
   final ThemeData _themeData;
   final TextTheme _textTheme;
-  final List<salePackages> assetList;
+  final List<SalePackages> assetList;
 
   @override
   Widget build(BuildContext context) {

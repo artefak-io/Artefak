@@ -18,20 +18,20 @@ class SplashScreen extends StatelessWidget {
                   left: 0,
                   right: -120,
                   top: -10,
-                  child: Image.asset('assets/splash2.png', width: 50)),
+                  child: Image.asset('assets/splash_2.png', width: 50)),
               Positioned(
                   bottom: 0,
                   left: -110,
                   right: 0,
                   top: 150,
-                  child: Image.asset('assets/splash1.png', width: 50)),
+                  child: Image.asset('assets/splash_1.png', width: 50)),
               Positioned(
                 bottom: 0,
                 left: 0,
                 right: 0,
                 top: 0,
                 child: SvgPicture.asset(
-                  'assets/logoWhite.svg',
+                  'assets/logo_white.svg',
                   fit: BoxFit.scaleDown,
                 ),
               ),

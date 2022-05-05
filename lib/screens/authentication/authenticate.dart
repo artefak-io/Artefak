@@ -1,5 +1,6 @@
 import 'package:artefak/screens/authentication/sign_in.dart';
 import 'package:artefak/screens/authentication/sign_up.dart';
+
 import 'package:flutter/material.dart';
 
 class Authenticate extends StatefulWidget {
