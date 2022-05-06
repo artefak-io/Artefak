@@ -64,7 +64,6 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme _textTheme = Theme.of(context).textTheme;
-    ThemeData _themeData = Theme.of(context);
 
     return AppLayout(
       child: Scaffold(
