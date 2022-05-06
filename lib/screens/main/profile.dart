@@ -21,6 +21,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme _textTheme = Theme.of(context).textTheme;
+    ThemeData _themeData = Theme.of(context);
 
     if (AuthService.user == null) {
       return const Authenticate();
@@ -33,17 +34,16 @@ class Profile extends StatelessWidget {
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
               leading: IconButton(
-                icon: const Icon(
+                icon: Icon(
                   Icons.chevron_left,
-                  color: Colors.white,
+                  color: _themeData.textSelectionColor,
                   size: 30.0,
                 ),
                 onPressed: () {},
               ),
-              title: Text(
-                'Profile',
-                style: _textTheme.headlineMedium,
-              ),
+              title: Text('Profile',
+                  style: _textTheme.titleLarge
+                      ?.copyWith(fontWeight: FontWeight.w400)),
               actions: <Widget>[
                 TextButton(
                   onPressed: () async {
@@ -67,11 +67,13 @@ class Profile extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         height: size.height * 0.45 - 60,
-                        decoration: const BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20))),
+                        decoration: BoxDecoration(
+                          color: _themeData.highlightColor,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(40),
+                            bottomRight: Radius.circular(40),
+                          ),
+                        ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Column(
@@ -122,7 +124,7 @@ class Profile extends StatelessWidget {
                                                 ? AuthService.user!.displayName!
                                                 : "[Edit Name]",
                                             style:
-                                                _textTheme.bodyMedium?.copyWith(
+                                                _textTheme.bodyLarge?.copyWith(
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
@@ -133,7 +135,7 @@ class Profile extends StatelessWidget {
                                                 ? AuthService.user!.email!
                                                 : "[Edit Email]",
                                             style:
-                                                _textTheme.bodySmall?.copyWith(
+                                                _textTheme.bodyLarge?.copyWith(
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
@@ -150,16 +152,18 @@ class Profile extends StatelessWidget {
                                       WalletFirestore()
                                           .createWallet(AuthService.user!.uid);
                                     },
-                                    child: const Text('Create Wallet',
-                                        style: TextStyle(color: Colors.white)),
+                                    child: Text('Create Wallet',
+                                        style: _textTheme.bodyMedium
+                                            ?.copyWith(color: Colors.white)),
                                   ),
                                   TextButton(
                                     onPressed: () => Navigator.pushNamed(
                                       context,
                                       '/mint',
                                     ),
-                                    child: const Text('Mint',
-                                        style: TextStyle(color: Colors.white)),
+                                    child: Text('Mint',
+                                        style: _textTheme.bodyMedium
+                                            ?.copyWith(color: Colors.white)),
                                   ),
                                   GestureDetector(
                                     onTap: () => Navigator.pushNamed(
@@ -186,7 +190,7 @@ class Profile extends StatelessWidget {
                                           children: [
                                             Text(
                                               'Edit Profile',
-                                              style: _textTheme.labelSmall
+                                              style: _textTheme.bodyMedium
                                                   ?.copyWith(
                                                       color: Colors.white),
                                             ),
@@ -207,14 +211,15 @@ class Profile extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 8),
-                            height: 120,
-                            child: const Carousel(),
-                          ))
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          height: 120,
+                          child: const Carousel(),
+                        ),
+                      ),
                     ],
                   ),
                 ),

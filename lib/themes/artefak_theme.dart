@@ -4,20 +4,27 @@ const _primaryColor = Color(0xFF333333);
 
 ThemeData lightTheme = ThemeData(
   primaryColor: _primaryColor,
-  // combo color with shadowColor
-  backgroundColor: const Color(0xFF434343),
-  // combo color with backgroundColor
-  shadowColor: const Color(0xFF000000),
-  highlightColor: const Color(0xDA333333),
+  backgroundColor: const Color(0xFF121212),
+  highlightColor: const Color(0xFF333333),
+  indicatorColor: const Color(0xFFD1D5DB),
+  selectedRowColor: const Color(0xFF2563EB),
+  textSelectionColor: const Color(0xFFF3F4F6),
+  unselectedWidgetColor: const Color(0xFF8A8B8C),
 
   // App Bar
   appBarTheme: const AppBarTheme(
     backgroundColor: _primaryColor,
     // This will be applied to the "back" icon
-    iconTheme: IconThemeData(color: Colors.white),
+    iconTheme: IconThemeData(color: Color(0xFFF3F4F6)),
     centerTitle: false,
     elevation: 15,
   ),
+
+  textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+    textStyle: const TextStyle(
+        color: Color(0xFF7CA1F3), fontSize: 12, fontWeight: FontWeight.bold),
+  )),
 
   // Buttons
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -44,40 +51,59 @@ ThemeData lightTheme = ThemeData(
 
   // Text
   textTheme: const TextTheme(
-    bodySmall: TextStyle(
+    displayLarge: TextStyle(
       fontFamily: 'Inter',
-      fontSize: 14,
-      color: Colors.white,
+      fontSize: 40,
+      color: Color(0xFFF3F4F6),
+      height: 1.20,
     ),
-    bodyMedium: TextStyle(
+    displayMedium: TextStyle(
       fontFamily: 'Inter',
-      fontSize: 18,
-      color: Colors.white,
-    ),
-    labelMedium: TextStyle(
-      fontFamily: 'Inter',
-      fontSize: 16,
-      color: Colors.white,
-    ),
-    labelSmall: TextStyle(
-      fontFamily: 'Inter',
-      fontSize: 12,
-      color: Colors.black,
+      fontSize: 32,
+      color: Color(0xFFF3F4F6),
+      height: 1.25,
     ),
     displaySmall: TextStyle(
       fontFamily: 'Inter',
-      fontSize: 16,
-      color: Color(0xFF9CA3AF),
+      fontSize: 24,
+      color: Color(0xFFF3F4F6),
+      height: 1.33,
     ),
-    headlineMedium: TextStyle(
+    titleLarge: TextStyle(
       fontFamily: 'Inter',
       fontSize: 22,
-      color: Colors.white,
+      color: Color(0xFFF3F4F6),
+      height: 1.27,
     ),
-    headlineLarge: TextStyle(
+    titleMedium: TextStyle(
       fontFamily: 'Inter',
-      fontSize: 40,
-      color: Colors.white
+      fontSize: 18,
+      color: Color(0xFFF3F4F6),
+      height: 1.33,
+    ),
+    titleSmall: TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 16,
+      color: Color(0xFFF3F4F6),
+      height: 1.375,
+    ),
+    bodyLarge: TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 16,
+      color: Color(0xFFF3F4F6),
+      height: 1.5,
+    ),
+    bodyMedium: TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 14,
+      color: Color(0xFFF3F4F6),
+      height: 1.43,
+    ),
+    bodySmall: TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 12,
+      color: Color(0xFFF3F4F6),
+      height: 1.33,
     ),
   ),
 );
