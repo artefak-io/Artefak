@@ -58,4 +58,35 @@ class AuthService {
   Future<void> changeUserInfo(String name) async {
     await _auth.currentUser!.updateDisplayName(name);
   }
+
+  Future<void> requestOTP(
+      {required String phoneNumber,
+      required Function setTokenId,
+      int? resendToken}) async {
+    await _auth.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+      verificationCompleted: (PhoneAuthCredential authCredential) async {
+        await _auth.signInWithCredential(authCredential);
+      },
+      verificationFailed: (FirebaseAuthException exception) {
+        if (exception.code == 'invalid-phone-number') {
+          print('The provided phone number is not valid.');
+        }
+      },
+      codeSent: (String verificationId, int? receivedToken) {
+        setTokenId(receivedToken, verificationId);
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+      forceResendingToken: resendToken,
+      timeout: const Duration(seconds: 30),
+    );
+  }
+
+  Future<void> loginWithPhone(
+      {required String verificationId, required String smsCode}) async {
+    PhoneAuthCredential result = PhoneAuthProvider.credential(
+        verificationId: verificationId, smsCode: smsCode);
+
+    await _auth.signInWithCredential(result);
+  }
 }
