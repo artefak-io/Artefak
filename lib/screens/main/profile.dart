@@ -94,7 +94,10 @@ class Profile extends StatelessWidget {
                                             backgroundColor: Colors.white30,
                                             child:
                                                 AuthService.user!.displayName !=
-                                                        ""
+                                                            "" &&
+                                                        AuthService.user!
+                                                                .displayName !=
+                                                            null
                                                     ? Text(
                                                         AuthService.user!
                                                             .displayName![0],
@@ -111,7 +114,11 @@ class Profile extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            AuthService.user!.displayName != ""
+                                            AuthService.user!.displayName !=
+                                                        "" &&
+                                                    AuthService.user!
+                                                            .displayName !=
+                                                        null
                                                 ? AuthService.user!.displayName!
                                                 : "[Edit Name]",
                                             style:
@@ -120,7 +127,9 @@ class Profile extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            AuthService.user!.email != ""
+                                            AuthService.user!.email != "" &&
+                                                    AuthService.user!.email !=
+                                                        null
                                                 ? AuthService.user!.email!
                                                 : "[Edit Email]",
                                             style:
