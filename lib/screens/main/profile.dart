@@ -158,7 +158,7 @@ class Profile extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () => Navigator.pushNamed(
                                       context,
-                                      '/updateProfile',
+                                      '/update_profile',
                                     ),
                                     child: Expanded(
                                       child: Container(

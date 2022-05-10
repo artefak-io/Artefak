@@ -36,7 +36,7 @@ class ItemTwoAxisScroll extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/asset',
+                    Navigator.pushNamed(context, '/asset/product_detail',
                         arguments: <String, dynamic>{
                           'id': snapshot.data!.docs[index].id,
                           'currentOwner': snapshot.data!.docs[index]

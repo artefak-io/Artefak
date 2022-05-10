@@ -21,8 +21,8 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  final ScrollController _scrollController = ScrollController();
-  final ScrollController _scrollController2 = ScrollController();
+  final ScrollController _scrollControllerTop = ScrollController();
+  final ScrollController _scrollControllerBottom = ScrollController();
   String _emailText = "";
 
   @override
@@ -38,15 +38,15 @@ class _SignInState extends State<SignIn> {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      double minScrollExtent1 = _scrollController.position.minScrollExtent;
-      double maxScrollExtent1 = _scrollController.position.maxScrollExtent;
-      double minScrollExtent2 = _scrollController2.position.minScrollExtent;
-      double maxScrollExtent2 = _scrollController2.position.maxScrollExtent;
+      double minScrollExtentTop = _scrollControllerTop.position.minScrollExtent;
+      double maxScrollExtentTop = _scrollControllerTop.position.maxScrollExtent;
+      double minScrollExtentBottom = _scrollControllerBottom.position.minScrollExtent;
+      double maxScrollExtentBottom = _scrollControllerBottom.position.maxScrollExtent;
       //
-      animateToMaxMin(maxScrollExtent1, minScrollExtent1, maxScrollExtent1, 25,
-          _scrollController);
-      animateToMaxMin(maxScrollExtent2, minScrollExtent2, maxScrollExtent2, 15,
-          _scrollController2);
+      animateToMaxMin(maxScrollExtentTop, minScrollExtentTop, maxScrollExtentTop, 25,
+          _scrollControllerTop);
+      animateToMaxMin(maxScrollExtentBottom, minScrollExtentBottom, maxScrollExtentBottom, 15,
+          _scrollControllerBottom);
     });
 
     _emailController.addListener(() {
@@ -231,11 +231,11 @@ class _SignInState extends State<SignIn> {
                         Column(
                           children: [
                             ScrollViewSignIn(
-                              scrollController: _scrollController,
+                              scrollController: _scrollControllerTop,
                               images: movies1,
                             ),
                             ScrollViewSignIn(
-                              scrollController: _scrollController2,
+                              scrollController: _scrollControllerBottom,
                               images: movies2,
                             ),
                           ],

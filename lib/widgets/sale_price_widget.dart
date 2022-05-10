@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:artefak/screens/main/detail_page.dart';
+import 'package:artefak/screens/main/product_detail.dart';
 import 'package:artefak/widgets/input_number_step.dart';
 
 class listSaleWidget extends StatelessWidget {
