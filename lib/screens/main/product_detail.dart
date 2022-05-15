@@ -11,7 +11,6 @@ import 'package:artefak/widgets/title_mint_token_info.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
 class SalePackages {
   final int code;
   final double price;
@@ -55,8 +54,13 @@ class ProductDetail extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              AssetPreview(size: size, data: _data, themeData: _themeData, textTheme: _textTheme),
-              TitleMintTokenInfo(data: _data, textTheme: _textTheme, themeData: _themeData),
+              AssetPreview(
+                  size: size,
+                  data: _data,
+                  themeData: _themeData,
+                  textTheme: _textTheme),
+              TitleMintTokenInfo(
+                  data: _data, textTheme: _textTheme, themeData: _themeData),
               Padding(
                 padding: const EdgeInsets.only(left: 16),
                 child: Column(
@@ -72,7 +76,8 @@ class ProductDetail extends StatelessWidget {
                   ],
                 ),
               ),
-              AccountDescriptionRow(themeData: _themeData, textTheme: _textTheme),
+              AccountDescriptionRow(
+                  themeData: _themeData, textTheme: _textTheme),
               Column(
                 children: [
                   Container(
@@ -136,7 +141,8 @@ class ProductDetail extends StatelessWidget {
             ],
           ),
         ),
-        bottomNavigationBar: BottomActionBar(themeData: _themeData, textTheme: _textTheme, size: size),
+        bottomNavigationBar: BottomActionBar(
+            themeData: _themeData, textTheme: _textTheme, size: size),
       ),
     );
   }

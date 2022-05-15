@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class AssetPreview extends StatelessWidget {
   const AssetPreview({
@@ -28,9 +30,18 @@ class AssetPreview extends StatelessWidget {
               Container(
                 width: size.width,
                 alignment: Alignment.center,
-                child: Image.network(
-                  _data['coverImage'],
+                child: CachedNetworkImage(
+                  imageUrl: _data['coverImage'],
                   fit: BoxFit.cover,
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  cacheManager: CacheManager(
+                      Config(
+                        "assetImage",
+                        stalePeriod: const Duration(days: 7),
+                        //one week cache period
+                      )
+                  ),
                 ),
               ),
               SizedBox(

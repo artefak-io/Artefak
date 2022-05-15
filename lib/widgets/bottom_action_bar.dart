@@ -57,7 +57,13 @@ class BottomActionBar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100.0),
                   ),
                   alignment: Alignment.center),
-              onPressed: () {},
+              onPressed: () => Navigator.pushNamed(
+                context,
+                '/asset/product_detail/collection_review',
+                  arguments: <String, dynamic>{
+                    'codeSale': 0,
+                  }
+              ),
             ),
           ],
         ),

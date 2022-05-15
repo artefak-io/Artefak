@@ -51,7 +51,7 @@ class AccountDescriptionRow extends StatelessWidget {
                         ?.copyWith(fontWeight: FontWeight.w400),
                   ),
                   onPressed: () {},
-                )
+                ),
               ],
             ),
           ),

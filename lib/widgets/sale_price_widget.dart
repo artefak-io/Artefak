@@ -71,10 +71,11 @@ class salePriceWidget extends StatelessWidget {
       child: Column(
         children: [
           Center(
-              child: RankSales(
-            textTheme: _textTheme,
-            saleCode: codeSale,
-          )),
+            child: RankSales(
+              textTheme: _textTheme,
+              saleCode: codeSale,
+            ),
+          ),
           SizedBox(
             height: 8,
           ),
