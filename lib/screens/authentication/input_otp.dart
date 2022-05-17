@@ -81,8 +81,7 @@ class _InputOTPState extends State<InputOTP> {
                               verificationId: verificationId,
                               smsCode: _codeController.text);
                           if (AuthService.user != null) {
-                            Navigator.popUntil(
-                                context, ModalRoute.withName('/'));
+                            Navigator.pop(context);
                           }
                         }
                       },
@@ -97,7 +96,7 @@ class _InputOTPState extends State<InputOTP> {
                           resendToken: resendToken,
                         );
                         if (AuthService.user != null) {
-                          Navigator.popUntil(context, ModalRoute.withName('/'));
+                          Navigator.pop(context);
                         } else {
                           print("error in Resend Code button");
                         }
