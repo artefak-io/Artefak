@@ -3,7 +3,6 @@ import 'package:artefak/widgets/desc_collection_review.dart';
 import 'package:artefak/widgets/payment_sliding_panel.dart';
 import 'package:artefak/widgets/total_collection_review.dart';
 import 'package:flutter/material.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class CollectionReview extends StatefulWidget {
   const CollectionReview({Key? key}) : super(key: key);
@@ -14,7 +13,6 @@ class CollectionReview extends StatefulWidget {
 
 class _CollectionReviewState extends State<CollectionReview> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  PanelController _panelController = new PanelController();
 
   bool updatedIsPanelOpen = false;
 
@@ -22,7 +20,6 @@ class _CollectionReviewState extends State<CollectionReview> {
     setState(() {
       updatedIsPanelOpen = true;
     });
-    _panelController.open();
   }
 
   void _showDialog(BuildContext context) {
@@ -33,7 +30,7 @@ class _CollectionReviewState extends State<CollectionReview> {
         builder: (BuildContext context) {
           return DraggableScrollableSheet(
             initialChildSize: 0.8,
-            minChildSize: 0,
+            minChildSize: 0.5,
             maxChildSize: 0.8,
             builder:
                 (BuildContext context, ScrollController scrollController) =>
