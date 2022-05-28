@@ -16,38 +16,30 @@ class DescCollectionReview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
       children: [
-        Positioned(
-          left: 0,
-          right: -120,
-          top: -100,
-          child: Image.asset(
-            'assets/bggrad.png',
-            fit: BoxFit.fitHeight,
-            height: 350,
-          ),
-        ),
         Container(
           width: size.width,
-          padding: const EdgeInsets.only(left: 16, right: 16.0),
+          padding: EdgeInsets.only(
+              left: 16.0,
+              right: 16.0),
           child: Column(
             children: [
               SizedBox(
-                height: 16,
+                height: 16.0,
               ),
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text('Proyek',
                     style: _textTheme.displaySmall
-                        ?.copyWith(fontWeight: FontWeight.w700),
+                        ?.copyWith(fontWeight: FontWeight.w700,),
                     textAlign: TextAlign.start),
               ),
               SizedBox(
                 height: 16,
               ),
               Container(
-                width: size.width - 32,
+                // width: size.width - 32,
                 decoration: BoxDecoration(
                   color: _themeData.shadowColor,
                   borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -75,7 +67,9 @@ class DescCollectionReview extends StatelessWidget {
                         // ),
                         ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+                      padding: EdgeInsets.only(
+                          left: 12.0,
+                          right: 12.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -84,7 +78,9 @@ class DescCollectionReview extends StatelessWidget {
                               style: _textTheme.bodyLarge
                                   ?.copyWith(fontWeight: FontWeight.w400),
                               textAlign: TextAlign.start),
-                          SizedBox(height: 4.0,),
+                          SizedBox(
+                            height: 4.0,
+                          ),
                           Row(
                             children: [
                               Container(

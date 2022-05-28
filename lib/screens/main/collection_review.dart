@@ -1,6 +1,7 @@
 import 'package:artefak/widgets/bottom_action_bar.dart';
 import 'package:artefak/widgets/desc_collection_review.dart';
 import 'package:artefak/widgets/payment_sliding_panel.dart';
+import 'package:artefak/widgets/select_card_payment.dart';
 import 'package:artefak/widgets/total_collection_review.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,27 @@ class _CollectionReviewState extends State<CollectionReview> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool updatedIsPanelOpen = false;
+
+  List<ListSelectedPayment<PaymentChoice>> listAllMethod = [];
+  List<String> listVA = [];
+
+  @override
+  void initState() {
+    super.initState();
+    populateData();
+  }
+
+  void populateData() {
+    for (int i = 0; i < choices.length; i++)
+      listAllMethod.add(ListSelectedPayment<PaymentChoice>(choices[i]));
+    listAllMethod.add(ListSelectedPayment<PaymentChoice>(
+        PaymentChoice(title: "QRIS", bankPathAsset: "")));
+
+    listVA.add("assets/CIMB.png");
+    listVA.add("assets/DANA.png");
+    listVA.add("assets/GOPAY.png");
+    listVA.add("assets/OVO.png");
+  }
 
   void onPressedPaymentMethod() {
     setState(() {
@@ -36,6 +58,8 @@ class _CollectionReviewState extends State<CollectionReview> {
                 (BuildContext context, ScrollController scrollController) =>
                     PaymentSlidingPanel(
               scrollController: scrollController,
+              listAllMethod: listAllMethod,
+              listVA: listVA,
             ),
           );
         });
@@ -53,22 +77,38 @@ class _CollectionReviewState extends State<CollectionReview> {
       backgroundColor: Colors.transparent,
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text('Review Koleksi',
-            style:
-                _textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400)),
+        title: Text(
+          'Review Koleksi',
+          style: _textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
+        ),
         backgroundColor: _themeData.primaryColor,
       ),
       body: SingleChildScrollView(
-        child: Column(
+        child: Stack(
           children: <Widget>[
-            DescCollectionReview(
-                size: size, textTheme: _textTheme, themeData: _themeData),
-            TotalCollectionReview(
-              size: size,
-              textTheme: _textTheme,
-              data: _data,
-              themeData: _themeData,
-              onPressedPaymentMethod: _showDialog,
+            Positioned(
+              left: 0,
+              right: -120,
+              top: -100,
+              child: Image.asset(
+                'assets/bggrad.png',
+                fit: BoxFit.fitHeight,
+                height: 350,
+              ),
+            ),
+            Column(
+              children: [
+                DescCollectionReview(
+                    size: size, textTheme: _textTheme, themeData: _themeData),
+                TotalCollectionReview(
+                  size: size,
+                  textTheme: _textTheme,
+                  data: _data,
+                  themeData: _themeData,
+                  listAllMethod: listAllMethod,
+                  onPressedPaymentMethod: _showDialog,
+                ),
+              ],
             ),
           ],
         ),
@@ -85,4 +125,11 @@ class _CollectionReviewState extends State<CollectionReview> {
             ),
     );
   }
+}
+
+class ListSelectedPayment<T> {
+  bool isSelected = false;
+  T data;
+
+  ListSelectedPayment(this.data);
 }

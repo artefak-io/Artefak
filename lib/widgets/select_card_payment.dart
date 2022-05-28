@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SelectCardPayment extends StatefulWidget {
+class SelectCardPayment extends StatelessWidget {
   const SelectCardPayment(
       {Key? key,
       required this.paymentChoice,
@@ -12,46 +12,42 @@ class SelectCardPayment extends StatefulWidget {
   final bool isSelected;
 
   @override
-  State<SelectCardPayment> createState() => _SelectCardPaymentState();
-}
-
-class _SelectCardPaymentState extends State<SelectCardPayment> {
-  bool onSelectValue = false;
-
-  @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          onSelectValue = !onSelectValue;
-          widget.onSelectValue(onSelectValue);
-        });
-      },
-      child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            side: BorderSide(
-              color: widget.isSelected
+      onTap: () => onSelectValue(true),
+      child: Container(
+        width: 98.0,
+        height: 86.0,
+        child: Container(
+          decoration: BoxDecoration(
+            color:
+                isSelected ? _themeData.shadowColor : _themeData.highlightColor,
+            border: Border.all(
+              color: isSelected
                   ? _themeData.textSelectionColor
                   : _themeData.focusColor,
-              width: widget.isSelected ? 2 : 1,
+              width: isSelected ? 2 : 1,
             ),
+            borderRadius: BorderRadius.circular(8.0),
           ),
-          color: widget.isSelected
-              ? _themeData.shadowColor
-              : _themeData.highlightColor,
-          child: Center(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                      child: Image.asset(widget.paymentChoice.bankPathAsset,
-                          width: 70.0)),
-                  Text(widget.paymentChoice.title, style: _textTheme.bodySmall),
-                ]),
-          )),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset(
+                paymentChoice.bankPathAsset,
+                width: 70.0,
+                height: 50,
+              ),
+              Text(paymentChoice.title, style: _textTheme.bodySmall),
+              SizedBox(height: 8.0,),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -65,9 +61,11 @@ class PaymentChoice {
 
 const List<PaymentChoice> choices = const <PaymentChoice>[
   const PaymentChoice(title: 'VA BCA', bankPathAsset: "assets/bank_bca.png"),
-  const PaymentChoice(title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
+  const PaymentChoice(
+      title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
   const PaymentChoice(title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
   const PaymentChoice(title: 'VA BCA', bankPathAsset: "assets/bank_bca.png"),
-  const PaymentChoice(title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
+  const PaymentChoice(
+      title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
   const PaymentChoice(title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
 ];

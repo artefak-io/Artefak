@@ -1,51 +1,37 @@
+import 'package:artefak/screens/main/collection_review.dart';
 import 'package:artefak/widgets/select_card_payment.dart';
 import 'package:flutter/material.dart';
 
 class PaymentSlidingPanel extends StatefulWidget {
-  const PaymentSlidingPanel({Key? key, required this.scrollController})
+  const PaymentSlidingPanel(
+      {Key? key,
+      required this.scrollController,
+      required this.listVA, required this.listAllMethod,})
       : super(key: key);
 
   final ScrollController scrollController;
+  final List<ListSelectedPayment<PaymentChoice>> listAllMethod;
+  final List<String> listVA;
 
   @override
   State<PaymentSlidingPanel> createState() => _PaymentSlidingPanelState();
 }
 
 class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
-  List<ListSelectedPayment<PaymentChoice>> list = [];
-  List<String> listQris = [];
-  String? qris;
-
-  @override
-  void initState() {
-    super.initState();
-    populateData();
-  }
-
-  void populateData() {
-    for (int i = 0; i < choices.length; i++)
-      list.add(ListSelectedPayment<PaymentChoice>(choices[i]));
-    list.add(ListSelectedPayment<PaymentChoice>(
-        PaymentChoice(title: "QRIS", bankPathAsset: "")));
-
-    listQris.add("assets/CIMB.png");
-    listQris.add("assets/DANA.png");
-    listQris.add("assets/GOPAY.png");
-    listQris.add("assets/OVO.png");
-  }
+  String? _qris;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
-    Size size = MediaQuery.of(context).size;
-
+    List<ListSelectedPayment<PaymentChoice>> _listAllMethod = List.from(widget.listAllMethod);
     return Column(
       children: [
         Container(
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
-            color: Color(0xFF383838),
+            color: _themeData.canvasColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(16),
               topRight: Radius.circular(16),
@@ -58,7 +44,8 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 8.0),
+                  margin: EdgeInsets.symmetric(
+                      vertical: 8.0),
                   height: 8.0,
                   width: 55.0,
                   decoration: BoxDecoration(
@@ -69,11 +56,13 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
               Container(
                 height: size.height * 0.8 - 24.0,
                 child: ListView(
-                  padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 16.0),
                   children: [
                     Container(
                       alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.symmetric(vertical: 8.0),
+                      margin: EdgeInsets.symmetric(
+                          vertical: 8.0),
                       child: Text('Virtual Account',
                           style: _textTheme.displaySmall
                               ?.copyWith(fontWeight: FontWeight.w700),
@@ -81,7 +70,8 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                     ),
                     Container(
                       alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(bottom: 16.0),
+                      margin: EdgeInsets.only(
+                          bottom: 16.0),
                       child: Text(
                           'Akan diproses secara otomatis tanpa perlu konfirmasi. Silahkan pilih salah satu.',
                           style: _textTheme.bodyMedium?.copyWith(
@@ -91,7 +81,8 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                     ),
                     Container(
                       alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(bottom: 8.0),
+                      margin: EdgeInsets.only(
+                          bottom: 8.0),
                       child: Text('Silakan Pilih',
                           style: _textTheme.titleSmall
                               ?.copyWith(fontWeight: FontWeight.w400),
@@ -103,23 +94,23 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         crossAxisCount: 3,
-                        crossAxisSpacing: 4.0,
-                        mainAxisSpacing: 8.0,
+                        crossAxisSpacing: 16.0,
+                        mainAxisSpacing: 16.0,
                         children: List.generate(choices.length, (index) {
-                          return Center(
+                          return Container(
                             child: SelectCardPayment(
                               paymentChoice: choices[index],
-                              isSelected: list[index].isSelected,
+                              isSelected:
+                                  _listAllMethod[index].isSelected,
                               onSelectValue: (bool value) {
-                                if (list.any((item) => item.isSelected)) {
-                                  qris = null;
-                                  for (var i = 0; i < list.length; i++) {
-                                    list[i].isSelected = false;
-                                  }
-                                }
                                 setState(() {
-                                  list[index].isSelected =
-                                      !list[index].isSelected;
+                                  _qris = null;
+                                  for (var i = 0;
+                                      i < _listAllMethod.length;
+                                      i++)
+                                    _listAllMethod[i].isSelected = false;
+                                  _listAllMethod[index].isSelected =
+                                      !_listAllMethod[index].isSelected;
                                 });
                               },
                             ),
@@ -129,7 +120,9 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                     ),
                     Container(
                       alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(bottom: 8.0, top: 32.0),
+                      margin: EdgeInsets.only(
+                          bottom: 8.0,
+                          top: 32.0),
                       child: Text('QRIS',
                           style: _textTheme.displaySmall
                               ?.copyWith(fontWeight: FontWeight.w700),
@@ -137,7 +130,6 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                     ),
                     Container(
                       alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(bottom: 8.0),
                       child: Text('Bayar praktis dengan scan QRIS',
                           style: _textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.w400,
@@ -154,18 +146,18 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                             textAlign: TextAlign.start),
                         Spacer(),
                         Radio(
-                          value: list.length.toString(),
-                          groupValue: qris,
+                          value: _listAllMethod.length.toString(),
+                          groupValue: _qris,
                           onChanged: (value) {
-                            if (list.any((item) => item.isSelected)) {
-                              for (var i = 0; i < list.length; i++) {
-                                list[i].isSelected = false;
-                              }
-                            }
                             setState(() {
-                              qris = value.toString();
-                              list[int.parse(value.toString()) - 1].isSelected =
-                                  !list[int.parse(value.toString()) - 1]
+                              _qris = value.toString();
+                              for (var i = 0;
+                                  i < _listAllMethod.length;
+                                  i++)
+                                _listAllMethod[i].isSelected = false;
+                              _listAllMethod[int.parse(_qris!) - 1]
+                                      .isSelected =
+                                  !_listAllMethod[int.parse(_qris!) - 1]
                                       .isSelected;
                             });
                           },
@@ -173,10 +165,11 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                       ],
                     ),
                     Wrap(
-                      children: List.generate(listQris.length, (index) {
+                      children: List.generate(widget.listVA.length, (index) {
                         return Container(
-                            margin: EdgeInsets.only(right: 8.4),
-                            child: Image.asset(listQris[index]));
+                            margin: EdgeInsets.only(
+                                right: 8.4),
+                            child: Image.asset(widget.listVA[index]));
                       }),
                     ),
                     SizedBox(
@@ -189,12 +182,14 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                             fontWeight: FontWeight.w400, color: Colors.white),
                       ),
                       style: ElevatedButton.styleFrom(
-                          minimumSize: Size(size.width * 0.8, 48),
+                          minimumSize: Size(size.width * 0.8, 48.0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(100.0),
                           ),
                           alignment: Alignment.center),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
                     SizedBox(
                       height: 24.0,
@@ -208,11 +203,4 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
       ],
     );
   }
-}
-
-class ListSelectedPayment<T> {
-  bool isSelected = false;
-  T data;
-
-  ListSelectedPayment(this.data);
 }

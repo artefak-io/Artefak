@@ -27,7 +27,7 @@ class BottomActionBar extends StatelessWidget {
     return SizedBox(
       height: 80,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
         decoration: BoxDecoration(
           color: _themeData.highlightColor,
         ),
@@ -60,7 +60,7 @@ class BottomActionBar extends StatelessWidget {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                  minimumSize: Size(size.width * 0.4, 48),
+                  minimumSize: Size(size.width * 0.4, 48.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100.0),
                   ),
