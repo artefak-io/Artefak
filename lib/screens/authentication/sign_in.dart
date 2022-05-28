@@ -35,7 +35,7 @@ class _SignInState extends State<SignIn> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       double minScrollExtent1 = _scrollController.position.minScrollExtent;
       double maxScrollExtent1 = _scrollController.position.maxScrollExtent;
       //
@@ -257,16 +257,20 @@ class _SignInState extends State<SignIn> {
                               },
                             ),
                             ElevatedButton(
-                              child: Text('Sign In', style: _textTheme.button?.copyWith(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFFFFFFFF))),
+                              child: Text('Sign In',
+                                  style: _textTheme.button?.copyWith(
+                                      fontFamily: 'Inter',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xFFFFFFFF))),
                               style: ElevatedButton.styleFrom(
                                 minimumSize: Size(size.width * 0.9, 54),
                               ),
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  User? result = await AuthService().signInEmailPass(
-                                      "razor1@gmail.com",
-                                      "123qwe"
-                                  );
+                                  User? result = await AuthService()
+                                      .signInEmailPass(
+                                          "razor1@gmail.com", "123qwe");
                                   if (result == null) {
                                     print('error signing in');
                                   } else {
