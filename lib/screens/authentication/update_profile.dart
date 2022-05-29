@@ -5,6 +5,7 @@ import 'package:artefak/screens/main/profile.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/services/image_picker_service.dart';
 import 'package:artefak/services/profile_picture_service.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
