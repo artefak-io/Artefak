@@ -142,7 +142,13 @@ class ProductDetail extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: BottomActionBar(
-            themeData: _themeData, textTheme: _textTheme, size: size),
+          themeData: _themeData,
+          textTheme: _textTheme,
+          size: size,
+          subTitleAbove: "Jumlah Token: 3",
+          priceDisplay: 750000,
+          textButton: "Beli Sekarang",
+        ),
       ),
     );
   }

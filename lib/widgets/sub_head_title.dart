@@ -16,7 +16,7 @@ class SubHeadTitle extends StatelessWidget {
     ThemeData _themeData = Theme.of(context);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: EdgeInsets.symmetric(vertical: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

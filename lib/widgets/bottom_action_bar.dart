@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class BottomActionBar extends StatelessWidget {
   const BottomActionBar({
@@ -6,6 +7,10 @@ class BottomActionBar extends StatelessWidget {
     required ThemeData themeData,
     required TextTheme textTheme,
     required this.size,
+    required this.subTitleAbove,
+    required this.textButton,
+    required this.priceDisplay,
+    this.onClickButton,
   })  : _themeData = themeData,
         _textTheme = textTheme,
         super(key: key);
@@ -13,13 +18,16 @@ class BottomActionBar extends StatelessWidget {
   final ThemeData _themeData;
   final TextTheme _textTheme;
   final Size size;
+  final String subTitleAbove, textButton;
+  final double priceDisplay;
+  final Function? onClickButton;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 80,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
         decoration: BoxDecoration(
           color: _themeData.highlightColor,
         ),
@@ -31,13 +39,13 @@ class BottomActionBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Jumlah Token: 3",
+                  subTitleAbove,
                   style: _textTheme.bodySmall?.copyWith(
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 Text(
-                  "Rp 750.000",
+                  'Rp${NumberFormat.decimalPattern('id').format(priceDisplay)}',
                   style: _textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w400,
                   ),
@@ -46,24 +54,22 @@ class BottomActionBar extends StatelessWidget {
             ),
             ElevatedButton(
               child: Text(
-                'Beli Sekarang',
+                textButton,
                 style: _textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w400,
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                  minimumSize: Size(size.width * 0.4, 48),
+                  minimumSize: Size(size.width * 0.4, 48.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100.0),
                   ),
                   alignment: Alignment.center),
               onPressed: () => Navigator.pushNamed(
-                context,
-                '/asset/product_detail/collection_review',
+                  context, '/asset/product_detail/collection_review',
                   arguments: <String, dynamic>{
                     'codeSale': 0,
-                  }
-              ),
+                  }),
             ),
           ],
         ),

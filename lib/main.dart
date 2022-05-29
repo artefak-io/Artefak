@@ -79,6 +79,7 @@ class _MyAppState extends State<MyApp> {
               '/bill': (context) => Transaction(),
               '/update_profile': (context) => const UpdateProfile(),
               '/asset/product_detail': (context) => ProductDetail(),
+              '/asset/product_detail/collection_review': (context) => CollectionReview(),
               '/auth': (context) => const Authenticate(),
               '/payment': (context) => const Payment(),
               '/mint': (context) => const Mint(),

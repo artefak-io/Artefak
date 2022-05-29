@@ -23,7 +23,7 @@ class Home extends StatelessWidget {
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: true,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(64),
+          preferredSize: Size.fromHeight(64.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -45,7 +45,7 @@ class Home extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
                   alignment: Alignment.topCenter,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,7 +59,7 @@ class Home extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.only(left: 16),
+                  padding: EdgeInsets.only(left: 16),
                   alignment: Alignment.topCenter,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,

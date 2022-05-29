@@ -13,6 +13,7 @@ ThemeData lightTheme = ThemeData(
   focusColor: const Color(0xFF9CA3AF),
   shadowColor: const Color(0xFF252525),
   hintColor: const Color(0xFF7CA1F3),
+  canvasColor: const Color(0xFF383838),
 
   // App Bar
   appBarTheme: const AppBarTheme(
