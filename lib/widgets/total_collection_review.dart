@@ -12,17 +12,17 @@ class TotalCollectionReview extends StatelessWidget {
     required Map<String, dynamic> data,
     required ThemeData themeData,
     required this.onPressedPaymentMethod,
-    required this.listAllMethod,
+    required this.indexBank,
   })  : _textTheme = textTheme,
         _data = data,
         _themeData = themeData,
         super(key: key);
 
   final Size size;
+  final int indexBank;
   final TextTheme _textTheme;
   final Map<String, dynamic> _data;
   final ThemeData _themeData;
-  final List<ListSelectedPayment<PaymentChoice>> listAllMethod;
   final Function onPressedPaymentMethod;
 
   @override
@@ -78,7 +78,7 @@ class TotalCollectionReview extends StatelessWidget {
         ),
         Divider(
           height: 0,
-          color: Color(0xFF4B5563),
+          color: _themeData.cursorColor,
         ),
         Padding(
           padding: EdgeInsets.symmetric(
@@ -101,7 +101,7 @@ class TotalCollectionReview extends StatelessWidget {
         ),
         Divider(
           height: 0,
-          color: Color(0xFF4B5563),
+          color: _themeData.cursorColor,
         ),
         SizedBox(
           height: 32.0,
@@ -109,7 +109,9 @@ class TotalCollectionReview extends StatelessWidget {
         ChosenPaymentMethod(
             textTheme: _textTheme,
             themeData: _themeData,
-            onPressedPaymentMethod: onPressedPaymentMethod),
+            onPressedPaymentMethod: onPressedPaymentMethod,
+            indexBank: indexBank,
+        ),
       ],
     );
   }

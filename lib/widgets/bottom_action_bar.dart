@@ -10,7 +10,7 @@ class BottomActionBar extends StatelessWidget {
     required this.subTitleAbove,
     required this.textButton,
     required this.priceDisplay,
-    this.onClickButton,
+    required this.onClickButton,
   })  : _themeData = themeData,
         _textTheme = textTheme,
         super(key: key);
@@ -20,7 +20,7 @@ class BottomActionBar extends StatelessWidget {
   final Size size;
   final String subTitleAbove, textButton;
   final double priceDisplay;
-  final Function? onClickButton;
+  final Function onClickButton;
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +65,7 @@ class BottomActionBar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100.0),
                   ),
                   alignment: Alignment.center),
-              onPressed: () => Navigator.pushNamed(
-                  context, '/asset/product_detail/collection_review',
-                  arguments: <String, dynamic>{
-                    'codeSale': 0,
-                  }),
+              onPressed: () => onClickButton(),
             ),
           ],
         ),
