@@ -30,24 +30,6 @@ class _CollectionReviewState extends State<CollectionReview> {
   int indexBank = -1;
   List<String> listVA = [];
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   populateData();
-  // }
-  //
-  // void populateData() {
-  //   for (int i = 0; i < choices.length; i++)
-  //     listAllMethod.add(choices[i]);
-  //
-  //   listAllMethod.add(PaymentChoice(choices.length, title: "QRIS", bankPathAsset: ""));
-  //
-  //   listVA.add("assets/CIMB.png");
-  //   listVA.add("assets/DANA.png");
-  //   listVA.add("assets/GOPAY.png");
-  //   listVA.add("assets/OVO.png");
-  // }
-
   void onPressedPaymentMethod() {
     setState(() {
       updatedIsPanelOpen = true;
@@ -76,22 +58,29 @@ class _CollectionReviewState extends State<CollectionReview> {
             maxChildSize: 0.8,
             builder:
                 (BuildContext context, ScrollController scrollController) =>
-                    PaymentSlidingPanel(
-              scrollController: scrollController,
-              updateBankAssetState: updateBankAssetState,
-              listVA: listVA,
-            ),
+                PaymentSlidingPanel(
+                  scrollController: scrollController,
+                  updateBankAssetState: updateBankAssetState,
+                  listVA: listVA,
+                ),
           );
         });
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    TextTheme _textTheme = Theme.of(context).textTheme;
+    Size size = MediaQuery
+        .of(context)
+        .size;
+    TextTheme _textTheme = Theme
+        .of(context)
+        .textTheme;
     ThemeData _themeData = Theme.of(context);
     final Map<String, dynamic> _data =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    ModalRoute
+        .of(context)!
+        .settings
+        .arguments as Map<String, dynamic>;
 
     return AppLayout(
       appBar: AppBar(
@@ -134,18 +123,19 @@ class _CollectionReviewState extends State<CollectionReview> {
       bottomNavBar: updatedIsPanelOpen
           ? null
           : BottomActionBar(
-              themeData: _themeData,
-              textTheme: _textTheme,
-              size: size,
-              subTitleAbove: "Total Pembayaran",
-              priceDisplay: 750000,
-              textButton: "Proses Sekarang",
-              onClickButton: () => Navigator.pushNamed(
-                  context, '/asset/product_detail/payment_process',
-                  arguments: <String, dynamic>{
-                    'codeSale': 0,
-                  }),
-            ),
+        themeData: _themeData,
+        textTheme: _textTheme,
+        size: size,
+        subTitleAbove: "Total Pembayaran",
+        priceDisplay: 750000,
+        textButton: "Proses Sekarang",
+        onClickButton: () =>
+            Navigator.pushNamed(
+                context, '/asset/product_detail/payment_process',
+                arguments: <String, dynamic>{
+                  'codeSale': 0,
+                }),
+      ),
     );
   }
 }

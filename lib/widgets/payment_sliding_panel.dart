@@ -24,26 +24,15 @@ class PaymentSlidingPanel extends StatefulWidget {
 class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
   String? _qris;
   Queue queuePaymentMethodSelect = Queue<PaymentChoice>();
-  // List<PaymentChoice> _listAllMethodSelect = [];
-  //
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   populateData();
-  // }
-  //
-  // void populateData() {
-  //   for (int i = 0; i < choices.length; i++) {
-  //     _listAllMethodSelect.add(PaymentChoice(i, title: choices[i].title, bankPathAsset: choices[i].bankPathAsset));
-  //   } // This is for copy the value of listAllMethod argument, List.from() didn't work
-  //
-  //   _listAllMethodSelect.add(PaymentChoice(choices.length, title: "QRIS", bankPathAsset: ""));
-  // }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    TextTheme _textTheme = Theme.of(context).textTheme;
+    Size size = MediaQuery
+        .of(context)
+        .size;
+    TextTheme _textTheme = Theme
+        .of(context)
+        .textTheme;
     ThemeData _themeData = Theme.of(context);
 
     return Column(
@@ -112,17 +101,21 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                         crossAxisSpacing: 16.0,
                         mainAxisSpacing: 16.0,
                         children:
-                            List.generate(listAllMethod.length - 1, (index) {
+                        List.generate(listAllMethod.length - 1, (index) {
                           return Container(
                             child: SelectCardPayment(
                               paymentChoice: listAllMethod[index],
-                              isSelected: queuePaymentMethodSelect.isEmpty ? false : queuePaymentMethodSelect.first.index == index,
+                              isSelected: queuePaymentMethodSelect.isEmpty
+                                  ? false
+                                  : queuePaymentMethodSelect.first.index ==
+                                  index,
                               onSelectValue: (bool value) {
                                 setState(() {
                                   _qris = null;
-                                  if(queuePaymentMethodSelect.isNotEmpty)
+                                  if (queuePaymentMethodSelect.isNotEmpty)
                                     queuePaymentMethodSelect.removeFirst();
-                                  queuePaymentMethodSelect.addLast(listAllMethod[index]);
+                                  queuePaymentMethodSelect.addLast(
+                                      listAllMethod[index]);
                                 });
                               },
                             ),
@@ -161,9 +154,10 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                           onChanged: (value) {
                             setState(() {
                               _qris = value.toString();
-                              if(queuePaymentMethodSelect.isNotEmpty)
+                              if (queuePaymentMethodSelect.isNotEmpty)
                                 queuePaymentMethodSelect.removeFirst();
-                              queuePaymentMethodSelect.addLast(listAllMethod[listAllMethod.length-1]);
+                              queuePaymentMethodSelect.addLast(
+                                  listAllMethod[listAllMethod.length - 1]);
                             });
                           },
                         ),
@@ -192,9 +186,10 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                           ),
                           alignment: Alignment.center),
                       onPressed: () {
-                        for(int i = 0; i < listAllMethod.length; i++)
+                        for (int i = 0; i < listAllMethod.length; i++)
                           listAllMethod[i].isSelected = false;
-                        listAllMethod[queuePaymentMethodSelect.first.index].isSelected = true;
+                        listAllMethod[queuePaymentMethodSelect.first.index]
+                            .isSelected = true;
                         widget.updateBankAssetState!();
                         Navigator.pop(context);
                       },
