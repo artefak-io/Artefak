@@ -1,3 +1,4 @@
+import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/widgets/bottom_action_bar.dart';
 import 'package:artefak/widgets/desc_collection_review.dart';
 import 'package:artefak/widgets/payment_sliding_panel.dart';
@@ -12,36 +13,37 @@ class CollectionReview extends StatefulWidget {
   State<CollectionReview> createState() => _CollectionReviewState();
 }
 
+List<PaymentChoice> listAllMethod = [
+  PaymentChoice(0, title: 'VA BCA', bankPathAsset: "assets/bank_bca.png"),
+  PaymentChoice(1,
+      title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
+  PaymentChoice(2, title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
+  PaymentChoice(3, title: 'VA BCA', bankPathAsset: "assets/bank_bca.png"),
+  PaymentChoice(4,
+      title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
+  PaymentChoice(5, title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
+  PaymentChoice(6, title: "QRIS", bankPathAsset: "")
+];
+
 class _CollectionReviewState extends State<CollectionReview> {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   bool updatedIsPanelOpen = false;
-
-  List<ListSelectedPayment<PaymentChoice>> listAllMethod = [];
+  int indexBank = -1;
   List<String> listVA = [];
-
-  @override
-  void initState() {
-    super.initState();
-    populateData();
-  }
-
-  void populateData() {
-    for (int i = 0; i < choices.length; i++)
-      listAllMethod.add(ListSelectedPayment<PaymentChoice>(choices[i]));
-    listAllMethod.add(ListSelectedPayment<PaymentChoice>(
-        PaymentChoice(title: "QRIS", bankPathAsset: "")));
-
-    listVA.add("assets/CIMB.png");
-    listVA.add("assets/DANA.png");
-    listVA.add("assets/GOPAY.png");
-    listVA.add("assets/OVO.png");
-  }
 
   void onPressedPaymentMethod() {
     setState(() {
       updatedIsPanelOpen = true;
     });
+  }
+
+  void updateBankAssetState() {
+    for (int i = 0; i < listAllMethod.length; i++) {
+      if (listAllMethod[i].isSelected) {
+        setState(() {
+          indexBank = i;
+        });
+      }
+    }
   }
 
   void _showDialog(BuildContext context) {
@@ -56,26 +58,31 @@ class _CollectionReviewState extends State<CollectionReview> {
             maxChildSize: 0.8,
             builder:
                 (BuildContext context, ScrollController scrollController) =>
-                    PaymentSlidingPanel(
-              scrollController: scrollController,
-              listAllMethod: listAllMethod,
-              listVA: listVA,
-            ),
+                PaymentSlidingPanel(
+                  scrollController: scrollController,
+                  updateBankAssetState: updateBankAssetState,
+                  listVA: listVA,
+                ),
           );
         });
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    TextTheme _textTheme = Theme.of(context).textTheme;
+    Size size = MediaQuery
+        .of(context)
+        .size;
+    TextTheme _textTheme = Theme
+        .of(context)
+        .textTheme;
     ThemeData _themeData = Theme.of(context);
     final Map<String, dynamic> _data =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    ModalRoute
+        .of(context)!
+        .settings
+        .arguments as Map<String, dynamic>;
 
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      key: scaffoldKey,
+    return AppLayout(
       appBar: AppBar(
         title: Text(
           'Review Koleksi',
@@ -83,13 +90,13 @@ class _CollectionReviewState extends State<CollectionReview> {
         ),
         backgroundColor: _themeData.primaryColor,
       ),
-      body: SingleChildScrollView(
+      child: SingleChildScrollView(
         child: Stack(
           children: <Widget>[
             Positioned(
               left: 0,
               right: -120,
-              top: -100,
+              top: -165,
               child: Image.asset(
                 'assets/bggrad.png',
                 fit: BoxFit.fitHeight,
@@ -99,37 +106,36 @@ class _CollectionReviewState extends State<CollectionReview> {
             Column(
               children: [
                 DescCollectionReview(
-                    size: size, textTheme: _textTheme, themeData: _themeData),
+                    textTheme: _textTheme, themeData: _themeData),
                 TotalCollectionReview(
                   size: size,
                   textTheme: _textTheme,
                   data: _data,
                   themeData: _themeData,
-                  listAllMethod: listAllMethod,
                   onPressedPaymentMethod: _showDialog,
+                  indexBank: indexBank,
                 ),
               ],
             ),
           ],
         ),
       ),
-      bottomNavigationBar: updatedIsPanelOpen
+      bottomNavBar: updatedIsPanelOpen
           ? null
           : BottomActionBar(
-              themeData: _themeData,
-              textTheme: _textTheme,
-              size: size,
-              subTitleAbove: "Total Pembayaran",
-              priceDisplay: 750000,
-              textButton: "Proses Sekarang",
-            ),
+        themeData: _themeData,
+        textTheme: _textTheme,
+        size: size,
+        subTitleAbove: "Total Pembayaran",
+        priceDisplay: 750000,
+        textButton: "Proses Sekarang",
+        onClickButton: () =>
+            Navigator.pushNamed(
+                context, '/asset/product_detail/payment_process',
+                arguments: <String, dynamic>{
+                  'codeSale': 0,
+                }),
+      ),
     );
   }
-}
-
-class ListSelectedPayment<T> {
-  bool isSelected = false;
-  T data;
-
-  ListSelectedPayment(this.data);
 }
