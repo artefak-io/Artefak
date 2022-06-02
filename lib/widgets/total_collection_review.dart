@@ -1,7 +1,5 @@
-import 'package:artefak/screens/main/collection_review.dart';
 import 'package:artefak/widgets/chosen_payment_method.dart';
 import 'package:artefak/widgets/sale_price_widget.dart';
-import 'package:artefak/widgets/select_card_payment.dart';
 import 'package:flutter/material.dart';
 
 class TotalCollectionReview extends StatelessWidget {

@@ -1,5 +1,4 @@
 import 'package:artefak/screens/main/collection_review.dart';
-import 'package:artefak/widgets/select_card_payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
