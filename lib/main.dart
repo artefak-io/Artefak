@@ -1,10 +1,10 @@
 import 'package:artefak/logic/auth/auth.dart';
-import 'package:artefak/logic/auth/route/profile_wrapper.dart';
 import 'package:artefak/logic/bloc_observer.dart';
+import 'package:artefak/screens/main/collection_review.dart';
 import 'package:artefak/themes/artefak_theme.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/screens/authentication/update_profile.dart';
-import 'package:artefak/screens/main/asset.dart';
+import 'package:artefak/screens/main/product_detail.dart';
 import 'package:artefak/screens/main/mint.dart';
 import 'package:artefak/screens/main/payment.dart';
 import 'package:artefak/screens/main/transaction.dart';
@@ -101,9 +101,11 @@ class _MyAppState extends State<MyApp> {
                     '/': (context) => Home(),
                     '/home': (context) => Home(),
                     '/profile': (context) => const ProfileWrapper(),
-                    '/bill': (context) => Transaction(),
+                    '/bill': (context) => TransactionWrapper(),
                     '/updateProfile': (context) => const UpdateProfile(),
-                    '/asset': (context) => const Asset(),
+                    '/asset/product_detail': (context) => ProductDetail(),
+                    '/asset/product_detail/collection_review': (context) =>
+                        CollectionReview(),
                     '/auth': (context) => const Authenticate(),
                     '/payment': (context) => const Payment(),
                     '/mint': (context) => const Mint(),

@@ -10,6 +10,10 @@ ThemeData lightTheme = ThemeData(
   selectedRowColor: const Color(0xFF2563EB),
   textSelectionColor: const Color(0xFFF3F4F6),
   unselectedWidgetColor: const Color(0xFF8A8B8C),
+  focusColor: const Color(0xFF9CA3AF),
+  shadowColor: const Color(0xFF252525),
+  hintColor: const Color(0xFF7CA1F3),
+  canvasColor: const Color(0xFF383838),
 
   // App Bar
   appBarTheme: const AppBarTheme(

@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/services/mint_service.dart';
+import 'package:artefak/services/image_picker_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:artefak/services/image_picker_service.dart';
 
 class Mint extends StatefulWidget {
   const Mint({Key? key}) : super(key: key);

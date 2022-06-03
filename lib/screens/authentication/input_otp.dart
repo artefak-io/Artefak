@@ -1,5 +1,7 @@
+import 'package:artefak/logic/auth/auth.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InputOTP extends StatefulWidget {
   const InputOTP({Key? key, required this.phoneNumber}) : super(key: key);
@@ -37,78 +39,78 @@ class _InputOTPState extends State<InputOTP> {
         title: const Text("Input SMS Code"),
       ),
       body: SingleChildScrollView(
-          child: Column(
-        children: <Widget>[
-          Row(
-            children: [
-              Text(widget.phoneNumber),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text("Wrong Number"),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Form(
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  controller: _codeController,
-                  decoration: const InputDecoration(
-                    hintText: "Input OTP Code",
-                  ),
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return '*please input phone number';
-                    } else if (int.tryParse(value) == null) {
-                      return '*please input valid phone number';
-                    } else {
-                      return null;
-                    }
+          child: BlocListener<AuthBloc, AuthState>(
+        listenWhen: (previous, current) =>
+            previous != current &&
+            current.authenticationStatus == AuthenticationStatus.authenticated,
+        listener: (context, state) {
+          Navigator.pop(context);
+        },
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: [
+                Text(widget.phoneNumber),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
                   },
-                ),
-                Row(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          await AuthService().loginWithPhone(
-                              verificationId: verificationId,
-                              smsCode: _codeController.text);
-                          if (AuthService.user != null) {
-                            Navigator.pop(context);
-                          }
-                        }
-                      },
-                      child: const Text("Confirm"),
-                    ),
-                    // needs countdown counter for 30 seconds
-                    ElevatedButton(
-                      onPressed: () {
-                        AuthService().requestOTP(
-                          phoneNumber: widget.phoneNumber,
-                          setTokenId: setTokenId,
-                          resendToken: resendToken,
-                        );
-                        if (AuthService.user != null) {
-                          Navigator.pop(context);
-                        } else {
-                          print("error in Resend Code button");
-                        }
-                      },
-                      child: const Text("Resend Code"),
-                    ),
-                  ],
+                  child: const Text("Wrong Number"),
                 ),
               ],
             ),
-          ),
-        ],
+            const SizedBox(
+              height: 10,
+            ),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    controller: _codeController,
+                    decoration: const InputDecoration(
+                      hintText: "Input OTP Code",
+                    ),
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return '*please input phone number';
+                      } else if (int.tryParse(value) == null) {
+                        return '*please input valid phone number';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            await AuthService().loginWithPhone(
+                                verificationId: verificationId,
+                                smsCode: _codeController.text);
+                          }
+                        },
+                        child: const Text("Confirm"),
+                      ),
+                      // needs countdown counter for 30 seconds
+                      ElevatedButton(
+                        onPressed: () {
+                          AuthService().requestOTP(
+                            phoneNumber: widget.phoneNumber,
+                            setTokenId: setTokenId,
+                            resendToken: resendToken,
+                          );
+                        },
+                        child: const Text("Resend Code"),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       )),
     );
   }

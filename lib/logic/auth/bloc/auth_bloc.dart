@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:artefak/logic/auth/repository/auth_repo.dart';
+import '../repositories/repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
