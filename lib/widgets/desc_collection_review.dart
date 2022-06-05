@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 class DescCollectionReview extends StatelessWidget {
   const DescCollectionReview({
     Key? key,
-    required this.size,
     required TextTheme textTheme,
     required ThemeData themeData,
   })  : _textTheme = textTheme,
         _themeData = themeData,
         super(key: key);
 
-  final Size size;
   final TextTheme _textTheme;
   final ThemeData _themeData;
 
@@ -19,10 +17,7 @@ class DescCollectionReview extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: size.width,
-          padding: EdgeInsets.only(
-              left: 16.0,
-              right: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             children: [
               SizedBox(
@@ -39,7 +34,6 @@ class DescCollectionReview extends StatelessWidget {
                 height: 16,
               ),
               Container(
-                // width: size.width - 32,
                 decoration: BoxDecoration(
                   color: _themeData.shadowColor,
                   borderRadius: BorderRadius.all(Radius.circular(16)),
