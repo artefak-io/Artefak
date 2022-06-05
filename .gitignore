@@ -49,6 +49,9 @@ app.*.map.json
 Podfile.lock
 Gemfile.lock
 
+# iOS Build
+*.ipa
+
 # Probably would be used in the future
 lib/screens/main/home_old.dart
 lib/widgets/bottom_navbar_old.dart
