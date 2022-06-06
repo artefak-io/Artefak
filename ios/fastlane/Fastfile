@@ -21,9 +21,9 @@ platform :ios do
     get_certificates
     get_provisioning_profile
     sync_code_signing
-    disable_automatic_code_signing(path: "my_project.xcodeproj")
+    disable_automatic_code_signing(path: "Runner.xcodeproj")
     build_app
-    enable_automatic_code_signing(path: "my_project.xcodeproj")
+    enable_automatic_code_signing(path: "Runner.xcodeproj")
     upload_to_testflight
   end
 end
