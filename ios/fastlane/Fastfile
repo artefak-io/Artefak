@@ -20,9 +20,13 @@ platform :ios do
   lane :beta do
     get_certificates
     get_provisioning_profile
-    sync_code_signing
+    # sync_code_signing
     disable_automatic_code_signing(path: "Runner.xcodeproj")
-    build_app
+    increment_build_number
+    build_app(
+      skip_build_archive: true,
+      archive_path: "../build/ios/archive/Runner.xcarchive",
+    )
     enable_automatic_code_signing(path: "Runner.xcodeproj")
     upload_to_testflight
   end
