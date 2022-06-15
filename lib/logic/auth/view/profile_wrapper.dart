@@ -1,6 +1,6 @@
 import 'package:artefak/logic/auth/auth.dart';
+import 'package:artefak/logic/pin/pin.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
-import 'package:artefak/screens/main/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,7 +12,7 @@ class ProfileWrapper extends StatelessWidget {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         if (state.authenticationStatus == AuthenticationStatus.authenticated) {
-          return Profile();
+          return const ProfilePinWrapper();
         } else {
           return const Authenticate();
         }

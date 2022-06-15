@@ -1,28 +1,44 @@
 part of 'pin_auth_cubit.dart';
 
-enum PinAuthStatus { initial, success, failure, error }
+enum PinAuthStatus {
+  initial,
+  filled,
+  success,
+  failure,
+  error,
+}
 
-abstract class PinAuthState extends Equatable {
-  final PinAuthStatus _pinAuthStatus;
+class PinAuthState extends Equatable {
+  final PinAuthStatus pinAuthStatus;
+  final PinInput pinInput;
+  final PinInputValidationError pinInputValidationError;
+  final String? errorMessage;
+  final String? pin;
 
-  const PinAuthState(this._pinAuthStatus);
+  const PinAuthState({
+    this.pinAuthStatus = PinAuthStatus.initial,
+    this.pinInput = const PinInput.pure(),
+    this.pinInputValidationError = PinInputValidationError.noError,
+    this.errorMessage,
+    this.pin,
+  });
 
   @override
-  List<Object> get props => [_pinAuthStatus];
-}
+  List<Object> get props => [pinAuthStatus, pinInputValidationError];
 
-class PinAuthInitial extends PinAuthState {
-  const PinAuthInitial() : super(PinAuthStatus.initial);
-}
-
-class PinAuthSuccess extends PinAuthState {
-  const PinAuthSuccess() : super(PinAuthStatus.success);
-}
-
-class PinAuthFailure extends PinAuthState {
-  const PinAuthFailure() : super(PinAuthStatus.failure);
-}
-
-class PinAuthError extends PinAuthState {
-  const PinAuthError() : super(PinAuthStatus.error);
+  PinAuthState copyWith({
+    PinAuthStatus? pinAuthStatus,
+    PinInput? pinInput,
+    PinInputValidationError? pinInputValidationError,
+    String? errorMessage,
+    String? pin,
+  }) {
+    return PinAuthState(
+      pinAuthStatus: pinAuthStatus ?? this.pinAuthStatus,
+      pinInput: pinInput ?? this.pinInput,
+      pinInputValidationError: this.pinInputValidationError,
+      errorMessage: errorMessage ?? this.errorMessage,
+      pin: pin ?? this.pin,
+    );
+  }
 }

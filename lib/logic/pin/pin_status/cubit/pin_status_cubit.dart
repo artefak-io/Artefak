@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../repository/pin_repo.dart';
+import '../../pin.dart';
 
 part 'pin_status_state.dart';
 
@@ -12,13 +12,21 @@ class PinStatusCubit extends Cubit<PinStatusState> {
 
   void pinAuthChecked() async {
     try {
-      if (await _pinService.hasPin) {
-        emit(const PinStatusHasPin());
+      if (await _pinService.hasUserDoc) {
+        if (await _pinService.hasPin) {
+          emit(const PinStatusHasPin());
+        } else {
+          emit(const PinStatusNoPin());
+        }
       } else {
         emit(const PinStatusNoPin());
       }
     } catch (error) {
       emit(const PinStatusError());
     }
+  }
+
+  void pinAuthenticated() {
+    emit(const PinStatusAuthenticated());
   }
 }

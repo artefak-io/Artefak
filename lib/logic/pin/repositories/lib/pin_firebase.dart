@@ -14,6 +14,10 @@ class PinService {
           .doc(_firebaseAuth.currentUser!.uid)
           .get()
           .then((value) => value.data()!.containsKey("pin"));
+    } on firebase_firestore.FirebaseException catch (error) {
+      print("error code: ${error.code}");
+      print("error message: ${error.message}");
+      return false;
     } catch (e) {
       return false;
     }
@@ -27,6 +31,8 @@ class PinService {
               .doc(_firebaseAuth.currentUser!.uid)
               .get();
       return result.data()!["pin"];
+    } on firebase_firestore.FirebaseException catch (error) {
+      throw Exception(error.message);
     } catch (error) {
       throw Exception("get pin error");
     }
@@ -38,8 +44,10 @@ class PinService {
           .collection("User")
           .doc(_firebaseAuth.currentUser!.uid)
           .set({"pin": value});
+    } on firebase_firestore.FirebaseException catch (error) {
+      throw Exception(error.message);
     } catch (error) {
-      throw Exception("create pin error");
+      throw Exception("create pin error. ");
     }
   }
 
@@ -50,6 +58,10 @@ class PinService {
           .doc(_firebaseAuth.currentUser!.uid)
           .get()
           .then((value) => value.exists);
+    } on firebase_firestore.FirebaseException catch (error) {
+      print("error code: ${error.code}");
+      print("error message: ${error.message}");
+      return false;
     } catch (error) {
       return false;
     }
@@ -61,6 +73,8 @@ class PinService {
           .collection("User")
           .doc(_firebaseAuth.currentUser!.uid)
           .update({"pin": value});
+    } on firebase_firestore.FirebaseException catch (error) {
+      throw Exception(error.message);
     } catch (error) {
       throw Exception("update pin error");
     }
