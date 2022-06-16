@@ -53,19 +53,19 @@ class SelectCardPayment extends StatelessWidget {
 }
 
 class PaymentChoice {
-  const PaymentChoice({required this.title, required this.bankPathAsset});
+  PaymentChoice(this.index, {required this.title, required this.bankPathAsset});
 
+  final int index;
   final String title;
   final String bankPathAsset;
+  bool isSelected = false;
 }
 
-const List<PaymentChoice> choices = const <PaymentChoice>[
-  const PaymentChoice(title: 'VA BCA', bankPathAsset: "assets/bank_bca.png"),
-  const PaymentChoice(
-      title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
-  const PaymentChoice(title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
-  const PaymentChoice(title: 'VA BCA', bankPathAsset: "assets/bank_bca.png"),
-  const PaymentChoice(
-      title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
-  const PaymentChoice(title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
+List<PaymentChoice> choices = [
+  PaymentChoice(0, title: 'VA BCA', bankPathAsset: "assets/bank_bca.png"),
+  PaymentChoice(1, title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
+  PaymentChoice(2, title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
+  PaymentChoice(3, title: 'VA BCA', bankPathAsset: "assets/bank_bca.png"),
+  PaymentChoice(4, title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
+  PaymentChoice(5, title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
 ];
