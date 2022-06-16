@@ -54,7 +54,7 @@ class DescCollectionReview extends StatelessWidget {
                         child: Image.asset(
                           "assets/bank_bca.png",
                           fit: BoxFit.contain,
-                        )
+                        ),
                         // Image.network(
                         //   _data['coverImage'],
                         //   fit: BoxFit.cover,

@@ -20,6 +20,7 @@ class Home extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return AppLayout(
       child: Scaffold(
+        extendBody: true,
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: true,
         appBar: PreferredSize(

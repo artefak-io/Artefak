@@ -37,7 +37,7 @@ class _SignInState extends State<SignIn> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       double minScrollExtentTop = _scrollControllerTop.position.minScrollExtent;
       double maxScrollExtentTop = _scrollControllerTop.position.maxScrollExtent;
       double minScrollExtentBottom =
@@ -228,7 +228,7 @@ class _SignInState extends State<SignIn> {
                     const SizedBox(
                       height: 54,
                     ),
-                    Column(
+                    size.width < 440 ? Column(
                       children: [
                         ScrollViewSignIn(
                           scrollController: _scrollControllerTop,
@@ -239,7 +239,7 @@ class _SignInState extends State<SignIn> {
                           images: movies2,
                         ),
                       ],
-                    ),
+                    ) : SizedBox(),
                     Column(
                       children: [
                         const SizedBox(
