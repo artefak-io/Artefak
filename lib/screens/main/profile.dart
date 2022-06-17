@@ -6,9 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
-import '../../widgets/bottom_navbar.dart';
-import '../../widgets/carousel_profile.dart';
+import 'package:artefak/widgets/bottom_navbar.dart';
+import 'package:artefak/widgets/carousel_profile.dart';
 
 class Profile extends StatelessWidget {
   Profile({Key? key}) : super(key: key);
@@ -168,7 +167,7 @@ class Profile extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () => Navigator.pushNamed(
                                       context,
-                                      '/updateProfile',
+                                      '/update_profile',
                                     ),
                                     child: Expanded(
                                       child: Container(
