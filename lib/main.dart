@@ -1,5 +1,6 @@
 import 'package:artefak/logic/auth/auth.dart';
 import 'package:artefak/logic/bloc_observer.dart';
+import 'package:artefak/screens/main/collection.dart';
 import 'package:artefak/screens/main/collection_review.dart';
 import 'package:artefak/screens/main/payment_process.dart';
 import 'package:artefak/themes/artefak_theme.dart';
@@ -102,6 +103,7 @@ class _MyAppState extends State<MyApp> {
                     '/': (context) => Home(),
                     '/home': (context) => Home(),
                     '/profile': (context) => const ProfileWrapper(),
+                    '/collection': (context) => Collection(),
                     '/bill': (context) => TransactionWrapper(),
                     '/updateProfile': (context) => const UpdateProfile(),
                     '/asset/product_detail': (context) => ProductDetail(),
