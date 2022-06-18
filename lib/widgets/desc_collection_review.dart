@@ -26,8 +26,9 @@ class DescCollectionReview extends StatelessWidget {
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text('Proyek',
-                    style: _textTheme.displaySmall
-                        ?.copyWith(fontWeight: FontWeight.w700,),
+                    style: _textTheme.displaySmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                     textAlign: TextAlign.start),
               ),
               SizedBox(
@@ -43,27 +44,21 @@ class DescCollectionReview extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
-                        width: 80,
-                        height: 80,
-                        decoration: BoxDecoration(
-                          color: _themeData.shadowColor,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              bottomLeft: Radius.circular(16)),
-                        ),
-                        child: Image.asset(
-                          "assets/bank_bca.png",
-                          fit: BoxFit.contain,
-                        )
-                        // Image.network(
-                        //   _data['coverImage'],
-                        //   fit: BoxFit.cover,
-                        // ),
-                        ),
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: _themeData.shadowColor,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(16),
+                            bottomLeft: Radius.circular(16)),
+                      ),
+                      child: Image.asset(
+                        "assets/bank_bca.png",
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: 12.0,
-                          right: 12.0),
+                      padding: EdgeInsets.only(left: 12.0, right: 12.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,

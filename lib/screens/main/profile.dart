@@ -1,13 +1,10 @@
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/services/asset_service.dart';
-import 'package:artefak/services/wallet_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:artefak/services/auth.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
-import 'package:artefak/widgets/carousel_profile.dart';
 
 class Profile extends StatelessWidget {
   Profile({Key? key}) : super(key: key);
@@ -32,15 +29,8 @@ class Profile extends StatelessWidget {
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
-              leading: IconButton(
-                icon: Icon(
-                  Icons.chevron_left,
-                  color: _themeData.textSelectionColor,
-                  size: 30.0,
-                ),
-                onPressed: () {},
-              ),
-              title: Text('Profile',
+              automaticallyImplyLeading: false,
+              title: Text('Akun',
                   style: _textTheme.titleLarge
                       ?.copyWith(fontWeight: FontWeight.w400)),
               actions: <Widget>[
@@ -56,232 +46,113 @@ class Profile extends StatelessWidget {
                     style: _textTheme.bodySmall,
                   ),
                 ),
+                IconButton(
+                    icon: Icon(Icons.notifications_none, size: 25.0),
+                    onPressed: () {}),
               ]),
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                SizedBox(
-                  height: size.height * 0.45,
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        height: size.height * 0.45 - 60,
-                        decoration: BoxDecoration(
-                          color: _themeData.highlightColor,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(40),
-                            bottomRight: Radius.circular(40),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: <Widget>[
-                                  Flexible(
-                                    flex: 1,
-                                    child: AuthService.user!.photoURL != null
-                                        ? CircleAvatar(
-                                            foregroundImage:
-                                                CachedNetworkImageProvider(
-                                                    AuthService
-                                                        .user!.photoURL!),
-                                            radius: 60,
-                                            backgroundColor: Colors.white30,
-                                          )
-                                        : CircleAvatar(
-                                            radius: 60,
-                                            backgroundColor: Colors.white30,
-                                            child:
-                                                AuthService.user!.displayName !=
-                                                            "" &&
-                                                        AuthService.user!
-                                                                .displayName !=
-                                                            null
-                                                    ? Text(
-                                                        AuthService.user!
-                                                            .displayName![0],
-                                                        style: _textTheme
-                                                            .headlineLarge)
-                                                    : null,
-                                          ),
-                                  ),
-                                  const SizedBox(width: 18),
-                                  Flexible(
-                                    flex: 3,
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            AuthService.user!.displayName !=
-                                                        "" &&
-                                                    AuthService.user!
-                                                            .displayName !=
-                                                        null
-                                                ? AuthService.user!.displayName!
-                                                : "[Edit Name]",
-                                            style:
-                                                _textTheme.bodyLarge?.copyWith(
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          Text(
-                                            AuthService.user!.email != "" &&
-                                                    AuthService.user!.email !=
-                                                        null
-                                                ? AuthService.user!.email!
-                                                : "[Edit Email]",
-                                            style:
-                                                _textTheme.bodyLarge?.copyWith(
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ]),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      WalletFirestore()
-                                          .createWallet(AuthService.user!.uid);
-                                    },
-                                    child: Text('Create Wallet',
-                                        style: _textTheme.bodyMedium
-                                            ?.copyWith(color: Colors.white)),
-                                  ),
-                                  TextButton(
-                                    onPressed: () => Navigator.pushNamed(
-                                      context,
-                                      '/mint',
-                                    ),
-                                    child: Text('Mint',
-                                        style: _textTheme.bodyMedium
-                                            ?.copyWith(color: Colors.white)),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () => Navigator.pushNamed(
-                                      context,
-                                      '/update_profile',
-                                    ),
-                                    child: Expanded(
-                                      child: Container(
-                                        alignment: Alignment.centerLeft,
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 2),
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 18, vertical: 4),
-                                        height: 40,
-                                        decoration: BoxDecoration(
-                                            color: Colors.transparent,
-                                            border: Border.all(
-                                                width: 1, color: Colors.white),
-                                            borderRadius:
-                                                BorderRadius.circular(40)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'Edit Profile',
-                                              style: _textTheme.bodyMedium
-                                                  ?.copyWith(
-                                                      color: Colors.white),
-                                            ),
-                                            const Icon(
-                                              Icons.chevron_right,
-                                              color: Colors.white,
-                                              size: 28.0,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                Stack(
+                  children: [
+                    Container(
+                      height: 144.0,
+                      foregroundDecoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.black, Colors.transparent],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          stops: [0, 0.2],
                         ),
                       ),
-                      Positioned(
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
+                      child: Image.asset(
+                        "assets/cover_profile.png",
+                        width: size.width,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 8),
+                        height: 80,
+                        child: CircleAvatar(
+                          child: Text('H', style: _textTheme.displayMedium),
+                          radius: 64,
+                          backgroundColor: Colors.white30,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(bottom: 4.0),
+                      child: Text("mumolabs",
+                          style: _textTheme.titleLarge
+                              ?.copyWith(fontWeight: FontWeight.w400)),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 8.0),
+                      child: Text("mumolabs@yahoo.co.id • 085643099280",
+                          style: _textTheme.bodySmall
+                              ?.copyWith(fontWeight: FontWeight.w400)),
+                    ),
+                    Container(
                         child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 8),
-                          height: 120,
-                          child: const Carousel(),
+                      decoration: BoxDecoration(
+                        color: _themeData.selectedRowColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
+                        child: Text(
+                          "Terverifikasi",
+                          style: _textTheme.bodySmall
+                              ?.copyWith(color: Colors.white),
                         ),
                       ),
+                    )),
+                  ],
+                ),
+                SizedBox(
+                  height: 33.0,
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                  child: Column(
+                    children: listProfileSetting
+                        .map(
+                          (item) => new ProfileSegmentSetting(
+                            themeData: _themeData,
+                            textTheme: _textTheme,
+                            title: item.title,
+                            settingItems: item.listSettingItem,
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.topCenter,
+                  child: Column(
+                    children: [
+                      Text('Keluar Aplikasi',
+                        style: _textTheme.bodySmall
+                            ?.copyWith(fontWeight: FontWeight.w700, color: _themeData.hintColor)),
+                      SizedBox(
+                        height: 24.0,
+                      ),
+                      Text('Version 0.2.8',
+                        style: _textTheme.bodySmall
+                            ?.copyWith(fontWeight: FontWeight.w400, color: _themeData.focusColor),),
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: 400,
-                  child: StreamBuilder<QuerySnapshot>(
-                    stream: _assetStream,
-                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      //needs to show something when user doesn't own any asset yet
-                      if (snapshot.hasError) {
-                        return const Center(
-                          child: Text('An error has occurred!'),
-                        );
-                      } else if (snapshot.hasData) {
-                        return GridView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: snapshot.data!.docs.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 5.0,
-                            mainAxisSpacing: 5.0,
-                          ),
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(context, '/asset',
-                                    arguments: <String, dynamic>{
-                                      'id': snapshot.data!.docs[index].id,
-                                      'currentOwner': snapshot.data!.docs[index]
-                                          ['currentOwner'],
-                                      'creator': snapshot.data!.docs[index]
-                                          ['creator'],
-                                      'name': snapshot.data!.docs[index]
-                                          ['name'],
-                                      'description': snapshot.data!.docs[index]
-                                          ['description'],
-                                      'coverImage': snapshot.data!.docs[index]
-                                          ['coverImage'],
-                                      'views': snapshot.data!.docs[index]
-                                          ['views'],
-                                      'contractAddress': snapshot
-                                          .data!.docs[index]['contractAddress'],
-                                      'tokenId': snapshot.data!.docs[index]
-                                          ['tokenId'],
-                                      'price': snapshot.data!.docs[index]
-                                          ['price'],
-                                    });
-                              },
-                              // needs loading indicator when image being reloaded
-                              child: Image.network(
-                                  snapshot.data!.docs[index]['coverImage']),
-                            );
-                          },
-                        );
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
-                  ),
-                ),
+                )
               ],
             ),
           ),
@@ -293,3 +164,118 @@ class Profile extends StatelessWidget {
     }
   }
 }
+
+class ProfileSegmentSetting extends StatelessWidget {
+  const ProfileSegmentSetting({
+    Key? key,
+    required ThemeData themeData,
+    required TextTheme textTheme,
+    required this.title,
+    required this.settingItems,
+  })  : _themeData = themeData,
+        _textTheme = textTheme,
+        super(key: key);
+
+  final ThemeData _themeData;
+  final TextTheme _textTheme;
+  final String title;
+  final List<String> settingItems;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: 12.0),
+      decoration: BoxDecoration(
+        color: _themeData.shadowColor,
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+      ),
+      alignment: Alignment.topLeft,
+      child: Column(
+        children: [
+          Container(
+            alignment: Alignment.centerLeft,
+            margin: EdgeInsets.only(top: 12.0, bottom: 16.0),
+            child: Text(title,
+                style:
+                    _textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
+                textAlign: TextAlign.start),
+          ),
+          Column(children:
+          settingItems.map((settingItem) =>
+          Container(
+            margin: EdgeInsets.only(bottom: 24.0),
+            child: Row(
+              children: [
+                Text(settingItem,
+                    style: _textTheme.titleMedium
+                        ?.copyWith(fontWeight: FontWeight.w400),
+                    textAlign: TextAlign.start),
+                Spacer(),
+                Icon(
+                  Icons.arrow_forward_rounded,
+                  color: Colors.white,
+                  size: 28.0,
+                ),
+              ],
+            ),
+          ),).toList(),
+            ),
+          // Container(
+          //   margin: EdgeInsets.symmetric(vertical: 24.0),
+          //   child: Row(
+          //     children: [
+          //       Text('Ubah PIN',
+          //           style: _textTheme.titleMedium
+          //               ?.copyWith(fontWeight: FontWeight.w400),
+          //           textAlign: TextAlign.start),
+          //       Spacer(),
+          //       Icon(
+          //         Icons.arrow_forward_rounded,
+          //         color: Colors.white,
+          //         size: 28.0,
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // Container(
+          //   margin: EdgeInsets.only(bottom: 28.0),
+          //   child: Row(
+          //     children: [
+          //       Text('Ubah Email',
+          //           style: _textTheme.titleMedium
+          //               ?.copyWith(fontWeight: FontWeight.w400),
+          //           textAlign: TextAlign.start),
+          //       Spacer(),
+          //       Icon(
+          //         Icons.arrow_forward_rounded,
+          //         color: Colors.white,
+          //         size: 28.0,
+          //       ),
+          //     ],
+          //   ),
+          // ),
+        ],
+      ),
+    );
+  }
+}
+
+class ProfileSetting {
+  ProfileSetting({required this.title, required this.listSettingItem});
+
+  final String title;
+  final List<String> listSettingItem;
+}
+
+List<ProfileSetting> listProfileSetting = [
+  ProfileSetting(
+      title: 'Profil',
+      listSettingItem: ["Ubah Data Profil", "Ubah PIN", "Ubah Email"]),
+  ProfileSetting(title: 'Pusat Bantuan', listSettingItem: ["Kontak Kami"]),
+  ProfileSetting(title: 'Hal Lain', listSettingItem: [
+    "Tentang Artefak",
+    "Syarat & Ketentuan Berlaku",
+    "Kebijakan Privasi"
+  ]),
+];

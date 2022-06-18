@@ -228,7 +228,7 @@ class _SignInState extends State<SignIn> {
                     const SizedBox(
                       height: 54,
                     ),
-                    Column(
+                    size.width < 440 ? Column(
                       children: [
                         ScrollViewSignIn(
                           scrollController: _scrollControllerTop,
@@ -239,7 +239,7 @@ class _SignInState extends State<SignIn> {
                           images: movies2,
                         ),
                       ],
-                    ),
+                    ) : SizedBox(),
                     Column(
                       children: [
                         const SizedBox(
