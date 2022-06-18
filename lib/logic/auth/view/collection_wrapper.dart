@@ -1,6 +1,6 @@
 import 'package:artefak/logic/auth/auth.dart';
+import 'package:artefak/logic/pin/pin.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
-import 'package:artefak/screens/main/collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,7 +12,7 @@ class CollectionWrapper extends StatelessWidget {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         if (state.authenticationStatus == AuthenticationStatus.authenticated) {
-          return Collection();
+          return const CollectionPinWrapper();
         } else {
           return const Authenticate();
         }
