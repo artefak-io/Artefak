@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-const _primaryColor = Color(0xFF333333);
-
 ThemeData lightTheme = ThemeData(
-  primaryColor: _primaryColor,
-  backgroundColor: const Color(0xFF121212),
-  highlightColor: const Color(0xFF333333),
+  primaryColor: const Color(0xFF121212),
+  // backgroundColor: Colors.transparent, don't use this, applied to bottomNav
+  highlightColor: const Color(0xB8333333),
   indicatorColor: const Color(0xFFD1D5DB),
   selectedRowColor: const Color(0xFF2563EB),
   textSelectionColor: const Color(0xFFF3F4F6),
@@ -21,7 +19,7 @@ ThemeData lightTheme = ThemeData(
 
   // App Bar
   appBarTheme: const AppBarTheme(
-    backgroundColor: _primaryColor,
+    backgroundColor: const Color(0xB8333333),
     // This will be applied to the "back" icon
     iconTheme: IconThemeData(color: Color(0xFFF3F4F6)),
     centerTitle: false,

@@ -10,12 +10,14 @@ class AppLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) { // TODO: semua page pakai app layout
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      key: key,
-      appBar: appBar,
-      body: child,
-      bottomNavigationBar: bottomNavBar,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
+        key: key,
+        appBar: appBar,
+        body: child,
+        bottomNavigationBar: bottomNavBar,
+      ),
     );
   }
 }
