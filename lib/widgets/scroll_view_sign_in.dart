@@ -10,7 +10,7 @@ class ScrollViewSignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 120,
       child: ListView.builder(
           controller: scrollController,
@@ -32,7 +32,8 @@ class ScrollViewSignIn extends StatelessWidget {
                 ),
               ),
             );
-          }),
+          },
+      ),
     );
   }
 }

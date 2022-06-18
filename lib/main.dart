@@ -1,3 +1,4 @@
+import 'package:artefak/screens/main/collection.dart';
 import 'package:artefak/screens/main/collection_review.dart';
 import 'package:artefak/screens/main/payment_process.dart';
 import 'package:artefak/themes/artefak_theme.dart';
@@ -78,6 +79,7 @@ class _MyAppState extends State<MyApp> {
               '/': (context) => Home(),
               '/home': (context) => Home(),
               '/profile': (context) => Profile(),
+              '/collection': (context) => Collection(),
               '/bill': (context) => Transaction(),
               '/update_profile': (context) => const UpdateProfile(),
               '/asset/product_detail': (context) => ProductDetail(),

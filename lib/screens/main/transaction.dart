@@ -3,20 +3,45 @@ import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/services/transaction_service.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
+import 'package:artefak/widgets/radio_button_filter_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-class Transaction extends StatelessWidget {
+enum TransactionFilter { all, wait, active, missed }
+
+class Transaction extends StatefulWidget {
   Transaction({Key? key}) : super(key: key);
 
   static const index = 1;
 
+  @override
+  State<Transaction> createState() => _TransactionState();
+}
+
+class _TransactionState extends State<Transaction> {
+  List<CustomRadioModel> filterList = <CustomRadioModel>[];
+
   late final Stream<QuerySnapshot> _transactionStream;
+
+  TransactionFilter? _transactionFilter = TransactionFilter.all;
+
+  @override
+  void initState() {
+    super.initState();
+    filterList.add(new CustomRadioModel(false, 'Semua'));
+    filterList.add(new CustomRadioModel(false, 'Menunggu Pembayaran'));
+    filterList.add(new CustomRadioModel(false, 'Koleksi Aktif'));
+    filterList.add(new CustomRadioModel(false, 'Terlewatkan'));
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    TextTheme _textTheme = Theme.of(context).textTheme;
+    ThemeData _themeData = Theme.of(context);
+    TextTheme _textTheme = Theme
+        .of(context)
+        .textTheme;
+
     if (AuthService.user == null) {
       return const Authenticate();
     } else {
@@ -26,87 +51,81 @@ class Transaction extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: true,
-          appBar: AppBar(
-            title: Text(
-              'Transaction',
-              style:
-                  _textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(64.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppBar(
+                  automaticallyImplyLeading: false,
+                  title: Text(
+                    'Koleksi',
+                    style:
+                    _textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w400),
+                  ),
+                  actions: [
+                    IconButton(
+                        icon: Icon(Icons.notifications_none, size: 25.0),
+                        onPressed: () {}),
+                  ],
+                ),
+              ],
             ),
           ),
-          body: StreamBuilder(
-            stream: _transactionStream,
-            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              //should show something when null
-              if (snapshot.hasError) {
-                return const Center(
-                  child: Text('An error has occurred!'),
-                );
-              } else if (snapshot.hasData) {
-                return ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        child: ListTile(
-                          title: Text(
-                            snapshot.data!.docs[index]['assetName'],
-                          ),
-                          subtitle: Text(
-                            "Status: ${snapshot.data!.docs[index]['status']}",
-                          ),
-                          onTap: () => showDialog(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              title: Text(
-                                snapshot.data!.docs[index]['assetName'],
-                              ),
-                              content: Column(
-                                children: <Widget>[
-                                  const Text("Account Holder"),
-                                  Text(snapshot.data!.docs[index]["vaHolder"]),
-                                  const Text("Account Number"),
-                                  Text(
-                                    '${snapshot.data!.docs[index]["bankName"]} ${snapshot.data!.docs[index]["vaNumber"]}',
-                                  ),
-                                  const Text("Amount"),
-                                  Text(NumberFormat.currency(locale: 'id')
-                                      .format(
-                                          snapshot.data!.docs[index]["price"])),
-                                  const Text("Due date"),
-                                  Text(DateTime.fromMillisecondsSinceEpoch(
-                                          snapshot.data!.docs[index]["expTime"])
-                                      .toLocal()
-                                      .toString()),
-                                ],
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {},
-                                  child: const Text(
-                                    "Cancel Transaction",
-                                    style: TextStyle(color: Colors.redAccent),
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text("Close"),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+          body: SingleChildScrollView(
+            physics: ClampingScrollPhysics(),
+            child: Column(
+              children: [
+                Container(
+                  // margin: EdgeInsets.only(right: 16.0),
+                  height: 32.0,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) {
+                      return new InkWell(
+                        //highlightColor: Colors.red,
+                        splashColor: Colors.blueAccent,
+                        onTap: () {
+                          setState(() {
+                            filterList.forEach((element) =>
+                            element.isSelected = false);
+                            filterList[index].isSelected = true;
+                          });
+                        },
+                        child: new RadioButtonFilterItem(filterList[index]),
                       );
-                    });
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
+                    },
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    "Terbaru",
+                    style: _textTheme.displaySmall
+                        ?.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                ),
+                // Container(
+                //   child: Column(
+                //     children: [
+                //       Container(
+                //         decoration: BoxDecoration(
+                //         color: _themeData.shadowColor,
+                //           borderRadius: BorderRadius.all(Radius.circular(16)),
+                //         ),
+                //         height: 80,
+                //         alignment: Alignment.centerLeft,
+                //         child: Row(
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+              ],
+            ),
           ),
           bottomNavigationBar: const BotNavBar(
-            currentIndex: index,
+            currentIndex: Transaction.index,
           ),
         ),
       );

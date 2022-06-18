@@ -11,7 +11,7 @@ class BotNavBar extends StatelessWidget {
         Navigator.popUntil(context, ModalRoute.withName('/'));
         break;
       case 1:
-        Navigator.pushNamed(context, '/bill');
+        Navigator.pushNamed(context, '/collection');
         break;
       case 2:
         Navigator.pushNamed(context, '/profile');
@@ -26,7 +26,7 @@ class BotNavBar extends StatelessWidget {
       height: 80,
       child: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: _themeData.highlightColor,
+        backgroundColor: Colors.blue.withOpacity(0.1), //_themeData.highlightColor,
         selectedItemColor: _themeData.textSelectionColor,
         unselectedItemColor: _themeData.unselectedWidgetColor,
         items: <BottomNavigationBarItem>[
