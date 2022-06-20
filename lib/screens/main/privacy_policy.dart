@@ -42,14 +42,14 @@ class PrivacyPolicy extends StatelessWidget {
                     child: FutureBuilder(
                         future: loadAsset(),
                         initialData: "Loading text..",
-                        builder: (BuildContext context, AsyncSnapshot<String> text) {
+                        builder:
+                            (BuildContext context, AsyncSnapshot<String> text) {
                           return SingleChildScrollView(
                               padding: EdgeInsets.all(8.0),
                               child: Text(
                                 text.data ?? 'Loading text..',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 19.0,
+                                style: _textTheme.bodyLarge?.copyWith(
+                                  fontWeight: FontWeight.w400,
                                 ),
                                 textAlign: TextAlign.justify,
                               ));
