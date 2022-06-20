@@ -150,8 +150,6 @@ class Profile extends StatelessWidget {
                     children: listProfileSetting
                         .map(
                           (item) => new ProfileSegmentSetting(
-                            themeData: _themeData,
-                            textTheme: _textTheme,
                             title: item.title,
                             settingItems: item.listSettingItem,
                           ),
