@@ -30,9 +30,13 @@ platform :android do
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
+    versions = google_play_track_version_codes(track: "alpha")
+    version_code = versions[0]
+
     # gradle(task: "clean bundleRelease")
     upload_to_play_store(
       track: "alpha",
+      version_code: version_code
     )
   end
 end

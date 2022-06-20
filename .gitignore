@@ -51,6 +51,7 @@ app.*.map.json
 # XCode related
 Podfile.lock
 Gemfile.lock
+*.dSYM.*
 
 # iOS Build
 *.ipa
