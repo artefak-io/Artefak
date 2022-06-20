@@ -1,0 +1,88 @@
+KEBIJAKAN PRIVASI
+
+A. KETENTUAN UMUM
+ARTEFAK adalah perusahaan teknologi yang mempertemukan antara pembeli karya aset digital dengan seniman atau creator dalam maksud menyediakan fasilitas kegiatan jual-beli aset digital dengan cukup menggunakan mata uang rupiah dengan memanfaatkan teknologi blockchain dengan memperhatikan standard yang telah ditentukan oleh pemerintah (“Layanan”).
+
+Sampai dengan tanggal dikeluarkannya kebijakan privasi ini, sistem elektronik yang digunakan oleh ARTEFAK untuk memberikan Layanannya adalah (i) portal web yang dimiliki serta dikelola oleh ARTEFAK yang dapat ditemukan pada alamat URL berikut: www.artefak.io berikut perubahan dan/atau penambahan terhadap URL tersebut (ii) setiap aplikasi mobile yang dapat diakses serta diunduh pada sistem pengoperasian IOS dan Android berikut setiap perubahan dan/atau penambahan terhadap aplikasi mobile tersebut (apabila ada) (selanjutnya secara keseluruhan disebut sebagai “Platform”).
+
+Kebijakan Privasi ini berlaku mengikat, dan dianggap telah dimengerti serta disetujui oleh setiap Pengguna Layanan khususnya para pengguna yang memanfaatkan Layanan ARTEFAK serta Platform ARTEFAK (selanjutnya secara keseluruhan disebut sebagai “Anda/Pengguna”).
+
+B. KETENTUAN KHUSUS
+ 1. DEFINISI
+Setiap kata yang dinyatakan di bawah ini, wajib diartikan sebagai berikut:
+  a. Data Pribadi adalah setiap informasi milik Pengguna, yang mengidentifikasi keterangan terkait Pengguna yang bersangkutan termasuk diantaranya adalah akun media sosial milik Pengguna seperti Twitter, Facebook, Instagram, Google+, LinkedIn serta jenis media sosiallainnya;
+  b. Syarat dan Ketentuan merupakan ketentuan dan prasyarat dari penggunaan Layanan oleh Anda;
+  c. Konten berarti apapun yang ada pada Layanan, termasuk namun tidak terbatas pada rancangan, desain, teks, gambar grafis, foto, gambar, citra, video, perangkat lunak, musik, suara dan dokumen lainnya, peringkat kredit, tarif, biaya, kuotasi, data historis, grafik, statistik, artikel, informasi kontak Kami, setiap informasi lainnya, beserta pemilihan dan pengaturannya;
+  d. Non-Fungible Token (“NFT”), adalah aset digital yang diperjualbelikan di Layanan ARTEFAK. NFT dapat berupa karya seni, tiket, musik, dan karya-karya lainnya.
+  e. Creator adalah seniman atau pemilik project yang membuat NFT
+  f. Pembeli adalah orang perorangan atau badan hukum yang membeli NFT melalui Layanan;
+  g. Cookies adalah file berukuran kecil yang secara otomatis akan mengambil tempat di dalam perangkat komputer Anda, yang berguna untuk mengidentifikasi dan memantau koneksi jaringan Anda sehingga Anda akan dapat mengakses Layanan Kami secara lebih optimal.
+  h. Akun merupakan identitas unik untuk mencatat kegiatan Anda dalam menggunakan Layanan yang pembuatannya dilakukan dengan cara pendaftaran pada Platfotm ARTEFAK;
+
+ 2. RUANG LINGKUP
+  a. ARTEFAK memiliki komitmen tinggi dalam menjaga setiap Data Pribadi Anda, dan berusaha untuk memastikan bahwa Data Pribadi Anda tidak digunakan atau disalahgunakan untuk kepentingan selain yang diatur dalam kebijakan privasi ini serta pemberian Layanan oleh Kami;
+  b. Data Pribadi sebagaimana dimaksud dalam kebijakan privasi ini merupakan Data Pribadi yang dimiliki, diperoleh, diketahui secara sah pada saat diungkapkan kepada pihak manapun, serta dapat dibuktikan oleh setiap pemilik Data Pribadi;
+  c. Data Pribadi yang diperoleh, dipergunakan, ditransmisikan, dikelola, dianalisa serta digunakan dalam bentuk tindakan lainnya oleh ARTEFAK dalam rangka penyedian Layanan yang secara sah sesuai ketentuan berlaku, setiap Data Pribadi yang wajib diungkapkan, diberitahukan, disiarkan kepada OJK RI, institusi penegak hukum serta institusi pemerintah lainnya, berdasarkan adanya suatu peraturan perundang-undangan, perintah dan/atau arahan dari institusi pemerintahan yang relevan.
+
+ 3. PEROLEHAN, PENYIMPANAN, DAN PENGGUNAAN DATA PRIBADI
+  a. Anda dengan ini setuju bahwa sehubungan dengan penggunaan atau pemanfaat Layanan Kami, maka Kami berhak mengumpulkan informasi tentang Anda dari waktu ke waktu, yakni:
+    • Anda ataupun pihak lain yang memiliki persetujuan yang sah dari Anda untuk memberikan Data Pribadi dalam rangka mengakses Layanan Kami;
+    • Setiap kunjungan Anda ke Platform Kami;
+    • Percakapan telepon Anda dengan Kami;
+    • Penggunaan perangkat komputer maupun perangkat lainnya yang memfasilitasi hubungan ke internet untuk mengakses Layanan Kami oleh Anda, termasuk informasi mengenai alamat IP, sistem operasi dan browser yang Anda gunakan dalam mengakses Layanan Kami; dan/atau
+    • Penggunaan "Cookies" saat browser Anda mengakses dan Anda masuk (log-in) untuk menggunakan Layanan Kami. Jika statusnya diaktifkan (enabled), Cookies akan menyimpan sejumlah kecil data pada komputer Anda tentang aktifitas Anda dalam menggunakan Layanan Kami.
+  b. Berkenaan dengan perolehan serta penyimpanan setiap Data Pribadi yang diuraikan serta dimaksud dalam kebijakan privasi ini, Kami tunduk dan memperhatikan ketentuan Undang-Undang Nomor 11 Tahun 2008 jo. Undang-Undang Nomor 19 Tahun 2016 tentang Informasi dan Transaksi Elektronik, Peraturan Menteri Komunikasi dan Informatika Nomor 20 Tahun 2016 tentang Perlindungan Data Pribadi Dalam Sistem Elektronik, ISO 27001:2013. Selain itu Kami juga berhak untuk menetapkan standarisasi internal menurut diskresinya terhadap hal yang berkaitan dengan penyimpanan Data Pribadi termasuk namun tidak terbatas diantaranya melakukan penyimpanan secara internal, server atau database pihak ketiga lainnya yang ditunjuk dan/atau bekerjasama secara sah dengan Kami dengan tetap memperhatikan maksud dan tujuan dari adanya tindakan tersebut yakni mengutamakan kerahasiaan dan keamanan Data Pribadi Anda.
+  c. Anda dengan ini setuju bahwa Data Pribadi akan Kami gunakan atau olah dalam rangka:
+    • Penilaian/Assesmen, analisis, verifikasi, validasi atau pemeriksaan terhadap (a) permohonan atau aplikasi perolehan pinjaman; (b) proses atau permohonan pendaftaran sebagai Pemberi Pinjaman; dan/atau (c) profil Anda;
+    • memberikan akses bagi Anda ke Layanan Kami dan memastikan bahwa Konten dan Layanan ditampilkan dengan cara yang paling efektif untuk Anda;
+    • memberikan kepada Anda informasi terkait Konten situs, produk, Layanan dan layanan interaktif yang Anda minta atau butuhkan dari Kami;
+    • melaksanakan kewajiban Kami yang timbul dari setiap perjanjian yang diadakan antara Anda dan Kami;
+    • Pengembangan Layanan Kami, termasuk namun tidak terbatas pada pemecahan masalah, analisis data, pengujian, penelitian, tujuan statistik serta survei;
+    • untuk membuat analisa statistik dalam rangka pengembangan produk Kami dan perkiraan terhadap risiko pinjaman;
+    • membuat keputusan terkait dengan pembukaan atau kelanjutan terhadap aktifnya Akun Anda serta pembuatan, penyediaan atau kelanjutan dari Layanan dan juga untuk menjaga akurasi Data Pribadi;
+    • untuk melakukan pemeriksaan dalam rangka anti pencucian uang dan pendanaan terorisme;
+    • menyediakan informasi dan Data Pribadi yang relevan tentang Anda kepada Lembaga referensi kredit untuk tujuan memperbarui catatan kredit Anda dalam basis data kredit pelanggan dari lembaga tersebut;
+    • menilai atau memahami efektivitas iklan Kami dan iklan pihak ketiga pada halaman elektronik (website) Kami dan pada website pihak ketiga, dan untuk menyampaikan iklan yang relevan kepada Anda;
+    • memberitahu Anda tentang perubahan-perubahan terhadap layanan Kami;
+    • memenuhi persyaratan-persyaratan hukum yang berlaku pada Kami berdasarkan peraturan perundang-undangan yang berlaku;
+    • memeriksa identitas dan/atau kewenangan dari para wakil atau kuasa Anda yang menghubungi Kami dan untuk menanggapi permintaan, pertanyaan atau instruksi dari para kuasa yang telah diperiksa tersebut atau para pihak lain;
+    • untuk memberikan otorisasi kepada bank, badan keuangan atau pihak ketiga yang berwenang untuk mengadakan pengecekan terbatas pada status Anda dalam database Kami atau Layanan Kami;
+    • mencegah dan mendeteksi aktivitas kejahatan dan penipuan termasuk membantu dalam setiap penyidikan kejahatan oleh otoritas yang relevan terhadap Anda;
+    • mengelola hubungan antara Kami dengan Anda, termasuk menyediakan informasi kepada Anda tentang Layanan, sepanjang diizinkan berdasarkan peraturan perundang- undangan yang berlaku;
+    • untuk memasarkan produk yang terkait dengan Layanan melalui berbagai metode komunikasi termasuk surat, telepon, pesan singkat, fax, surat elektronik (e-mail), internet, riset pasar, dan merancang atau menyaring produk atau layanan yang serupa termasuk dengan melakukan riset pasar, analisis data, dan survei;
+    • melakukan menajemen internal untuk mengoperasikan kontrol terhadap sistem informasi dan manajemen serta melaksanakan audit internal atau mengizinkan pelaksanaan audit eksternal; dan
+    • melakukan kegiatan lainnya terhadap pengolahan Data Pribadi Anda, sepanjang dan yang berkaitan dengan pemberian Layanan dari Kami kepada Anda dengan tetap memperhatikan ketentuan hukum yang berlaku.
+  d. Dalam menunjang serta memaksimalkan Layanan yang Kami berikan kepada Anda, maka Anda sepakat bahwa Kami dapat pula membagikan Data Pribadi Anda kepada pihak berikut:
+    • para mitra usaha, untuk pelaksanaan setiap perjanjian yang Kami adakan dengan mereka atau Anda;
+    • pemilik dan pengelola produk Rekening Dana Pemberi Pinjaman yakni Pihak Perbankan dengan kepentingan antara lain untuk melakukan pembukaan rekening termasuk kebutuhan teknis lainnya, proses Know Your Customer (KYC) dan verifikasi data Anda. Pihak Perbankan pengelola Rekening Dana Pemberi Pinjaman dapat menghubungi Anda, termasuk mengirimkan One Time Password (OTP) langsung ke nomor ponsel Anda untuk proses verifikasi data Anda;
+    • para pengiklan dan jaringan-jaringan iklan yang memerlukan data dalam memilih iklan yang relevan kepada Anda dan orang lain. Kami tidak mengungkapkan Data Pribadi Anda yang dapat diidentifikasi kepada para pengiklan, tetapi Kami dapat memberikan mereka informasi terkait agregat tentang Pengguna Kami (sebagai contoh, Kami dapat memberitahu mereka bahwa 125 orang pria berusia di bawah 33 tahun mengakses iklan mereka pada periode tertentu). Kami juga dapat menggunakan informasi agregat tersebut untuk membantu para pengiklan dalam rangka menjangkau jenis audiens yang mereka ingin targetkan. Kami dapat menggunakan informasi atau data yang dikumpulkan dari Anda untuk memungkinkan kami memenuhi keinginan para pengiklan kami dengan menampilkan iklan mereka kepada audiens yang menjadi target dari iklan tersebut;
+    • penyedia analisis dan mesin pencari yang membantu Kami dalam
+peningkatan dan optimalisasi situs kami;
+    • setiap organisasi ataupun perorangan, jika Kami memiliki kewajiban untuk mengungkapkan Data Pribadi Anda guna mematuhi setiap kewajiban hukum, atau untuk melaksanakan dan menerapkan Syarat & Ketentuan kami, kebijakan Cookies Kami, dan ketentuan lainnya, atau untuk melindungi hak, aset, atau keamanan dari Kami serta pihak-pihak terafiliasinya, Pengguna atau lainnya. Ini termasuk pertukaran informasi dengan perusahaan dan organisasi lain untuk tujuan perlindungan dari penipuan dan antisipasi terhadap risiko kredit;
+    • agen, kontraktor atau penyedia layanan pihak ketiga yang menyediakan administrasi, pengiriman pos, telemarketing, telekomunikasi penjualan langsung, call center, proses bisnis, perjalanan, visa, manajemen pengetahuan, sumber daya manusia, pengolahan data, teknologi informasi, komputer, pembayaran, penagihan utang, referensi kredit atau pemeriksaan-pemeriksaan latar belakang lain atau layanan-layanan lain kepada Kami atau pihak terafiliasinya;
+    • bank pihak tertarik atau pihak penarik sehubungan dengan setiap cek atau yang setara yang diproses oleh Kami atau pihak terafiliasinya;
+    • lembaga keuangan atau non-keuangan yang mana terhadap badan tersebut, Anda memiliki atau mengajukan untuk memiliki urusan terkait dengan setiap Produk dan/atau Layanan;
+    • orang atau entitas yang kepada orang atau entitas tersebut, Kami atau pihak terafiliasinya berkewajiban untuk melakukan pengungkapan sesuai dengan proses hukum atau berdasarkan persyaratan hukum, peraturan, perintah pengadilan, yang mengikat atau berlaku untuk Kami atau Pihak Terafiliasinya dan terhadap otoritas pemerintah, atau setiap pengungkapan berdasarkan dan untuk tujuan pedoman atau petunjuk yang diberikan atau dikeluarkan oleh badan penegak hukum, regulasi, badan pemerintah, otoritas pajak, lembaga penegak hukum atau lembaga otoritas lainnya, atau peraturan otonom dari badan industri atau asosiasi dari penyedia jasa keuangan yang disyaratkan untuk dipenuhi oleh Kami atau pihak terafiliasinya; atau
+    • penerima pengalihan yang sebenarnya atau yang diajukan dari Kami atau pihak terafiliasinya, atau peserta atau sub-peserta atau penerima pengalihan hak-hak Kami atau pihak terafiliasinya sehubungan dengan Anda, dan semua atau sebagian dari aset atau bisnis dari ARTEFAK atau pihak terafiliasinya; dan
+    • pihak yang memberikan atau mengajukan untuk memberikan jaminan atau jaminan pihak ketiga kepada penerima jaminan atau pihak yang menjamin kewajiban Anda.
+
+ 4. KEBIJAKAN COOKIES
+  a. Cookies akan membantu Kami untuk menelusuri fitur yang paling menarik untuk Anda dan jenis konten yang pernah Anda kunjungi di waktu lalu. Saat Anda mengunjungi Situs Web ini kembali, Cookies akan mempermudah untuk menyesuaikan konten sesuai dengan kebutuhan Anda. Cookies tidak melakukan pelacakan terhadap informasi Pengguna secara individual, dan semua data Cookies Kami telah terenkripsi dan tidak dapat dibaca oleh situs lain; dan
+  b. Walaupun secara setelan semula (default) perangkat komputer Anda menerima Cookies, Anda bebas untuk melakukan perubahan terhadap setelan tersebut melalui pengaturan/setting browser Anda, dengan memilih untuk menolak mengaktifkan Cookies.
+
+ 5. PERNYATAAN DAN JAMINAN
+  a. Anda dengan ini menyatakan dan menjamin bahwa segala informasi serta Data Pribadi yang diungkapkan dan diserahkan kepada Kami adalah benar dan akurat;
+  b. Anda dengan ini menyatakan dan menjamin bahwa Anda telah mendapatkan segala persetujuan yang dibutuhkan dari pihak terkait, dalam hal Anda mengungkapkan, menyerahkan informasi pribadi milik pihak terkait tersebut untuk tujuan pemanfaatan Layanan Kami, sehingga atas dasar hal tersebut Kami dapat memperoleh, mengumpulkan, mengolah, menyimpan, dan menggunakan Data Pribadi tersebut untuk Tujuan sebagaimana dijabarkan dalam Pasal 3 kebijakan privasi ini;
+  c. Anda dengan ini menyatakan bahwa kata sandi atau password, termasuk kata sandi Akun merupakan tanggung jawab personal Anda masing-masing. Sehingga Kami akan tidak bertanggung jawab atas kerugian yang dapat ditimbulkan akibat kelalaian Pengguna dalam menjaga kerahasiaan kata sandi atau password-nya; dan
+  d. Anda dengan ini berjanji akan melepaskan Kami dan setiap afiliasinya dari setiap gugatan dan/atau tuntutan hukum yang disebabkan oleh adanya kesalahan Anda sendiri, atau pihak diluar Kami selain itu terhadap adanya risiko kerugian dalam penggunaan Layanan dengan tetap memperhatikan ketentuan hukum yang berlaku.
+ 
+ 6. KETENTUAN HAK PENGGUNA UNTUK MENGUBAH, MENAMBAH, DAN/ATAU MENGHAPUS
+  a. Sehubungan dengan penggunaan Layanan Kami oleh Anda, yang di dalamnya juga termasuk Data Pribadi yang Kami peroleh maka Anda berhak untuk melakukan perubahan, penambahan, dan/atau penghapusan terhadap Data Pribadi Anda;
+  b. Hal ini juga Kami atur dalam kaitannya memastikan adanya informasi terkini terhadap Data Pribadi Anda, namun dengan tetap memperhatikan asas kebutuhan, kehati-hatian, serta peraturan perundang-undangan yang mewajibkan adanya hal tersebut;
+  c. Selain itu, Kami menyadari bahwa Anda tidak akan selamanya menggunakan Layanan yang Kami sediakan untuk itu Anda berhak mengajukan penghapusan Data Pribadi Anda pada Platform dan/atau sistemKami;
+  d. Anda dapat mengajukan setiap permohonan perubahan, penambahan, atau penghapusan Data Pribadi Anda dengan cara mengirimkan surat elektronik (e-mail) kepada admin@artefak.co.id surat tertulis kepada alamat Kami sebagaimana dinyatakan pada Platform Kami. Tim internal Kami akan menanggapi dan/atau memberikan kepastian mengenai permohonan Anda tersebut dalam waktu setidak-tidaknya 30 (tiga puluh) hari kerja terhitung sejak tanggal permohonan Anda kepada Kami diterima dengan lengkap dan benar;
+  e. Anda memahami dan menyetujui bahwa sekalipun Kami melakukan penghapusan terhadap Data Pribadi atau data lainnya yang berkaitan dengan Layanan sesuai dengan permintaan Anda, namun Kami tetap akan melakukan penyimpanan terhadap data-data tersebut. Hal ini Kami lakukan dengan tetap memperhatikan ketentuan jangka waktu penyimpanan data perusahaaan sesuai dengan peraturan perundang-undangan yang berlaku serta menerapkan prinsip kehati-hatian dalam menjalankan kegiatan usaha.
+
+ 7. PERUBAHAN KEBIJAKAN PRIVASI & SALURAN PENGAJUANPERTANYAAN
+  a. Kebijakan Privasi ini mungkin di ubah dan/atau diperbaharui dari waktu ke waktu tanpa pemberitahuan sebelumnya. Oleh karenanya Kami menghimbau agar Anda membaca secara seksama dan memeriksa halaman Kebijakan Privasi ini dari waktu ke waktu untuk mengetahui perubahan apapun yang dapat terjadi. Dengan tetap mengakses dan menggunakan Platform dan Layanan Kami, maka Pengguna dianggap menyetujui perubahan-perubahan dalam Kebijakan Privasi ini;
+  b. Setiap pertanyaan terhadap kebijakan privasi ini dapat Anda ajukan kepada surat elektronik (e-mail) dengan alamat: admin@artefak.co.id atau dapat mengacu kepada ketentuan layanan pengaduan pengguna.
