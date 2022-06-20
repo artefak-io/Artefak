@@ -3,6 +3,7 @@ import 'package:artefak/logic/bloc_observer.dart';
 import 'package:artefak/screens/main/collection.dart';
 import 'package:artefak/screens/main/collection_review.dart';
 import 'package:artefak/screens/main/payment_process.dart';
+import 'package:artefak/screens/main/privacy_policy.dart';
 import 'package:artefak/themes/artefak_theme.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/screens/authentication/update_profile.dart';
@@ -104,7 +105,7 @@ class _MyAppState extends State<MyApp> {
                     '/home': (context) => Home(),
                     '/profile': (context) => const ProfileWrapper(),
                     '/collection': (context) => Collection(),
-                    '/bill': (context) => TransactionWrapper(),
+                    '/transaction': (context) => TransactionWrapper(),
                     '/updateProfile': (context) => const UpdateProfile(),
                     '/asset/product_detail': (context) => ProductDetail(),
                     '/asset/product_detail/collection_review': (context) =>
@@ -114,6 +115,7 @@ class _MyAppState extends State<MyApp> {
                     '/auth': (context) => const Authenticate(),
                     '/payment': (context) => const Payment(),
                     '/mint': (context) => const Mint(),
+                    '/policy': (context) => const PrivacyPolicy(),
                   },
                   initialRoute: '/',
                 );
