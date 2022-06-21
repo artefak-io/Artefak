@@ -4,6 +4,7 @@ ThemeData lightTheme = ThemeData(
   primaryColor: const Color(0xFF121212),
   // backgroundColor: Colors.transparent, don't use this, applied to bottomNav
   highlightColor: const Color(0xB8333333),
+  primaryColorDark: const Color(0xFF333333),
   indicatorColor: const Color(0xFFD1D5DB),
   selectedRowColor: const Color(0xFF2563EB),
   textSelectionColor: const Color(0xFFF3F4F6),
