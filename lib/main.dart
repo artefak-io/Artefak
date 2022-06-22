@@ -1,6 +1,7 @@
 import 'package:artefak/logic/auth/auth.dart';
+import 'package:artefak/logic/auth/view/collection_wrapper.dart';
 import 'package:artefak/logic/bloc_observer.dart';
-import 'package:artefak/screens/main/collection.dart';
+import 'package:artefak/logic/pin/pin.dart';
 import 'package:artefak/screens/main/collection_review.dart';
 import 'package:artefak/screens/main/payment_process.dart';
 import 'package:artefak/screens/main/privacy_policy.dart';
@@ -10,11 +11,11 @@ import 'package:artefak/screens/authentication/update_profile.dart';
 import 'package:artefak/screens/main/product_detail.dart';
 import 'package:artefak/screens/main/mint.dart';
 import 'package:artefak/screens/main/payment.dart';
-import 'package:artefak/screens/main/transaction.dart';
 import 'package:artefak/screens/main/home.dart';
 import 'package:artefak/screens/splash.dart';
 import 'package:artefak/themes/theme_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:cloud_firestore/cloud_firestore.dart' as firebase_firestore;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'firebase_options.dart';
@@ -47,6 +48,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final firebase_auth.FirebaseAuth _firebaseAuth =
       firebase_auth.FirebaseAuth.instance;
+  final firebase_firestore.FirebaseFirestore _firebaseFirestore =
+      firebase_firestore.FirebaseFirestore.instance;
 
   @override
   void dispose() {
@@ -73,57 +76,70 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider.value(
           value: _firebaseAuth,
         ),
+        RepositoryProvider.value(
+          value: _firebaseFirestore,
+        ),
         RepositoryProvider(
           create: (_) => AuthenticationRepository(_firebaseAuth),
         ),
+        RepositoryProvider(
+          create: (_) => PinService(_firebaseAuth, _firebaseFirestore),
+        ),
       ],
-      child: Builder(builder: (context) {
-        return BlocProvider(
-          create: (_) => AuthBloc(context.read<AuthenticationRepository>()),
-          lazy: false,
-          child: FutureBuilder(
-            future: Future.delayed(const Duration(seconds: 3)),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const SplashScreen();
-              } else {
-                return MaterialApp(
-                  theme: lightTheme,
-                  themeMode: _themeManager.themeMode,
-                  localizationsDelegates: const [
-                    AppLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  supportedLocales: const [
-                    Locale('en', ''),
-                    Locale('id', ''),
-                  ],
-                  routes: {
-                    '/': (context) => Home(),
-                    '/home': (context) => Home(),
-                    '/profile': (context) => const ProfileWrapper(),
-                    '/collection': (context) => Collection(),
-                    '/transaction': (context) => TransactionWrapper(),
-                    '/updateProfile': (context) => const UpdateProfile(),
-                    '/asset/product_detail': (context) => ProductDetail(),
-                    '/asset/product_detail/collection_review': (context) =>
-                        CollectionReview(),
-                    '/asset/product_detail/payment_process': (context) =>
-                        PaymentProcess(),
-                    '/auth': (context) => const Authenticate(),
-                    '/payment': (context) => const Payment(),
-                    '/mint': (context) => const Mint(),
-                    '/policy': (context) => const PrivacyPolicy(),
-                  },
-                  initialRoute: '/',
-                );
-              }
-            },
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) =>
+                AuthBloc(context.read<AuthenticationRepository>()),
+            lazy: false,
           ),
-        );
-      }),
+          BlocProvider(
+            create: (context) =>
+                PinStatusCubit(context.read<PinService>())..pinAuthChecked(),
+          ),
+        ],
+        child: FutureBuilder(
+          future: Future.delayed(const Duration(seconds: 3)),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const SplashScreen();
+            } else {
+              return MaterialApp(
+                theme: lightTheme,
+                themeMode: _themeManager.themeMode,
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: const [
+                  Locale('en', ''),
+                  Locale('id', ''),
+                ],
+                routes: {
+                  '/': (context) => Home(),
+                  '/home': (context) => Home(),
+                  '/profile': (context) => const ProfileWrapper(),
+                  '/collection': (context) => const CollectionWrapper(),
+                  '/bill': (context) => const TransactionWrapper(),
+                  '/updateProfile': (context) => const UpdateProfile(),
+                  '/asset/product_detail': (context) => ProductDetail(),
+                  '/asset/product_detail/collection_review': (context) =>
+                      CollectionReview(),
+                  '/asset/product_detail/payment_process': (context) =>
+                      PaymentProcess(),
+                  '/auth': (context) => const Authenticate(),
+                  '/payment': (context) => const Payment(),
+                  '/mint': (context) => const Mint(),
+                  '/policy': (context) => const PrivacyPolicy(),
+                },
+                initialRoute: '/',
+              );
+            }
+          },
+        ),
+      ),
     );
   }
 }
