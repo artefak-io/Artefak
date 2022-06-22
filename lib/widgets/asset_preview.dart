@@ -7,20 +7,17 @@ class AssetPreview extends StatelessWidget {
     Key? key,
     required this.size,
     required Map<String, dynamic> data,
-    required ThemeData themeData,
-    required TextTheme textTheme,
   })  : _data = data,
-        _themeData = themeData,
-        _textTheme = textTheme,
         super(key: key);
 
   final Size size;
   final Map<String, dynamic> _data;
-  final ThemeData _themeData;
-  final TextTheme _textTheme;
 
   @override
   Widget build(BuildContext context) {
+    ThemeData _themeData = Theme.of(context);
+    TextTheme _textTheme = Theme.of(context).textTheme;
+
     return Container(
       width: size.width,
       child: Stack(

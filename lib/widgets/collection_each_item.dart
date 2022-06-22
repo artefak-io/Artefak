@@ -3,15 +3,13 @@ import 'package:flutter/material.dart';
 class CollectionEachItem extends StatelessWidget {
   const CollectionEachItem({
     Key? key,
-    required TextTheme textTheme,
-    required ThemeData themeData,
-  }) : _textTheme = textTheme, _themeData = themeData, super(key: key);
-
-  final TextTheme _textTheme;
-  final ThemeData _themeData;
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ThemeData _themeData = Theme.of(context);
+    TextTheme _textTheme = Theme.of(context).textTheme;
+
     return Container(
       child: Column(
         children: [
@@ -20,7 +18,7 @@ class CollectionEachItem extends StatelessWidget {
             alignment: Alignment.center,
             height: 66,
             decoration: BoxDecoration(
-              color: Color(0xFF252525),
+              color: _themeData.shadowColor,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
@@ -87,7 +85,7 @@ class CollectionEachItem extends StatelessWidget {
             alignment: Alignment.center,
             height: 86,
             decoration: BoxDecoration(
-              color: Color(0xFF252525),
+              color: _themeData.shadowColor,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(16),
                 bottomRight: Radius.circular(16),

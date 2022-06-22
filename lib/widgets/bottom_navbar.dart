@@ -30,6 +30,7 @@ class BotNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData _themeData = Theme.of(context);
+
     return ClipRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(

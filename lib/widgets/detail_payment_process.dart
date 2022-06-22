@@ -4,17 +4,14 @@ import 'package:flutter/services.dart';
 class DetailPaymentProcess extends StatelessWidget {
   const DetailPaymentProcess({
     Key? key,
-    required TextTheme textTheme,
-    required ThemeData themeData,
-  })  : _textTheme = textTheme,
-        _themeData = themeData,
-        super(key: key);
+  })  : super(key: key);
 
-  final TextTheme _textTheme;
-  final ThemeData _themeData;
 
   @override
   Widget build(BuildContext context) {
+    ThemeData _themeData = Theme.of(context);
+    TextTheme _textTheme = Theme.of(context).textTheme;
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(

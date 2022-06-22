@@ -4,17 +4,13 @@ import 'package:flutter/material.dart';
 class AccountDescriptionRow extends StatelessWidget {
   const AccountDescriptionRow({
     Key? key,
-    required ThemeData themeData,
-    required TextTheme textTheme,
-  })  : _themeData = themeData,
-        _textTheme = textTheme,
-        super(key: key);
-
-  final ThemeData _themeData;
-  final TextTheme _textTheme;
+  })  : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ThemeData _themeData = Theme.of(context);
+    TextTheme _textTheme = Theme.of(context).textTheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(

@@ -6,25 +6,22 @@ class TotalCollectionReview extends StatelessWidget {
   const TotalCollectionReview({
     Key? key,
     required this.size,
-    required TextTheme textTheme,
     required Map<String, dynamic> data,
-    required ThemeData themeData,
     required this.onPressedPaymentMethod,
     required this.indexBank,
-  })  : _textTheme = textTheme,
-        _data = data,
-        _themeData = themeData,
+  })  : _data = data,
         super(key: key);
 
   final Size size;
   final int indexBank;
-  final TextTheme _textTheme;
   final Map<String, dynamic> _data;
-  final ThemeData _themeData;
   final Function onPressedPaymentMethod;
 
   @override
   Widget build(BuildContext context) {
+    ThemeData _themeData = Theme.of(context);
+    TextTheme _textTheme = Theme.of(context).textTheme;
+
     return Column(
       children: [
         Container(
@@ -105,8 +102,6 @@ class TotalCollectionReview extends StatelessWidget {
           height: 32.0,
         ),
         ChosenPaymentMethod(
-            textTheme: _textTheme,
-            themeData: _themeData,
             onPressedPaymentMethod: onPressedPaymentMethod,
             indexBank: indexBank,
         ),

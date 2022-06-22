@@ -5,21 +5,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 class ChosenPaymentMethod extends StatelessWidget {
   const ChosenPaymentMethod({
     Key? key,
-    required TextTheme textTheme,
-    required ThemeData themeData,
     required this.onPressedPaymentMethod,
     required this.indexBank,
-  })  : _textTheme = textTheme,
-        _themeData = themeData,
-        super(key: key);
+  })  : super(key: key);
 
-  final TextTheme _textTheme;
-  final ThemeData _themeData;
   final int indexBank;
   final Function onPressedPaymentMethod;
 
   @override
   Widget build(BuildContext context) {
+    ThemeData _themeData = Theme.of(context);
+    TextTheme _textTheme = Theme.of(context).textTheme;
 
     return Padding(
       padding: EdgeInsets.only(left: 16.0, right: 16.0),

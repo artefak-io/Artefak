@@ -45,8 +45,7 @@ class PaymentProcess extends StatelessWidget {
             ),
             Column(
               children: [
-                DetailPaymentProcess(
-                    textTheme: _textTheme, themeData: _themeData),
+                DetailPaymentProcess(),
                 SizedBox(
                   height: 24.0,
                 ),
@@ -54,8 +53,7 @@ class PaymentProcess extends StatelessWidget {
                   height: 0,
                   color: _themeData.cursorColor,
                 ),
-                DescCollectionReview(
-                    textTheme: _textTheme, themeData: _themeData),
+                DescCollectionReview(),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(

@@ -13,9 +13,9 @@ class SelectCardPayment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
+
     return GestureDetector(
       onTap: () => onSelectValue(true),
       child: Container(
