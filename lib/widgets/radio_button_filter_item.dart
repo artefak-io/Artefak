@@ -10,8 +10,6 @@ class RadioButtonFilterItem extends StatefulWidget {
 }
 
 class _RadioButtonFilterItemState extends State<RadioButtonFilterItem> {
-  int value = 0;
-  List<bool> listBool = [];
 
   @override
   Widget build(BuildContext context) {
