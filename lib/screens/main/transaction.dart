@@ -5,7 +5,7 @@ import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:artefak/widgets/radio_button_filter_item.dart';
-import 'package:artefak/widgets/transaction_each_item.dart';
+import 'package:artefak/widgets/transaction_row_item.dart';
 import 'package:flutter/material.dart';
 
 enum TransactionFilter { all, wait, active, missed }
@@ -117,11 +117,11 @@ class _TransactionState extends State<Transaction> {
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         children: [
-                          TransactionEachItem(),
+                          TransactionRowItem(),
                           SizedBox(
                             height: 16,
                           ),
-                          TransactionEachItem(),
+                          TransactionRowItem(),
                           SizedBox(
                             height: 80.0,
                           ),

@@ -5,7 +5,7 @@ import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/services/transaction_service.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
-import 'package:artefak/widgets/collection_each_item.dart';
+import 'package:artefak/widgets/collection_row_item.dart';
 import 'package:artefak/widgets/radio_button_filter_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -89,11 +89,11 @@ class _CollectionState extends State<Collection> {
                       SizedBox(
                         height: 64.0,
                       ),
-                      CollectionEachItem(),
+                      CollectionRowItem(),
                       SizedBox(
                         height: 16.0,
                       ),
-                      CollectionEachItem(),
+                      CollectionRowItem(),
                       SizedBox(
                         height: 80.0,
                       ),

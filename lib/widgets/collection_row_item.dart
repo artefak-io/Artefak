@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TransactionEachItem extends StatelessWidget {
-  const TransactionEachItem({
+class CollectionRowItem extends StatelessWidget {
+  const CollectionRowItem({
     Key? key,
   }) : super(key: key);
 
@@ -28,7 +28,8 @@ class TransactionEachItem extends StatelessWidget {
               children: [
                 Container(
                   child: CircleAvatar(
-                    child: Text('H', style: _textTheme.bodySmall),
+                    child: Text('H',
+                        style: _textTheme.bodySmall),
                     radius: 32,
                     backgroundColor: Colors.white30,
                   ),
@@ -36,14 +37,15 @@ class TransactionEachItem extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment:
+                    MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         child: Text(
                           'Tiket',
-                          style: _textTheme.bodyLarge
-                              ?.copyWith(fontWeight: FontWeight.w400),
+                          style: _textTheme.bodyLarge?.copyWith(
+                              fontWeight: FontWeight.w400),
                         ),
                       ),
                       Container(
@@ -60,16 +62,14 @@ class TransactionEachItem extends StatelessWidget {
                 Spacer(),
                 Container(
                   decoration: BoxDecoration(
-                    color: _themeData.errorColor,
+                    color: _themeData.toggleableActiveColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     child: Text(
-                      "Menunggu Pembayaran",
-                      style:
-                          _textTheme.bodySmall?.copyWith(color: Colors.black),
+                      "Koleksi Aktif",
+                      style: _textTheme.bodySmall?.copyWith(color: Colors.black),
                     ),
                   ),
                 )
@@ -77,59 +77,13 @@ class TransactionEachItem extends StatelessWidget {
             ),
           ),
           Container(
-            color: _themeData.primaryColorDark,
-            height: 80,
-            alignment: Alignment.centerLeft,
-            child: Row(
-              children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  child: Image.asset(
-                    "assets/bank_bca.png",
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 12.0, right: 12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Lagu Baru untuk Kamu',
-                          style: _textTheme.bodyLarge
-                              ?.copyWith(fontWeight: FontWeight.w400),
-                          textAlign: TextAlign.start),
-                      SizedBox(
-                        height: 4.0,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            width: 24.75,
-                            height: 24.75,
-                            child: Image.asset('assets/propict.png'),
-                          ),
-                          SizedBox(
-                            width: 7.25,
-                          ),
-                          Text(
-                            "Sarah & Friends",
-                            style: _textTheme.bodySmall
-                                ?.copyWith(fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            height: 328,
+            child: SizedBox(),
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 12.0),
             alignment: Alignment.center,
-            height: 58,
+            height: 86,
             decoration: BoxDecoration(
               color: _themeData.shadowColor,
               borderRadius: BorderRadius.only(
@@ -140,31 +94,50 @@ class TransactionEachItem extends StatelessWidget {
             child: Row(
               children: [
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment:
+                  MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       margin: EdgeInsets.only(bottom: 4.0),
-                      child: Text('Harga Premium',
+                      child: Text(
+                        'Konser “Kita - Kamu - Aku”',
+                        style: _textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(right: 7.25),
+                          child: CircleAvatar(
+                            child: Text('H',
+                                style: _textTheme.bodySmall),
+                            radius: 12,
+                            backgroundColor: Colors.white30,
+                          ),
+                        ),
+                        Text(
+                          'Monalisa Anita',
                           style: _textTheme.bodySmall?.copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: _themeData.focusColor),
-                          textAlign: TextAlign.start),
-                    ),
-                    Text(
-                      "1 Token • Rp 250.000",
-                      style: _textTheme.bodySmall
-                          ?.copyWith(fontWeight: FontWeight.w700),
-                    ),
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ],),
                   ],
                 ),
                 Spacer(),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Container(
+                      child: Text(
+                        "#888",
+                        style: _textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,),
+                      ),
+                    ),
                     ElevatedButton(
                       child: Text(
-                        'Bayar',
+                        'Akses',
                         style: _textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w400,
                         ),

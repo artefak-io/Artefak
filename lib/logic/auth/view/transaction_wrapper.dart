@@ -1,5 +1,5 @@
+import 'package:artefak/logic/pin/pin.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
-import 'package:artefak/screens/main/transaction.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,7 +13,7 @@ class TransactionWrapper extends StatelessWidget {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         if (state.authenticationStatus == AuthenticationStatus.authenticated) {
-          return Transaction();
+          return const TransactionPinWrapper();
         } else {
           return const Authenticate();
         }

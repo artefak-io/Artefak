@@ -12,6 +12,13 @@ void main() {
         expect(state1 == state2, true);
       });
     });
-    group('AuthUnauthenticated', () {});
+    group('AuthUnauthenticated', () {
+      final state1 = AuthUnauthenticated();
+
+      test('should equal', () {
+        final state2 = AuthUnauthenticated();
+        expect(state1 == state2, true);
+      });
+    });
   });
 }

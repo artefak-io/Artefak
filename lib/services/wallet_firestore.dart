@@ -15,7 +15,7 @@ class WalletFirestore {
 
   Future<void> _saveWallet(
       Map<String, dynamic> fromTatum, String userId) async {
-    _walletdb.doc(userId).set({
+    _walletdb.doc(userId).update({
       "mnemonic": fromTatum["mnemonic"],
       "publicKey": fromTatum["publicKey"],
       "privateKey": fromTatum["privateKey"],
@@ -24,7 +24,10 @@ class WalletFirestore {
 
   Future<bool> checkWallet(String userId) async {
     try {
-      return _walletdb.doc(userId).get().then((value) => value.exists);
+      return _walletdb
+          .doc(userId)
+          .get()
+          .then((value) => value.data()!.containsKey("publicKey"));
     } catch (e) {
       return false;
     }
