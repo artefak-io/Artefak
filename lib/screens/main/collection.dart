@@ -1,9 +1,11 @@
+import 'dart:ui';
+
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/services/transaction_service.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
-import 'package:artefak/widgets/collection_each_item.dart';
+import 'package:artefak/widgets/collection_row_item.dart';
 import 'package:artefak/widgets/radio_button_filter_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +26,6 @@ class _CollectionState extends State<Collection> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _themeData = Theme.of(context);
     TextTheme _textTheme = Theme.of(context).textTheme;
 
     if (AuthService.user == null) {
@@ -34,6 +35,8 @@ class _CollectionState extends State<Collection> {
           TransactionService().personalTransaction(AuthService.user!.uid);
       return AppLayout(
         child: Scaffold(
+          extendBody: true,
+          extendBodyBehindAppBar: true,
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: true,
           appBar: PreferredSize(
@@ -41,18 +44,26 @@ class _CollectionState extends State<Collection> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AppBar(
-                  automaticallyImplyLeading: false,
-                  title: Text(
-                    'Koleksi',
-                    style: _textTheme.titleLarge
-                        ?.copyWith(fontWeight: FontWeight.w400),
+                ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(
+                      sigmaX: 5.0,
+                      sigmaY: 5.0,
+                    ),
+                    child: AppBar(
+                      automaticallyImplyLeading: false,
+                      title: Text(
+                        'Koleksi',
+                        style: _textTheme.titleLarge
+                            ?.copyWith(fontWeight: FontWeight.w400),
+                      ),
+                      actions: [
+                        IconButton(
+                            icon: Icon(Icons.notifications_none, size: 25.0),
+                            onPressed: () {}),
+                      ],
+                    ),
                   ),
-                  actions: [
-                    IconButton(
-                        icon: Icon(Icons.notifications_none, size: 25.0),
-                        onPressed: () {}),
-                  ],
                 ),
               ],
             ),
@@ -64,7 +75,7 @@ class _CollectionState extends State<Collection> {
                 Positioned(
                   left: 0,
                   right: -120,
-                  top: -165,
+                  top: -85,
                   child: Image.asset(
                     'assets/bggrad.png',
                     fit: BoxFit.fitHeight,
@@ -75,7 +86,17 @@ class _CollectionState extends State<Collection> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      CollectionEachItem(textTheme: _textTheme, themeData: _themeData)
+                      SizedBox(
+                        height: 64.0,
+                      ),
+                      CollectionRowItem(),
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                      CollectionRowItem(),
+                      SizedBox(
+                        height: 80.0,
+                      ),
                     ],
                   ),
                 ),

@@ -1,10 +1,11 @@
+import 'dart:ui';
+
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/services/auth.dart';
-import 'package:artefak/services/transaction_service.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:artefak/widgets/radio_button_filter_item.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:artefak/widgets/transaction_row_item.dart';
 import 'package:flutter/material.dart';
 
 enum TransactionFilter { all, wait, active, missed }
@@ -12,7 +13,7 @@ enum TransactionFilter { all, wait, active, missed }
 class Transaction extends StatefulWidget {
   Transaction({Key? key}) : super(key: key);
 
-  static const index = 1;
+  static const index = 3;
 
   @override
   State<Transaction> createState() => _TransactionState();
@@ -21,34 +22,27 @@ class Transaction extends StatefulWidget {
 class _TransactionState extends State<Transaction> {
   List<CustomRadioModel> filterList = <CustomRadioModel>[];
 
-  late final Stream<QuerySnapshot> _transactionStream;
-
-  TransactionFilter? _transactionFilter = TransactionFilter.all;
-
   @override
   void initState() {
     super.initState();
-    filterList.add(new CustomRadioModel(false, 'Semua'));
-    filterList.add(new CustomRadioModel(false, 'Menunggu Pembayaran'));
-    filterList.add(new CustomRadioModel(false, 'Koleksi Aktif'));
-    filterList.add(new CustomRadioModel(false, 'Terlewatkan'));
+    filterList.add(new CustomRadioModel(true, 'Semua', 1));
+    filterList.add(new CustomRadioModel(false, 'Menunggu Pembayaran', 2));
+    filterList.add(new CustomRadioModel(false, 'Koleksi Aktif', 3));
+    filterList.add(new CustomRadioModel(false, 'Terlewatkan', 4));
   }
-
 
   @override
   Widget build(BuildContext context) {
     ThemeData _themeData = Theme.of(context);
-    TextTheme _textTheme = Theme
-        .of(context)
-        .textTheme;
+    TextTheme _textTheme = Theme.of(context).textTheme;
 
     if (AuthService.user == null) {
       return const Authenticate();
     } else {
-      _transactionStream =
-          TransactionService().personalTransaction(AuthService.user!.uid);
       return AppLayout(
         child: Scaffold(
+          extendBody: true,
+          extendBodyBehindAppBar: true,
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: true,
           appBar: PreferredSize(
@@ -56,71 +50,86 @@ class _TransactionState extends State<Transaction> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AppBar(
-                  automaticallyImplyLeading: false,
-                  title: Text(
-                    'Koleksi',
-                    style:
-                    _textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w400),
+                ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(
+                      sigmaX: 5.0,
+                      sigmaY: 5.0,
+                    ),
+                    child: AppBar(
+                      automaticallyImplyLeading: false,
+                      title: Text(
+                        'Transaksi',
+                        style: _textTheme.titleLarge
+                            ?.copyWith(fontWeight: FontWeight.w400),
+                      ),
+                      actions: [
+                        IconButton(
+                            icon: Icon(Icons.notifications_none, size: 25.0),
+                            onPressed: () {}),
+                      ],
+                    ),
                   ),
-                  actions: [
-                    IconButton(
-                        icon: Icon(Icons.notifications_none, size: 25.0),
-                        onPressed: () {}),
-                  ],
                 ),
               ],
             ),
           ),
           body: SingleChildScrollView(
             physics: ClampingScrollPhysics(),
-            child: Column(
-              children: [
-                Container(
-                  // margin: EdgeInsets.only(right: 16.0),
-                  height: 32.0,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int index) {
-                      return new InkWell(
-                        //highlightColor: Colors.red,
-                        splashColor: Colors.blueAccent,
-                        onTap: () {
-                          setState(() {
-                            filterList.forEach((element) =>
-                            element.isSelected = false);
-                            filterList[index].isSelected = true;
-                          });
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  left: 0,
+                  right: -120,
+                  top: -85,
+                  child: Image.asset(
+                    'assets/bggrad.png',
+                    fit: BoxFit.fitHeight,
+                    height: 350,
+                  ),
+                ),
+                Column(
+                  children: [
+                    Container(
+                      padding:
+                          EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16.0),
+                      margin: EdgeInsets.only(top: 64.0),
+                      height: 48.0,
+                      color: _themeData.primaryColorDark,
+                      child: ListView.builder(
+                        itemCount: filterList.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (BuildContext context, int index) {
+                          return InkWell(
+                            onTap: () {
+                              setState(() {
+                                filterList.forEach(
+                                    (element) => element.isSelected = false);
+                                filterList[index].isSelected = true;
+                              });
+                            },
+                            child: new RadioButtonFilterItem(filterList[index]),
+                          );
                         },
-                        child: new RadioButtonFilterItem(filterList[index]),
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          TransactionRowItem(),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          TransactionRowItem(),
+                          SizedBox(
+                            height: 80.0,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                Container(
-                  child: Text(
-                    "Terbaru",
-                    style: _textTheme.displaySmall
-                        ?.copyWith(fontWeight: FontWeight.w700),
-                  ),
-                ),
-                // Container(
-                //   child: Column(
-                //     children: [
-                //       Container(
-                //         decoration: BoxDecoration(
-                //         color: _themeData.shadowColor,
-                //           borderRadius: BorderRadius.all(Radius.circular(16)),
-                //         ),
-                //         height: 80,
-                //         alignment: Alignment.centerLeft,
-                //         child: Row(
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
               ],
             ),
           ),
