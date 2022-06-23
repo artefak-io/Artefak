@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 
-class CollectionEachItem extends StatelessWidget {
-  const CollectionEachItem({
+class CollectionRowItem extends StatelessWidget {
+  const CollectionRowItem({
     Key? key,
-    required TextTheme textTheme,
-    required ThemeData themeData,
-  }) : _textTheme = textTheme, _themeData = themeData, super(key: key);
-
-  final TextTheme _textTheme;
-  final ThemeData _themeData;
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ThemeData _themeData = Theme.of(context);
+    TextTheme _textTheme = Theme.of(context).textTheme;
+
     return Container(
       child: Column(
         children: [

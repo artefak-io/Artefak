@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TransactionEachItem extends StatelessWidget {
-  const TransactionEachItem({
+class TransactionRowItem extends StatelessWidget {
+  const TransactionRowItem({
     Key? key,
   }) : super(key: key);
 
