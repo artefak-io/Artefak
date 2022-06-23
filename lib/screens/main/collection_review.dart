@@ -105,13 +105,10 @@ class _CollectionReviewState extends State<CollectionReview> {
             ),
             Column(
               children: [
-                DescCollectionReview(
-                    textTheme: _textTheme, themeData: _themeData),
+                DescCollectionReview(),
                 TotalCollectionReview(
                   size: size,
-                  textTheme: _textTheme,
                   data: _data,
-                  themeData: _themeData,
                   onPressedPaymentMethod: _showDialog,
                   indexBank: indexBank,
                 ),
@@ -123,8 +120,6 @@ class _CollectionReviewState extends State<CollectionReview> {
       bottomNavBar: updatedIsPanelOpen
           ? null
           : BottomActionBar(
-        themeData: _themeData,
-        textTheme: _textTheme,
         size: size,
         subTitleAbove: "Total Pembayaran",
         priceDisplay: 750000,

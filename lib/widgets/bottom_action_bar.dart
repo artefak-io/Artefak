@@ -4,19 +4,13 @@ import 'package:intl/intl.dart';
 class BottomActionBar extends StatelessWidget {
   const BottomActionBar({
     Key? key,
-    required ThemeData themeData,
-    required TextTheme textTheme,
     required this.size,
     required this.subTitleAbove,
     required this.textButton,
     required this.priceDisplay,
     required this.onClickButton,
-  })  : _themeData = themeData,
-        _textTheme = textTheme,
-        super(key: key);
+  })  : super(key: key);
 
-  final ThemeData _themeData;
-  final TextTheme _textTheme;
   final Size size;
   final String subTitleAbove, textButton;
   final double priceDisplay;
@@ -24,6 +18,9 @@ class BottomActionBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData _themeData = Theme.of(context);
+    TextTheme _textTheme = Theme.of(context).textTheme;
+
     return SizedBox(
       height: 80,
       child: Container(

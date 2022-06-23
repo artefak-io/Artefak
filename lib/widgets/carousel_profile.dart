@@ -139,6 +139,7 @@ class _ProfileCarouselItem extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
+
     return Row(
       children: [
         currencyLabel == 'IDR'

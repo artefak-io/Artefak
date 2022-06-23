@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
@@ -18,9 +19,12 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    ThemeData _themeData = Theme.of(context);
+
     return AppLayout(
       child: Scaffold(
         extendBody: true,
+        extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: true,
         appBar: PreferredSize(
@@ -28,83 +32,93 @@ class Home extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AppBar(
-                title: Image.asset('assets/logo_color.png', width: 100),
-                actions: [
-                  IconButton(
-                      icon: Icon(Icons.notifications_none, size: 25.0),
-                      onPressed: () {}),
-                ],
+              ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: 5.0,
+                    sigmaY: 5.0,
+                  ),
+                  child: AppBar(
+                    backgroundColor: _themeData.highlightColor,
+                    title: Image.asset('assets/logo_color.png', width: 100),
+                    actions: [
+                      IconButton(
+                          icon: Icon(Icons.notifications_none, size: 25.0),
+                          onPressed: () {}),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
         ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            physics: ClampingScrollPhysics(),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  alignment: Alignment.topCenter,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SubHeadTitle(
-                        title: "Proyek Terbaik saat ini",
-                        isSeeAll: false,
-                      ),
-                    ],
-                  ),
+        body:
+            SingleChildScrollView(
+          physics: ClampingScrollPhysics(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 64.0,
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.topCenter,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SubHeadTitle(
+                      title: "Proyek Terbaik saat ini",
+                      isSeeAll: false,
+                    ),
+                  ],
                 ),
-                Container(
-                  padding: EdgeInsets.only(left: 16),
-                  alignment: Alignment.topCenter,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SubHeadTitle(
-                        title: "Sedang Popular",
-                        isSeeAll: true,
-                      ),
-                      Container(
-                        // margin: EdgeInsets.only(right: 16.0),
-                        height: 200,
-                        child: ItemTwoAxisScroll(
-                          assetStream: _assetStream,
-                          isHorizontal: true,
-                          heightPhoto: 120,
-                          widthPhoto: size.width * 0.80,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  alignment: Alignment.topCenter,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SubHeadTitle(
-                        title: "Segera Hadir!",
-                        isSeeAll: true,
-                      ),
-                      ItemTwoAxisScroll(
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 16),
+                alignment: Alignment.topCenter,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SubHeadTitle(
+                      title: "Sedang Popular",
+                      isSeeAll: true,
+                    ),
+                    Container(
+                      height: 200,
+                      child: ItemTwoAxisScroll(
                         assetStream: _assetStream,
-                        isHorizontal: false,
-                        heightPhoto: 270,
-                        widthPhoto: size.width * 0.95,
+                        isHorizontal: true,
+                        heightPhoto: 120,
+                        widthPhoto: size.width * 0.80,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.topCenter,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SubHeadTitle(
+                      title: "Segera Hadir!",
+                      isSeeAll: true,
+                    ),
+                    ItemTwoAxisScroll(
+                      assetStream: _assetStream,
+                      isHorizontal: false,
+                      heightPhoto: 270,
+                      widthPhoto: size.width - 32.0,
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
         bottomNavigationBar: const BotNavBar(

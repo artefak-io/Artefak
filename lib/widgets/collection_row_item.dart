@@ -18,7 +18,7 @@ class CollectionRowItem extends StatelessWidget {
             alignment: Alignment.center,
             height: 66,
             decoration: BoxDecoration(
-              color: Color(0xFF252525),
+              color: _themeData.shadowColor,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
@@ -85,7 +85,7 @@ class CollectionRowItem extends StatelessWidget {
             alignment: Alignment.center,
             height: 86,
             decoration: BoxDecoration(
-              color: Color(0xFF252525),
+              color: _themeData.shadowColor,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(16),
                 bottomRight: Radius.circular(16),

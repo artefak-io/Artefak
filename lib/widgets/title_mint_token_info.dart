@@ -4,19 +4,16 @@ class TitleMintTokenInfo extends StatelessWidget {
   const TitleMintTokenInfo({
     Key? key,
     required Map<String, dynamic> data,
-    required TextTheme textTheme,
-    required ThemeData themeData,
   })  : _data = data,
-        _textTheme = textTheme,
-        _themeData = themeData,
         super(key: key);
 
   final Map<String, dynamic> _data;
-  final TextTheme _textTheme;
-  final ThemeData _themeData;
 
   @override
   Widget build(BuildContext context) {
+    ThemeData _themeData = Theme.of(context);
+    TextTheme _textTheme = Theme.of(context).textTheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(

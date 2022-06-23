@@ -18,12 +18,14 @@ class ItemTwoAxisScroll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme _textTheme = Theme.of(context).textTheme;
+
     return StreamBuilder<QuerySnapshot>(
       stream: _assetStream,
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return const Center(
-            child: Text('An error has occurred!'),
+          return Center(
+            child: Text('An error has occurred!', style: _textTheme.bodyMedium),
           );
         } else if (snapshot.hasData) {
           return ListView.builder(
@@ -35,32 +37,32 @@ class ItemTwoAxisScroll extends StatelessWidget {
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/asset/product_detail',
-                        arguments: <String, dynamic>{
-                          'id': snapshot.data!.docs[index].id,
-                          'currentOwner': snapshot.data!.docs[index]
-                              ['currentOwner'],
-                          'creator': snapshot.data!.docs[index]['creator'],
-                          'name': snapshot.data!.docs[index]['name'],
-                          'description': snapshot.data!.docs[index]
-                              ['description'],
-                          'coverImage': snapshot.data!.docs[index]
-                              ['coverImage'],
-                          'views': snapshot.data!.docs[index]['views'],
-                          'contractAddress': snapshot.data!.docs[index]
-                              ['contractAddress'],
-                          'tokenId': snapshot.data!.docs[index]['tokenId'],
-                          'price': snapshot.data!.docs[index]['price'],
-                        });
-                  },
-                  // needs loading indicator when image being reloaded
-                  child: ItemCardCustom(
-                    isHorizontal: isHorizontal,
-                    heightPhoto: heightPhoto,
-                    widthPhoto: widthPhoto,
-                    dataEach: snapshot.data!.docs[index],
-                  ));
+                onTap: () {
+                  Navigator.pushNamed(context, '/asset/product_detail',
+                      arguments: <String, dynamic>{
+                        'id': snapshot.data!.docs[index].id,
+                        'currentOwner': snapshot.data!.docs[index]
+                            ['currentOwner'],
+                        'creator': snapshot.data!.docs[index]['creator'],
+                        'name': snapshot.data!.docs[index]['name'],
+                        'description': snapshot.data!.docs[index]
+                            ['description'],
+                        'coverImage': snapshot.data!.docs[index]['coverImage'],
+                        'views': snapshot.data!.docs[index]['views'],
+                        'contractAddress': snapshot.data!.docs[index]
+                            ['contractAddress'],
+                        'tokenId': snapshot.data!.docs[index]['tokenId'],
+                        'price': snapshot.data!.docs[index]['price'],
+                      });
+                },
+                // needs loading indicator when image being reloaded
+                child: ItemCardCustom(
+                  isHorizontal: isHorizontal,
+                  heightPhoto: heightPhoto,
+                  widthPhoto: widthPhoto,
+                  dataEach: snapshot.data!.docs[index],
+                ),
+              );
             },
           );
         } else {
@@ -102,6 +104,8 @@ class _ItemCardCustomState extends State<ItemCardCustom> {
   @override
   Widget build(BuildContext context) {
     TextTheme _textTheme = Theme.of(context).textTheme;
+    ThemeData _themeData = Theme.of(context);
+
     return Container(
       margin: widget.isHorizontal
           ? const EdgeInsets.only(right: 16.0)
@@ -154,7 +158,7 @@ class _ItemCardCustomState extends State<ItemCardCustom> {
             height: 80,
             width: widget.widthPhoto,
             decoration: BoxDecoration(
-              color: Color(0xFF252525),
+              color: _themeData.shadowColor,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(16),
                 bottomRight: Radius.circular(16),

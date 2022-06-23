@@ -55,12 +55,12 @@ class ProductDetail extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               AssetPreview(
-                  size: size,
-                  data: _data,
-                  themeData: _themeData,
-                  textTheme: _textTheme),
+                size: size,
+                data: _data,
+              ),
               TitleMintTokenInfo(
-                  data: _data, textTheme: _textTheme, themeData: _themeData),
+                data: _data,
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 16),
                 child: Column(
@@ -69,15 +69,13 @@ class ProductDetail extends StatelessWidget {
                     Container(
                       height: 200,
                       child: listSaleWidget(
-                          assetList: sales,
-                          themeData: _themeData,
-                          textTheme: _textTheme),
+                        assetList: sales,
+                      ),
                     ),
                   ],
                 ),
               ),
-              AccountDescriptionRow(
-                  themeData: _themeData, textTheme: _textTheme),
+              AccountDescriptionRow(),
               Column(
                 children: [
                   Container(
@@ -142,8 +140,6 @@ class ProductDetail extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: BottomActionBar(
-          themeData: _themeData,
-          textTheme: _textTheme,
           size: size,
           subTitleAbove: "Jumlah Token: 3",
           priceDisplay: 750000,

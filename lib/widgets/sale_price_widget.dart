@@ -7,19 +7,14 @@ import 'package:artefak/widgets/input_number_step.dart';
 class listSaleWidget extends StatelessWidget {
   const listSaleWidget({
     Key? key,
-    required ThemeData themeData,
-    required TextTheme textTheme,
     required this.assetList,
-  })  : _themeData = themeData,
-        _textTheme = textTheme,
-        super(key: key);
+  })  : super(key: key);
 
-  final ThemeData _themeData;
-  final TextTheme _textTheme;
   final List<SalePackages> assetList;
 
   @override
   Widget build(BuildContext context) {
+
     return ListView.builder(
         itemCount: assetList.length,
         scrollDirection: Axis.horizontal,
@@ -28,9 +23,7 @@ class listSaleWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           return salePriceWidget(
               codeSale: assetList[index].code,
-              price: assetList[index].price,
-              themeData: _themeData,
-              textTheme: _textTheme);
+              price: assetList[index].price,);
         });
   }
 }
@@ -38,21 +31,17 @@ class listSaleWidget extends StatelessWidget {
 class salePriceWidget extends StatelessWidget {
   const salePriceWidget({
     Key? key,
-    required ThemeData themeData,
-    required TextTheme textTheme,
     required this.codeSale,
     required this.price,
-  })  : _themeData = themeData,
-        _textTheme = textTheme,
-        super(key: key);
+  })  : super(key: key);
 
-  final ThemeData _themeData;
-  final TextTheme _textTheme;
   final int codeSale;
   final double price;
 
   @override
   Widget build(BuildContext context) {
+    ThemeData _themeData = Theme.of(context);
+    TextTheme _textTheme = Theme.of(context).textTheme;
     int yourLocalVariable = 0;
 
     return Container(
