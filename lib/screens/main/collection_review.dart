@@ -69,9 +69,6 @@ class _CollectionReviewState extends State<CollectionReview> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
     TextTheme _textTheme = Theme
         .of(context)
         .textTheme;
@@ -107,7 +104,6 @@ class _CollectionReviewState extends State<CollectionReview> {
               children: [
                 DescCollectionReview(),
                 TotalCollectionReview(
-                  size: size,
                   data: _data,
                   onPressedPaymentMethod: _showDialog,
                   indexBank: indexBank,
@@ -120,7 +116,6 @@ class _CollectionReviewState extends State<CollectionReview> {
       bottomNavBar: updatedIsPanelOpen
           ? null
           : BottomActionBar(
-        size: size,
         subTitleAbove: "Total Pembayaran",
         priceDisplay: 750000,
         textButton: "Proses Sekarang",
