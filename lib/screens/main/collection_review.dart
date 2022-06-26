@@ -58,26 +58,21 @@ class _CollectionReviewState extends State<CollectionReview> {
             maxChildSize: 0.8,
             builder:
                 (BuildContext context, ScrollController scrollController) =>
-                PaymentSlidingPanel(
-                  scrollController: scrollController,
-                  updateBankAssetState: updateBankAssetState,
-                  listVA: listVA,
-                ),
+                    PaymentSlidingPanel(
+              scrollController: scrollController,
+              updateBankAssetState: updateBankAssetState,
+              listVA: listVA,
+            ),
           );
         });
   }
 
   @override
   Widget build(BuildContext context) {
-    TextTheme _textTheme = Theme
-        .of(context)
-        .textTheme;
+    TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
     final Map<String, dynamic> _data =
-    ModalRoute
-        .of(context)!
-        .settings
-        .arguments as Map<String, dynamic>;
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     return AppLayout(
       appBar: AppBar(
@@ -116,16 +111,15 @@ class _CollectionReviewState extends State<CollectionReview> {
       bottomNavBar: updatedIsPanelOpen
           ? null
           : BottomActionBar(
-        subTitleAbove: "Total Pembayaran",
-        priceDisplay: 750000,
-        textButton: "Proses Sekarang",
-        onClickButton: () =>
-            Navigator.pushNamed(
-                context, '/asset/product_detail/payment_process',
-                arguments: <String, dynamic>{
-                  'codeSale': 0,
-                }),
-      ),
+              subTitleAbove: "Total Pembayaran",
+              priceDisplay: 750000,
+              textButton: "Proses Sekarang",
+              onClickButton: () => Navigator.pushNamed(
+                  context, '/payment_process',
+                  arguments: <String, dynamic>{
+                    'codeSale': 0,
+                  }),
+            ),
     );
   }
 }
