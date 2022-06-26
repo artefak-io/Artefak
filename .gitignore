@@ -52,6 +52,7 @@ app.*.map.json
 Podfile.lock
 Gemfile.lock
 *.dSYM.*
+*.cer
 
 # iOS Build
 *.ipa
@@ -64,3 +65,7 @@ lib/services/pinata.dart
 
 # Password
 android/key.properties
+
+# Fastlane
+android/fastlane/report.xml
+ios/fastlane/report.xml
