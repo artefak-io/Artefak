@@ -16,7 +16,7 @@ class BotNavBar extends StatelessWidget {
         Navigator.pushNamed(context, '/collection');
         break;
       case 2:
-        Navigator.pushNamed(context, '/favourite');
+        Navigator.pushNamed(context, '/favorite');
         break;
       case 3:
         Navigator.pushNamed(context, '/bill');

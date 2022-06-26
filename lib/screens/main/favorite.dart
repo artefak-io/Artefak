@@ -5,8 +5,8 @@ import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:artefak/widgets/under_construction_page.dart';
 import 'package:flutter/material.dart';
 
-class Favourite extends StatelessWidget {
-  const Favourite({Key? key}) : super(key: key);
+class Favorite extends StatelessWidget {
+  const Favorite({Key? key}) : super(key: key);
 
   static const index = 2;
 

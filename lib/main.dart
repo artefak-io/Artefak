@@ -3,7 +3,7 @@ import 'package:artefak/logic/auth/view/collection_wrapper.dart';
 import 'package:artefak/logic/bloc_observer.dart';
 import 'package:artefak/logic/pin/pin.dart';
 import 'package:artefak/screens/main/collection_review.dart';
-import 'package:artefak/screens/main/favourite.dart';
+import 'package:artefak/screens/main/favorite.dart';
 import 'package:artefak/screens/main/payment_process.dart';
 import 'package:artefak/screens/main/privacy_policy.dart';
 import 'package:artefak/themes/artefak_theme.dart';
@@ -124,7 +124,7 @@ class _MyAppState extends State<MyApp> {
                   '/profile': (context) => const ProfileWrapper(),
                   '/collection': (context) => const CollectionWrapper(),
                   '/bill': (context) => const TransactionWrapper(),
-                  '/favourite': (context) => const Favourite(),
+                  '/favorite': (context) => const Favorite(),
                   '/updateProfile': (context) => const UpdateProfile(),
                   '/asset/product_detail': (context) => ProductDetail(),
                   '/asset/product_detail/collection_review': (context) =>
