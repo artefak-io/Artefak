@@ -61,7 +61,12 @@ class Favorite extends StatelessWidget {
                 height: 350,
               ),
             ),
-            UnderConstructionPage(),
+            UnderConstructionPage(
+              onClickHome: () => Navigator.pushNamed(
+                context,
+                '/',
+              ),
+            ),
           ],
         ),
         bottomNavigationBar: const BotNavBar(

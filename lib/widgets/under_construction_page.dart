@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class UnderConstructionPage extends StatelessWidget {
   const UnderConstructionPage({
-    Key? key,
+    Key? key, required this.onClickHome,
   }) : super(key: key);
 
+  final Function onClickHome;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,7 @@ class UnderConstructionPage extends StatelessWidget {
                 style: _textTheme.bodyLarge
                     ?.copyWith(fontWeight: FontWeight.w400),
               ),
-              onPressed: () {},
+              onPressed: () => onClickHome(),
             ),
           ],
         ),
