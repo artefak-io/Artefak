@@ -4,20 +4,19 @@ import 'package:intl/intl.dart';
 class BottomActionBar extends StatelessWidget {
   const BottomActionBar({
     Key? key,
-    required this.size,
     required this.subTitleAbove,
     required this.textButton,
     required this.priceDisplay,
     required this.onClickButton,
   })  : super(key: key);
 
-  final Size size;
   final String subTitleAbove, textButton;
   final double priceDisplay;
   final Function onClickButton;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     ThemeData _themeData = Theme.of(context);
     TextTheme _textTheme = Theme.of(context).textTheme;
 

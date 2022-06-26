@@ -5,16 +5,15 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 class AssetPreview extends StatelessWidget {
   const AssetPreview({
     Key? key,
-    required this.size,
     required Map<String, dynamic> data,
   })  : _data = data,
         super(key: key);
 
-  final Size size;
   final Map<String, dynamic> _data;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     ThemeData _themeData = Theme.of(context);
     TextTheme _textTheme = Theme.of(context).textTheme;
 
@@ -32,13 +31,11 @@ class AssetPreview extends StatelessWidget {
                   fit: BoxFit.cover,
                   placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(Icons.error),
-                  cacheManager: CacheManager(
-                      Config(
-                        "assetImage",
-                        stalePeriod: const Duration(days: 7),
-                        //one week cache period
-                      )
-                  ),
+                  cacheManager: CacheManager(Config(
+                    "assetImage",
+                    stalePeriod: const Duration(days: 7),
+                    //one week cache period
+                  )),
                 ),
               ),
               SizedBox(

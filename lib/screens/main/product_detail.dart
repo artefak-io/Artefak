@@ -33,8 +33,6 @@ class ProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    TextTheme _textTheme = Theme.of(context).textTheme;
-    ThemeData _themeData = Theme.of(context);
 
     final Map<String, dynamic> _data =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
@@ -55,7 +53,6 @@ class ProductDetail extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               AssetPreview(
-                size: size,
                 data: _data,
               ),
               TitleMintTokenInfo(
@@ -140,7 +137,6 @@ class ProductDetail extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: BottomActionBar(
-          size: size,
           subTitleAbove: "Jumlah Token: 3",
           priceDisplay: 750000,
           textButton: "Beli Sekarang",

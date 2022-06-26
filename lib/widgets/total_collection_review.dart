@@ -5,20 +5,19 @@ import 'package:flutter/material.dart';
 class TotalCollectionReview extends StatelessWidget {
   const TotalCollectionReview({
     Key? key,
-    required this.size,
     required Map<String, dynamic> data,
     required this.onPressedPaymentMethod,
     required this.indexBank,
   })  : _data = data,
         super(key: key);
 
-  final Size size;
   final int indexBank;
   final Map<String, dynamic> _data;
   final Function onPressedPaymentMethod;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     ThemeData _themeData = Theme.of(context);
     TextTheme _textTheme = Theme.of(context).textTheme;
 
