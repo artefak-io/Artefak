@@ -57,6 +57,7 @@ class _TransactionState extends State<Transaction> {
                       sigmaY: 5.0,
                     ),
                     child: AppBar(
+                      toolbarHeight: 64.0,
                       automaticallyImplyLeading: false,
                       title: Text(
                         'Transaksi',

@@ -28,42 +28,46 @@ class ItemTwoAxisScroll extends StatelessWidget {
             child: Text('An error has occurred!', style: _textTheme.bodyMedium),
           );
         } else if (snapshot.hasData) {
-          return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
-            scrollDirection: isHorizontal ? Axis.horizontal : Axis.vertical,
-            physics: isHorizontal
-                ? ClampingScrollPhysics()
-                : NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/asset/product_detail',
-                      arguments: <String, dynamic>{
-                        'id': snapshot.data!.docs[index].id,
-                        'currentOwner': snapshot.data!.docs[index]
-                            ['currentOwner'],
-                        'creator': snapshot.data!.docs[index]['creator'],
-                        'name': snapshot.data!.docs[index]['name'],
-                        'description': snapshot.data!.docs[index]
-                            ['description'],
-                        'coverImage': snapshot.data!.docs[index]['coverImage'],
-                        'views': snapshot.data!.docs[index]['views'],
-                        'contractAddress': snapshot.data!.docs[index]
-                            ['contractAddress'],
-                        'tokenId': snapshot.data!.docs[index]['tokenId'],
-                        'price': snapshot.data!.docs[index]['price'],
-                      });
-                },
-                // needs loading indicator when image being reloaded
-                child: ItemCardCustom(
-                  isHorizontal: isHorizontal,
-                  heightPhoto: heightPhoto,
-                  widthPhoto: widthPhoto,
-                  dataEach: snapshot.data!.docs[index],
-                ),
-              );
-            },
+          return MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child:  ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              scrollDirection: isHorizontal ? Axis.horizontal : Axis.vertical,
+              physics: isHorizontal
+                  ? ClampingScrollPhysics()
+                  : NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/asset/product_detail',
+                        arguments: <String, dynamic>{
+                          'id': snapshot.data!.docs[index].id,
+                          'currentOwner': snapshot.data!.docs[index]
+                              ['currentOwner'],
+                          'creator': snapshot.data!.docs[index]['creator'],
+                          'name': snapshot.data!.docs[index]['name'],
+                          'description': snapshot.data!.docs[index]
+                              ['description'],
+                          'coverImage': snapshot.data!.docs[index]['coverImage'],
+                          'views': snapshot.data!.docs[index]['views'],
+                          'contractAddress': snapshot.data!.docs[index]
+                              ['contractAddress'],
+                          'tokenId': snapshot.data!.docs[index]['tokenId'],
+                          'price': snapshot.data!.docs[index]['price'],
+                        });
+                  },
+                  // needs loading indicator when image being reloaded
+                  child: ItemCardCustom(
+                    isHorizontal: isHorizontal,
+                    heightPhoto: heightPhoto,
+                    widthPhoto: widthPhoto,
+                    dataEach: snapshot.data!.docs[index],
+                  ),
+                );
+              },
+            ),
           );
         } else {
           return const Center(

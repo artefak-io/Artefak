@@ -39,6 +39,7 @@ class Home extends StatelessWidget {
                     sigmaY: 5.0,
                   ),
                   child: AppBar(
+                    toolbarHeight: 64.0,
                     backgroundColor: _themeData.highlightColor,
                     title: Image.asset('assets/logo_color.png', width: 100),
                     actions: [
