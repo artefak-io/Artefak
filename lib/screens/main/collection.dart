@@ -71,6 +71,7 @@ class _CollectionState extends State<Collection> {
                       sigmaY: 5.0,
                     ),
                     child: AppBar(
+                      toolbarHeight: 64.0,
                       automaticallyImplyLeading: false,
                       title: Text(
                         'Koleksi',

@@ -39,6 +39,7 @@ class Profile extends StatelessWidget {
                       sigmaY: 5.0,
                     ),
                     child: AppBar(
+                      toolbarHeight: 64.0,
                       automaticallyImplyLeading: false,
                       title: Text('Akun',
                           style: _textTheme.titleLarge
