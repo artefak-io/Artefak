@@ -141,7 +141,7 @@ class ProductDetail extends StatelessWidget {
           priceDisplay: 750000,
           textButton: "Beli Sekarang",
           onClickButton: () => Navigator.pushNamed(
-              context, '/asset/product_detail/collection_review',
+              context, '/collection_review',
               arguments: <String, dynamic>{
                 'codeSale': 0,
               }),

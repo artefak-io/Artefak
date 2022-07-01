@@ -125,12 +125,10 @@ class _MyAppState extends State<MyApp> {
                   '/collection': (context) => const CollectionWrapper(),
                   '/bill': (context) => const TransactionWrapper(),
                   '/favorite': (context) => const Favorite(),
-                  '/updateProfile': (context) => const UpdateProfile(),
+                  '/update_profile': (context) => const UpdateProfile(),
                   '/asset/product_detail': (context) => ProductDetail(),
-                  '/asset/product_detail/collection_review': (context) =>
-                      CollectionReview(),
-                  '/asset/product_detail/payment_process': (context) =>
-                      PaymentProcess(),
+                  '/collection_review': (context) => const CollectionReview(),
+                  '/payment_process': (context) => const PaymentProcess(),
                   '/auth': (context) => const Authenticate(),
                   '/payment': (context) => const Payment(),
                   '/mint': (context) => const Mint(),
