@@ -36,8 +36,10 @@ class PinAuth extends StatelessWidget {
               appBar: AppBar(
                 title: const Text("PIN"),
               ),
-              body: SingleChildScrollView(
-                child: Stack(
+              body:
+              // SingleChildScrollView(
+              //   child:
+              Stack(
                   children: <Widget>[
                     Positioned(
                       left: 20,
@@ -118,7 +120,7 @@ class PinAuth extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
+              // ),
             );
           },
         ),
