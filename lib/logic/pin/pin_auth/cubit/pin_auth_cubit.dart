@@ -26,6 +26,10 @@ class PinAuthCubit extends Cubit<PinAuthState> {
       emit(state.copyWith(
           pinAuthStatus: PinAuthStatus.filled,
           pinInput: PinInput.dirty(value: value)));
+    } else {
+      emit(state.copyWith(
+          pinAuthStatus: PinAuthStatus.not_filled,
+          pinInput: PinInput.dirty(value: value)));
     }
   }
 
