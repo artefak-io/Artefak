@@ -1,13 +1,31 @@
+import 'dart:ui';
+
 import 'package:artefak/logic/pin/pin.dart';
+import 'package:artefak/widgets/input_pin_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 
 class PinAuth extends StatelessWidget {
   const PinAuth({Key? key}) : super(key: key);
 
+  void loginPinOnComplete(String value, BuildContext context) {
+    context.read<PinAuthCubit>().pinFilled(value);
+  }
+
+  void loginPinOnSubmitted(BuildContext context) {
+    context.read<PinAuthCubit>().pinVerified();
+  }
+
+  void loginPinOnChanged(String value, BuildContext context) {
+    context.read<PinAuthCubit>().pinFilled(value);
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    TextTheme _textTheme = Theme.of(context).textTheme;
+    ThemeData _themeData = Theme.of(context);
+
     return BlocProvider(
       create: (context) =>
           PinAuthCubit(context.read<PinService>())..pinRetrieved(),
@@ -17,83 +35,101 @@ class PinAuth extends StatelessWidget {
         listener: (context, state) {
           context.read<PinStatusCubit>().pinAuthenticated();
         },
-        child: Builder(builder: (context) {
-          return Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor,
-            appBar: AppBar(
-              title: const Text("Input Pin"),
-            ),
-            body: BlocListener<PinAuthCubit, PinAuthState>(
-              listenWhen: (previous, current) =>
-                  current.pinAuthStatus == PinAuthStatus.error,
-              listener: (context, state) {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(SnackBar(
-                      content: Text(state.errorMessage ?? "Error happens")));
-              },
-              child: SingleChildScrollView(
+        child: Builder(
+          builder: (context) {
+            return Scaffold(
+              backgroundColor: Theme.of(context).primaryColor,
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(64.0),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    PinCodeTextField(
-                      appContext: context,
-                      length: 6,
-                      onChanged: (value) {},
-                      onCompleted: (value) =>
-                          context.read<PinAuthCubit>().pinFilled(value),
-                      onSubmitted: (value) =>
-                          context.read<PinAuthCubit>().pinVerified(),
-                      autoFocus: true,
-                      obscureText: true,
-                      keyboardType: TextInputType.number,
-                    ),
-                    BlocBuilder<PinAuthCubit, PinAuthState>(
-                      buildWhen: (previous, current) =>
-                          current.pinAuthStatus == PinAuthStatus.failure ||
-                          previous.pinAuthStatus == PinAuthStatus.failure,
-                      builder: (context, state) {
-                        if (state.pinAuthStatus == PinAuthStatus.failure) {
-                          return const Text("Incorrect PIN");
-                        } else {
-                          return const Text("");
-                        }
-                      },
-                    ),
-                    // BlocBuilder<PinAuthCubit, PinAuthState>(
-                    //   buildWhen: (previous, current) =>
-                    //       current.pinAuthStatus != PinAuthStatus.filled,
-                    //   builder: (context, state) {
-                    //     return const ElevatedButton(
-                    //       onPressed: null,
-                    //       child: Text("Input Pin"),
-                    //     );
-                    //   },
-                    // ),
-                    BlocBuilder<PinAuthCubit, PinAuthState>(
-                      buildWhen: (previous, current) =>
-                          current.pinAuthStatus == PinAuthStatus.filled ||
-                          previous.pinAuthStatus == PinAuthStatus.filled,
-                      builder: (context, state) {
-                        if (state.pinAuthStatus == PinAuthStatus.filled) {
-                          return ElevatedButton(
-                            onPressed: () =>
-                                context.read<PinAuthCubit>().pinVerified(),
-                            child: const Text("Input Pin"),
-                          );
-                        } else {
-                          return const ElevatedButton(
-                            onPressed: null,
-                            child: Text("Input Pin"),
-                          );
-                        }
-                      },
+                    ClipRect(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(
+                          sigmaX: 5.0,
+                          sigmaY: 5.0,
+                        ),
+                        child: AppBar(
+                          toolbarHeight: 64.0,
+                          automaticallyImplyLeading: false,
+                          title: Text(
+                            'PIN',
+                            style: _textTheme.titleLarge
+                                ?.copyWith(fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
-            ),
-          );
-        }),
+              body: SingleChildScrollView(
+                child: Stack(
+                  children: <Widget>[
+                    Positioned(
+                      left: 20,
+                      top: -165,
+                      child: Image.asset(
+                        'assets/bggrad.png',
+                        fit: BoxFit.fitHeight,
+                        height: 350,
+                      ),
+                    ),
+                    InputPinWidget(
+                      bodytitle: 'Masuk Artefak',
+                      bodySubTitle:
+                          'Masukkan 6 digit PIN untuk masuk ke akunmu',
+                      appBarTitle: 'PIN',
+                      onCompleteFunction: loginPinOnComplete,
+                      onSubmittedFunction: loginPinOnSubmitted,
+                      onChangedFunction: loginPinOnChanged,
+                      blocBuildNotify: BlocBuilder<PinAuthCubit, PinAuthState>(
+                        builder: (context, state) {
+                          bool isPinFailure =
+                              state.pinAuthStatus == PinAuthStatus.failure;
+                          return Text(
+                            isPinFailure ? 'Incorrect PIN' : '',
+                            style: _textTheme.bodyLarge?.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: _themeData.errorColor,
+                            ),
+                          );
+                        },
+                      ),
+                      blocBuildButton: BlocBuilder<PinAuthCubit, PinAuthState>(
+                        builder: (context, state) {
+                          bool isPinFilled =
+                              state.pinAuthStatus == PinAuthStatus.filled;
+                          return ElevatedButton(
+                            child: Text(
+                              'Masuk',
+                              style: _textTheme.bodyLarge?.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: isPinFilled
+                                      ? _themeData.textSelectionColor
+                                      : _themeData.textSelectionColor
+                                          .withOpacity(0.5)),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(size.width * 0.9, 48),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100.0),
+                              ),
+                            ),
+                            onPressed: () => isPinFilled
+                                ? context.read<PinAuthCubit>().pinVerified()
+                                : null,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
