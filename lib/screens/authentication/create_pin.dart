@@ -22,6 +22,10 @@ class CreatePin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    TextTheme _textTheme = Theme.of(context).textTheme;
+    ThemeData _themeData = Theme.of(context);
+
     return WillPopScope(
       onWillPop: (() async => false),
       child: BlocProvider(
@@ -31,20 +35,24 @@ class CreatePin extends StatelessWidget {
               current.createPinStatus == CreatePinStatus.success,
           listener: (context, state) {
             Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          ConfirmPin(pin: state.pinInput.value),
-                    ))
-                .then(
-                    (value) => context.read<CreatePinCubit>().pinCreateValid(),
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ConfirmPin(pin: state.pinInput.value),
+                )).then(
+              (value) => context.read<CreatePinCubit>().pinCreateValid(),
             );
           },
           child: Builder(
             builder: (context) {
               return Scaffold(
                 backgroundColor: Theme.of(context).backgroundColor,
-                appBar: AppBar(title: const Text("Buat PIN")),
+                appBar: AppBar(
+                  title: Text(
+                    "Buat PIN",
+                    style: _textTheme.titleLarge
+                        ?.copyWith(fontWeight: FontWeight.w400),
+                  ),
+                ),
                 body: SingleChildScrollView(
                   child: Stack(
                     children: <Widget>[
@@ -59,7 +67,6 @@ class CreatePin extends StatelessWidget {
                       ),
                       InputPinWidget(
                         bodytitle: 'Kunci Akses Baru',
-                        phoneNumber: '+62817739337238',
                         bodySubTitle:
                             'Yey! Satu langkah lagi. Masukkan 6 digit PIN yang dibuat untuk memudahkan akses dan keamanan yang lebih mantul! ',
                         appBarTitle: 'Buat PIN',
@@ -77,10 +84,22 @@ class CreatePin extends StatelessWidget {
                           builder: (context, state) {
                             if (state.invalid ==
                                 PinInputValidationError.nonNumberInput) {
-                              return const Text("Input must be a number");
+                              return Text(
+                                "Input must be a number",
+                                style: _textTheme.bodyLarge?.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: _themeData.errorColor,
+                                ),
+                              );
                             } else if (state.invalid ==
                                 PinInputValidationError.insufficientLength) {
-                              return const Text("Input must be 6 digits");
+                              return Text(
+                                "Input must be 6 digits",
+                                style: _textTheme.bodyLarge?.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: _themeData.errorColor,
+                                ),
+                              );
                             } else {
                               return const Text("");
                             }
@@ -95,20 +114,29 @@ class CreatePin extends StatelessWidget {
                                   previous.createPinStatus ==
                                       CreatePinStatus.inputValid),
                           builder: (context, state) {
-                            if (state.createPinStatus ==
-                                CreatePinStatus.inputValid) {
-                              return ElevatedButton(
-                                onPressed: () {
-                                  context.read<CreatePinCubit>().pinSucceed();
-                                },
-                                child: const Text("Input PIN"),
-                              );
-                            } else {
-                              return const ElevatedButton(
-                                onPressed: null,
-                                child: Text("Input PIN"),
-                              );
-                            }
+                            bool isPinValid = state.createPinStatus ==
+                                CreatePinStatus.inputValid;
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: Size(size.width * 0.9, 48),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100.0),
+                                ),
+                              ),
+                              onPressed: () => isPinValid
+                                  ? context.read<CreatePinCubit>().pinSucceed()
+                                  : null,
+                              child: Text(
+                                "Input PIN",
+                                style: _textTheme.bodyLarge?.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: isPinValid
+                                      ? _themeData.textSelectionColor
+                                      : _themeData.textSelectionColor
+                                          .withOpacity(0.5),
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),
