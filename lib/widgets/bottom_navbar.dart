@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:artefak/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class BotNavBar extends StatelessWidget {
@@ -13,16 +14,52 @@ class BotNavBar extends StatelessWidget {
         Navigator.popUntil(context, ModalRoute.withName('/'));
         break;
       case 1:
-        Navigator.pushNamed(context, '/collection');
+        if (AuthService.user == null){
+            Navigator.pushNamed(
+              context, '/home',
+              arguments: <String, dynamic>{
+                'isAuth': true,
+              },
+            );
+        } else {
+          Navigator.pushNamed(context, '/collection');
+        }
         break;
       case 2:
-        Navigator.pushNamed(context, '/favorite');
+        if (AuthService.user == null){
+          Navigator.pushNamed(
+            context, '/home',
+            arguments: <String, dynamic>{
+              'isAuth': true,
+            },
+          );
+        } else {
+          Navigator.pushNamed(context, '/favorite');
+        }
         break;
       case 3:
-        Navigator.pushNamed(context, '/bill');
+        if (AuthService.user == null){
+          Navigator.pushNamed(
+            context, '/home',
+            arguments: <String, dynamic>{
+              'isAuth': true,
+            },
+          );
+        } else {
+          Navigator.pushNamed(context, '/bill');
+        }
         break;
       case 4:
-        Navigator.pushNamed(context, '/profile');
+        if (AuthService.user == null){
+          Navigator.pushNamed(
+            context, '/home',
+            arguments: <String, dynamic>{
+              'isAuth': true,
+            },
+          );
+        } else {
+          Navigator.pushNamed(context, '/profile');
+        }
         break;
     }
   }
