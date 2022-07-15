@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/services/auth.dart';
+import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:artefak/widgets/radio_button_filter_item.dart';
 import 'package:artefak/widgets/transaction_row_item.dart';
@@ -78,9 +79,7 @@ class _TransactionState extends State<Transaction>
                             ?.copyWith(fontWeight: FontWeight.w400),
                       ),
                       actions: [
-                        IconButton(
-                            icon: Icon(Icons.notifications_none, size: 28.0),
-                            onPressed: () {}),
+                        AppbarActionsButton(),
                       ],
                     ),
                   ),

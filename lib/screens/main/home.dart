@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:artefak/screens/app_layout.dart';
+import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:artefak/widgets/card_item_custom.dart';
 import 'package:artefak/widgets/sub_head_title.dart';
@@ -43,9 +44,7 @@ class Home extends StatelessWidget {
                     backgroundColor: _themeData.highlightColor,
                     title: Image.asset('assets/logo_color.png', width: 100),
                     actions: [
-                      IconButton(
-                          icon: Icon(Icons.notifications_none, size: 25.0),
-                          onPressed: () {}),
+                      AppbarActionsButton(),
                     ],
                   ),
                 ),
@@ -53,8 +52,7 @@ class Home extends StatelessWidget {
             ],
           ),
         ),
-        body:
-            SingleChildScrollView(
+        body: SingleChildScrollView(
           physics: ClampingScrollPhysics(),
           child: Column(
             mainAxisSize: MainAxisSize.min,
