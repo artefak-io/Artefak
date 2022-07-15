@@ -30,7 +30,9 @@ class AccountDescriptionRow extends StatelessWidget {
                 Expanded(
                   child: Image.asset('assets/propict.png'),
                 ),
-                Text("Sarah & Friends"),
+                Text("Sarah & Friends",
+                  style: _textTheme.bodySmall
+                      ?.copyWith(fontWeight: FontWeight.w400),),
                 Spacer(),
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
