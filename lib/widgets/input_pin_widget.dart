@@ -173,10 +173,7 @@ class _InputPinWidgetState extends State<InputPinWidget> {
               ],
             ),
             Expanded(
-              child: Container(
-                color: const Color(0xff800000), // Red
-                height: 300.0,
-              ),
+              child: Container(),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
