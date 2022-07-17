@@ -8,7 +8,6 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class InputPinWidget extends StatefulWidget {
   final String appBarTitle;
-  final String phoneNumber;
   final String bodytitle;
   final String bodySubTitle;
   final Function onCompleteFunction;
@@ -19,7 +18,6 @@ class InputPinWidget extends StatefulWidget {
 
   const InputPinWidget(
       {Key? key,
-      required this.phoneNumber,
       required this.appBarTitle,
       required this.bodytitle,
       required this.bodySubTitle,

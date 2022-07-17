@@ -1,8 +1,9 @@
 import 'dart:ui';
 
 import 'package:artefak/screens/app_layout.dart';
+import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
-import 'package:artefak/widgets/under_construction_page.dart';
+import 'package:artefak/widgets/custom_blank_page.dart';
 import 'package:flutter/material.dart';
 
 class Favorite extends StatelessWidget {
@@ -40,9 +41,7 @@ class Favorite extends StatelessWidget {
                           ?.copyWith(fontWeight: FontWeight.w400),
                     ),
                     actions: [
-                      IconButton(
-                          icon: Icon(Icons.notifications_none, size: 25.0),
-                          onPressed: () {}),
+                      AppbarActionsButton(),
                     ],
                   ),
                 ),
@@ -62,7 +61,7 @@ class Favorite extends StatelessWidget {
                 height: 350,
               ),
             ),
-            UnderConstructionPage(
+            CustomBlankPage(
               onClickHome: () => Navigator.pushNamed(
                 context,
                 '/',

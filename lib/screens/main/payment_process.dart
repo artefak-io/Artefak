@@ -1,4 +1,5 @@
 import 'package:artefak/screens/app_layout.dart';
+import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:artefak/widgets/desc_collection_review.dart';
 import 'package:artefak/widgets/detail_payment_process.dart';
@@ -24,9 +25,7 @@ class PaymentProcess extends StatelessWidget {
           style: _textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
         ),
         actions: [
-          IconButton(
-              icon: Icon(Icons.notifications_none, size: 25.0),
-              onPressed: () {}),
+          AppbarActionsButton(),
         ],
         backgroundColor: _themeData.primaryColor,
       ),

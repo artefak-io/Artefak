@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class UnderConstructionPage extends StatelessWidget {
-  const UnderConstructionPage({
+class CustomBlankPage extends StatelessWidget {
+  const CustomBlankPage({
     Key? key, required this.onClickHome,
   }) : super(key: key);
 
