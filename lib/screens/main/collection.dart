@@ -4,6 +4,7 @@ import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/services/transaction_service.dart';
+import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:artefak/widgets/collection_row_item.dart';
 import 'package:artefak/widgets/qr_ticket_sliding_panel.dart';
@@ -37,9 +38,9 @@ class _CollectionState extends State<Collection> {
             maxChildSize: 0.6,
             builder:
                 (BuildContext context, ScrollController scrollController) =>
-                QrTicketSlidingPanel(
-                  scrollController: scrollController,
-                ),
+                    QrTicketSlidingPanel(
+              scrollController: scrollController,
+            ),
           );
         });
   }
@@ -79,9 +80,7 @@ class _CollectionState extends State<Collection> {
                             ?.copyWith(fontWeight: FontWeight.w400),
                       ),
                       actions: [
-                        IconButton(
-                            icon: Icon(Icons.notifications_none, size: 25.0),
-                            onPressed: () {}),
+                        AppbarActionsButton(),
                       ],
                     ),
                   ),

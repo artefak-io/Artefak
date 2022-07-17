@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
+import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/widgets/profile_segment_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:artefak/services/auth.dart';
@@ -60,9 +61,7 @@ class Profile extends StatelessWidget {
                             style: _textTheme.bodySmall,
                           ),
                         ),
-                        IconButton(
-                            icon: Icon(Icons.notifications_none, size: 25.0),
-                            onPressed: () {}),
+                        AppbarActionsButton(),
                       ],
                     ),
                   ),

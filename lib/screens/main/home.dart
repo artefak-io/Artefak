@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:artefak/screens/app_layout.dart';
+import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:artefak/widgets/card_item_custom.dart';
@@ -66,9 +67,7 @@ class _HomeState extends State<Home> {
                     backgroundColor: _themeData.highlightColor,
                     title: Image.asset('assets/logo_color.png', width: 100),
                     actions: [
-                      IconButton(
-                          icon: Icon(Icons.notifications_none, size: 25.0),
-                          onPressed: () {}),
+                      AppbarActionsButton(),
                     ],
                   ),
                 ),
