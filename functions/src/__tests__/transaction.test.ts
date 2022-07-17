@@ -6,10 +6,6 @@ const testEnv = firebase({ projectId: "artefak-io" }, "./service-account.json");
 const { mintBasedOnTransaction } = require('../index.js');
 const wrapped = testEnv.wrap(mintBasedOnTransaction);
 
-beforeAll(async () => {
-    //await testEnv.cleanup();
-})
-
 test("Test Transaction", async () => {
     const before = {
         status: 'Pending',
