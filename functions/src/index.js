@@ -1,4 +1,4 @@
-import * as functions from "firebase-functions";
+const functions = require("firebase-functions");
 
 exports.mintBasedOnTransaction = functions.firestore
     .document("Transaction/{transactionID}")
