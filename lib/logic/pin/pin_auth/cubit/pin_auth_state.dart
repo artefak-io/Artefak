@@ -6,6 +6,7 @@ enum PinAuthStatus {
   success,
   failure,
   error,
+  not_filled,
 }
 
 class PinAuthState extends Equatable {
