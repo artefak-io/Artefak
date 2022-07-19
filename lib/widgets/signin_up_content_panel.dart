@@ -73,9 +73,6 @@ Widget SignInUpSlidingPanel(ValueChanged<int> page, BuildContext context,
                   SizedBox(
                     height: 24.0,
                   ),
-                  // Form(
-                  //   key: _formKey,
-                  //   child:
                 Column(
                       children: [
                         Container(
@@ -135,18 +132,11 @@ Widget SignInUpSlidingPanel(ValueChanged<int> page, BuildContext context,
                               alignment: Alignment.center),
                           onPressed: () async {
                               if (emailRex.hasMatch(_emailPhoneText)) {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: ((context) => RegisterEmail(
-                                //           email: _emailPhoneText,
-                                //         )),
-                                //   ),
-                                // );
-                                print('test ');
+                                // add open gmail and wait for authenticated status
                                 page(1);
                               } else if (phoneNumberRex
                                   .hasMatch(_emailPhoneText)) {
+                                print(idnCode + _emailPhoneText);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -161,7 +151,6 @@ Widget SignInUpSlidingPanel(ValueChanged<int> page, BuildContext context,
                         ),
                       ],
                     ),
-                  // ),
                   SizedBox(
                     height: 24.0,
                   ),

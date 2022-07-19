@@ -62,6 +62,7 @@ class _InputPinWidgetState extends State<InputPinWidget> {
   Widget build(BuildContext context) {
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
+    Size size = MediaQuery.of(context).size;
 
     return BlocListener<PinAuthCubit, PinAuthState>(
       listenWhen: (previous, current) =>
@@ -73,11 +74,12 @@ class _InputPinWidgetState extends State<InputPinWidget> {
               SnackBar(content: Text(state.errorMessage ?? "Error happens")));
       },
       child: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
+        height: size.height-100,
+        width: size.width,
         color: Colors.transparent,
-        child: ListView(
-          children: <Widget>[
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
             const SizedBox(height: 30),
             Column(children: [
               Row(
@@ -170,8 +172,8 @@ class _InputPinWidgetState extends State<InputPinWidget> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 16,
+            Expanded(
+              child: Container(),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
