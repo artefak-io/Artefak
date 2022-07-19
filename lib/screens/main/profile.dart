@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
+import 'package:artefak/services/profile_picture_service.dart';
 import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/widgets/profile_segment_setting.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +102,17 @@ class Profile extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(horizontal: 8),
                         height: 80,
                         child: CircleAvatar(
-                          child: Text('H', style: _textTheme.displayMedium),
+                          child: FutureBuilder(
+                            future: ProfilePictureService().getProfilePicture(
+                                AuthService.user!),
+                            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                              if(snapshot.connectionState == ConnectionState.done){
+                                return Image.network(snapshot.data);
+                              } else {
+                                return CircularProgressIndicator();
+                              }
+                            },
+                          ),
                           radius: 64,
                           backgroundColor: Colors.white30,
                         ),
