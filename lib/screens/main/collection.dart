@@ -4,8 +4,10 @@ import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/services/transaction_service.dart';
+import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:artefak/widgets/collection_row_item.dart';
+import 'package:artefak/widgets/qr_ticket_sliding_panel.dart';
 import 'package:artefak/widgets/radio_button_filter_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,25 @@ class _CollectionState extends State<Collection> {
   List<CustomRadioModel> filterList = <CustomRadioModel>[];
 
   late final Stream<QuerySnapshot> _collectionStream;
+
+  void _showDialog(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return DraggableScrollableSheet(
+            initialChildSize: 0.6,
+            minChildSize: 0.5,
+            maxChildSize: 0.6,
+            builder:
+                (BuildContext context, ScrollController scrollController) =>
+                    QrTicketSlidingPanel(
+              scrollController: scrollController,
+            ),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +72,7 @@ class _CollectionState extends State<Collection> {
                       sigmaY: 5.0,
                     ),
                     child: AppBar(
+                      toolbarHeight: 64.0,
                       automaticallyImplyLeading: false,
                       title: Text(
                         'Koleksi',
@@ -58,9 +80,7 @@ class _CollectionState extends State<Collection> {
                             ?.copyWith(fontWeight: FontWeight.w400),
                       ),
                       actions: [
-                        IconButton(
-                            icon: Icon(Icons.notifications_none, size: 25.0),
-                            onPressed: () {}),
+                        AppbarActionsButton(),
                       ],
                     ),
                   ),
@@ -89,11 +109,11 @@ class _CollectionState extends State<Collection> {
                       SizedBox(
                         height: 64.0,
                       ),
-                      CollectionRowItem(),
+                      CollectionRowItem(onPressedShowTicket: _showDialog),
                       SizedBox(
                         height: 16.0,
                       ),
-                      CollectionRowItem(),
+                      CollectionRowItem(onPressedShowTicket: _showDialog),
                       SizedBox(
                         height: 80.0,
                       ),

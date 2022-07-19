@@ -118,7 +118,7 @@ class _CollectionReviewState extends State<CollectionReview> {
               priceDisplay: 750000,
               textButton: "Proses Sekarang",
               onClickButton: () => Navigator.pushNamed(
-                  context, '/asset/product_detail/payment_process',
+                  context, '/payment_process',
                   arguments: <String, dynamic>{
                     'codeSale': 0,
                   }),

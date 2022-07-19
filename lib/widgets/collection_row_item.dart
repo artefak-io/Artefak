@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class CollectionRowItem extends StatelessWidget {
   const CollectionRowItem({
-    Key? key,
+    Key? key, required this.onPressedShowTicket,
   }) : super(key: key);
+
+  final Function onPressedShowTicket;
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +150,7 @@ class CollectionRowItem extends StatelessWidget {
                             borderRadius: BorderRadius.circular(100.0),
                           ),
                           alignment: Alignment.center),
-                      onPressed: () => {},
+                      onPressed: () => onPressedShowTicket(context),
                     ),
                   ],
                 ),

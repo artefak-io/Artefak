@@ -2,6 +2,7 @@ import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/services/transfer_service.dart';
 import 'package:artefak/widgets/account_description_row.dart';
+import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/widgets/asset_preview.dart';
 import 'package:artefak/widgets/bottom_action_bar.dart';
 import 'package:artefak/widgets/card_item_custom.dart';
@@ -47,9 +48,7 @@ class ProductDetail extends StatelessWidget {
         appBar: AppBar(
           title: Text('Proyek'),
           actions: [
-            IconButton(
-                icon: Icon(Icons.notifications_none, size: 25.0),
-                onPressed: () {}),
+            AppbarActionsButton(),
           ],
         ),
         body: SingleChildScrollView(
@@ -145,7 +144,7 @@ class ProductDetail extends StatelessWidget {
           priceDisplay: 750000,
           textButton: "Beli Sekarang",
           onClickButton: () => Navigator.pushNamed(
-              context, '/asset/product_detail/collection_review',
+              context, '/collection_review',
               arguments: <String, dynamic>{
                 'codeSale': 0,
               }),
