@@ -214,9 +214,6 @@ class _TransactionState extends State<Transaction>
               ],
             ),
           ),
-          bottomNavigationBar: const BotNavBar(
-            currentIndex: Transaction.index,
-          ),
         ),
       );
     }

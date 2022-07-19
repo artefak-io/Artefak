@@ -101,9 +101,6 @@ class PaymentProcess extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavBar: const BotNavBar(
-        currentIndex: index,
-      ),
     );
   }
 }

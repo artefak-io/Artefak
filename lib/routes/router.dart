@@ -17,20 +17,24 @@ import 'package:artefak/screens/splash.dart';
 import 'package:auto_route/auto_route.dart';
 
 @MaterialAutoRouter(replaceInRouteName: 'Page,Route', routes: <AutoRoute>[
-  AutoRoute(page: SplashScreen, initial: true),
-  AutoRoute(path: '/', page: MainScaffold, children: [
+  AutoRoute(path: '/', page: MainScaffold, initial: true, children: [
     AutoRoute(path: '', page: Home, name: 'HomeRouter'),
     AutoRoute(path: 'collection', page: Collection, name: 'CollectionRouter'),
     AutoRoute(path: 'favorite', page: Favorite, name: 'FavoriteRouter'),
     AutoRoute(
-        path: 'transaction', page: Transaction, name: 'TransactionRouter'),
+        path: 'transaction',
+        page: EmptyRouterPage,
+        name: 'TransactionRouter',
+        children: [
+          AutoRoute(path: '', page: Transaction),
+          AutoRoute(path: 'payment_process', page: PaymentProcess),
+        ]),
     AutoRoute(path: 'user', page: Profile, name: 'UserRouter'),
   ]),
   AutoRoute(path: '/login', page: Authenticate),
-  AutoRoute(path: '/asset/:assetId', page: ProductDetail),
+  AutoRoute(path: '/collection/:collectionId', page: ProductDetail),
   AutoRoute(path: '/policy', page: PrivacyPolicy),
   AutoRoute(path: '/collecion_review', page: CollectionReview),
-  AutoRoute(path: '/payment_process', page: PaymentProcess),
   AutoRoute(path: '/create_pin', page: EmptyRouterPage, children: [
     AutoRoute(path: '', page: CreatePin),
     AutoRoute(path: 'confirmPin', page: ConfirmPin),

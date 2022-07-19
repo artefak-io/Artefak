@@ -1,68 +1,18 @@
 import 'dart:ui';
 
-import 'package:artefak/services/auth.dart';
+import 'package:artefak/logic/auth/auth.dart';
 import 'package:flutter/material.dart';
 
+import 'auth_sliding_panel.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 class BotNavBar extends StatelessWidget {
-  const BotNavBar({Key? key, required this.currentIndex}) : super(key: key);
+  const BotNavBar({Key? key, required this.currentIndex, required this.onTap})
+      : super(key: key);
 
   final int currentIndex;
 
-  void _onTap(index, context) {
-    switch (index) {
-      case 0:
-        Navigator.popUntil(context, ModalRoute.withName('/'));
-        break;
-      case 1:
-        if (AuthService.user == null){
-            Navigator.pushNamed(
-              context, '/home',
-              arguments: <String, dynamic>{
-                'isAuth': true,
-              },
-            );
-        } else {
-          Navigator.pushNamed(context, '/collection');
-        }
-        break;
-      case 2:
-        if (AuthService.user == null){
-          Navigator.pushNamed(
-            context, '/home',
-            arguments: <String, dynamic>{
-              'isAuth': true,
-            },
-          );
-        } else {
-          Navigator.pushNamed(context, '/favorite');
-        }
-        break;
-      case 3:
-        if (AuthService.user == null){
-          Navigator.pushNamed(
-            context, '/home',
-            arguments: <String, dynamic>{
-              'isAuth': true,
-            },
-          );
-        } else {
-          Navigator.pushNamed(context, '/bill');
-        }
-        break;
-      case 4:
-        if (AuthService.user == null){
-          Navigator.pushNamed(
-            context, '/home',
-            arguments: <String, dynamic>{
-              'isAuth': true,
-            },
-          );
-        } else {
-          Navigator.pushNamed(context, '/profile');
-        }
-        break;
-    }
-  }
+  final Function(int) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +55,30 @@ class BotNavBar extends StatelessWidget {
               ),
             ],
             currentIndex: currentIndex,
-            onTap: (index) => _onTap(index, context),
+            onTap: (index) {
+              if (context.read<AuthBloc>().state.authenticationStatus !=
+                  AuthenticationStatus.authenticated) {
+                showModalBottomSheet(
+                  context: context,
+                  backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) {
+                    return DraggableScrollableSheet(
+                      initialChildSize: 0.55,
+                      minChildSize: 0.5,
+                      maxChildSize: 0.55,
+                      builder: (BuildContext context,
+                              ScrollController scrollController) =>
+                          AuthSlidingPanel(
+                        scrollController: scrollController,
+                      ),
+                    );
+                  },
+                );
+              } else {
+                onTap(index);
+              }
+            },
           ),
         ),
       ),

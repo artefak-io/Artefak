@@ -27,10 +27,10 @@ List<SalePackages> sales = [
 ];
 
 class ProductDetail extends StatelessWidget {
-  ProductDetail({Key? key, @PathParam() required this.assetId})
+  ProductDetail({Key? key, @PathParam() required this.collectionId})
       : super(key: key);
 
-  final String assetId;
+  final String collectionId;
 
   final Stream<QuerySnapshot> _assetStream =
       FirebaseFirestore.instance.collection('Asset').snapshots();

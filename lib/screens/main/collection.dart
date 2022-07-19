@@ -123,9 +123,6 @@ class _CollectionState extends State<Collection> {
               ],
             ),
           ),
-          bottomNavigationBar: const BotNavBar(
-            currentIndex: Collection.index,
-          ),
         ),
       );
     }

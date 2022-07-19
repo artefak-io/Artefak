@@ -183,9 +183,6 @@ class Profile extends StatelessWidget {
               ],
             ),
           ),
-          bottomNavigationBar: const BotNavBar(
-            currentIndex: Profile.index,
-          ),
         ),
       );
     }
