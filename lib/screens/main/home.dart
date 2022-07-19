@@ -3,41 +3,19 @@ import 'dart:ui';
 
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/widgets/appbar_actions_button.dart';
-import 'package:artefak/services/auth.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:artefak/widgets/card_item_custom.dart';
-import 'package:artefak/widgets/auth_sliding_panel.dart';
 import 'package:artefak/widgets/sub_head_title.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
-  static const index = 0;
-
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
   final Stream<QuerySnapshot> _assetStream =
-      FirebaseFirestore.instance.collection('Asset').snapshots();
+  FirebaseFirestore.instance.collection('Asset').snapshots();
 
-  @override
-  void initState() {
-    super.initState();
-
-    if (AuthService.user == null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        final Map<String, dynamic>? _data =
-            ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
-        if (_data?['isAuth'] == true) {
-          showDialogAuth(context);
-        }
-      });
-    }
-  }
+  static const index = 0;
 
   @override
   Widget build(BuildContext context) {
