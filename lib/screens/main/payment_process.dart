@@ -6,7 +6,10 @@ import 'package:artefak/widgets/sale_price_widget.dart';
 import 'package:flutter/material.dart';
 
 class PaymentProcess extends StatelessWidget {
-  const PaymentProcess({Key? key}) : super(key: key);
+  const PaymentProcess({Key? key, required this.transactionId})
+      : super(key: key);
+
+  final String transactionId;
 
   static const index = 2; // TODO: In what index is this?
 
@@ -15,7 +18,7 @@ class PaymentProcess extends StatelessWidget {
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
     final Map<String, dynamic> _data =
-    ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     return AppLayout(
       appBar: AppBar(

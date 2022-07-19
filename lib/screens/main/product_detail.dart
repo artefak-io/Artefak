@@ -7,6 +7,7 @@ import 'package:artefak/widgets/bottom_action_bar.dart';
 import 'package:artefak/widgets/card_item_custom.dart';
 import 'package:artefak/widgets/sale_price_widget.dart';
 import 'package:artefak/widgets/title_mint_token_info.dart';
+import 'package:auto_route/annotations.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,10 @@ List<SalePackages> sales = [
 ];
 
 class ProductDetail extends StatelessWidget {
-  ProductDetail({Key? key}) : super(key: key);
+  ProductDetail({Key? key, @PathParam() required this.assetId})
+      : super(key: key);
+
+  final String assetId;
 
   final Stream<QuerySnapshot> _assetStream =
       FirebaseFirestore.instance.collection('Asset').snapshots();
