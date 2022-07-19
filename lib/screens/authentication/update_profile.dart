@@ -4,7 +4,7 @@ import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/main/profile.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/services/image_picker_service.dart';
-import 'package:artefak/services/profile_picture_service.dart';
+import 'package:artefak/services/user_service.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
@@ -142,14 +142,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
                             await AuthService()
                                 .changeUserInfo(_nameController.text);
                           }
-                          ProfilePictureService().setProfilePicture(
+                          UserService().setProfilePicture(
                               AuthService.user!, _profilePicture);
                         },
                       ),
                       // for development use only
                       ElevatedButton(
                         onPressed: () {
-                          ProfilePictureService()
+                          UserService()
                               .deleteProfilePicture(AuthService.user!);
                         },
                         child: const Text('Delete Profile Picture'),

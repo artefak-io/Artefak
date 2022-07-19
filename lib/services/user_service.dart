@@ -5,12 +5,12 @@ import 'package:cloud_firestore/cloud_firestore.dart' as firebase_firestore;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class ProfilePictureService {
-  ProfilePictureService._();
-  static final ProfilePictureService _profilePictureService =
-      ProfilePictureService._();
-  factory ProfilePictureService() {
-    return _profilePictureService;
+class UserService {
+  UserService._();
+  static final UserService _userService =
+      UserService._();
+  factory UserService() {
+    return _userService;
   }
 
   FirebaseStorage cloudStorage = FirebaseStorage.instance;
@@ -33,22 +33,6 @@ class ProfilePictureService {
     }
   }
 
-  // Future<bool> get hasProfilePricture async {
-  //   try {
-  //     return firebaseFirestore
-  //         .collection('User')
-  //         .doc(_firebaseAuth.currentUser!.uid)
-  //         .get()
-  //         .then((value) => value.data()!.containsKey("pin"));
-  //   } on firebase_firestore.FirebaseException catch (error) {
-  //     print("error code: ${error.code}");
-  //     print("error message: ${error.message}");
-  //     return false;
-  //   } catch (e) {
-  //     return false;
-  //   }
-  // }
-
   Future<String> getProfilePicture(User user) async {
     try {
       firebase_firestore.DocumentSnapshot<Map<String, dynamic>> result =
@@ -61,6 +45,21 @@ class ProfilePictureService {
       throw Exception(error.message);
     } catch (error) {
       throw Exception("get profile picture error");
+    }
+  }
+
+  Future<Map<String, dynamic>> getUser(String userid) async {
+    try {
+      firebase_firestore.DocumentSnapshot<Map<String, dynamic>> result =
+      await _firebaseFirestore
+          .collection('User')
+          .doc(userid)
+          .get();
+      return result.data()!;
+    } on firebase_firestore.FirebaseException catch (error) {
+      throw Exception(error.message);
+    } catch (error) {
+      throw Exception("get user error");
     }
   }
 
