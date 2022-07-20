@@ -2,9 +2,11 @@ import 'dart:ui';
 
 import 'package:artefak/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:artefak/widgets/auth_sliding_panel.dart';
 
 class BotNavBar extends StatelessWidget {
-  const BotNavBar({Key? key, required this.currentIndex}) : super(key: key);
+  const BotNavBar({Key? key, required this.currentIndex, })
+      : super(key: key);
 
   final int currentIndex;
 
@@ -14,49 +16,29 @@ class BotNavBar extends StatelessWidget {
         Navigator.popUntil(context, ModalRoute.withName('/'));
         break;
       case 1:
-        if (AuthService.user == null){
-            Navigator.pushNamed(
-              context, '/home',
-              arguments: <String, dynamic>{
-                'isAuth': true,
-              },
-            );
+        if (AuthService.user == null) {
+          showDialogAuth(context);
         } else {
           Navigator.pushNamed(context, '/collection');
         }
         break;
       case 2:
-        if (AuthService.user == null){
-          Navigator.pushNamed(
-            context, '/home',
-            arguments: <String, dynamic>{
-              'isAuth': true,
-            },
-          );
+        if (AuthService.user == null) {
+          showDialogAuth(context);
         } else {
           Navigator.pushNamed(context, '/favorite');
         }
         break;
       case 3:
-        if (AuthService.user == null){
-          Navigator.pushNamed(
-            context, '/home',
-            arguments: <String, dynamic>{
-              'isAuth': true,
-            },
-          );
+        if (AuthService.user == null) {
+          showDialogAuth(context);
         } else {
           Navigator.pushNamed(context, '/bill');
         }
         break;
       case 4:
-        if (AuthService.user == null){
-          Navigator.pushNamed(
-            context, '/home',
-            arguments: <String, dynamic>{
-              'isAuth': true,
-            },
-          );
+        if (AuthService.user == null) {
+          showDialogAuth(context);
         } else {
           Navigator.pushNamed(context, '/profile');
         }

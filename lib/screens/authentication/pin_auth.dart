@@ -64,71 +64,66 @@ class PinAuth extends StatelessWidget {
                   ],
                 ),
               ),
-              body:
-              // SingleChildScrollView(
-              //   child:
-              Stack(
-                  children: <Widget>[
-                    Positioned(
-                      left: 20,
-                      top: -165,
-                      child: Image.asset(
-                        'assets/bggrad.png',
-                        fit: BoxFit.fitHeight,
-                        height: 350,
-                      ),
+              body: Stack(
+                children: <Widget>[
+                  Positioned(
+                    left: 20,
+                    top: -165,
+                    child: Image.asset(
+                      'assets/bggrad.png',
+                      fit: BoxFit.fitHeight,
+                      height: 350,
                     ),
-                    InputPinWidget(
-                      bodytitle: 'Masuk Artefak',
-                      bodySubTitle:
-                          'Masukkan 6 digit PIN untuk masuk ke akunmu',
-                      appBarTitle: 'PIN',
-                      onCompleteFunction: loginPinOnComplete,
-                      onSubmittedFunction: loginPinOnSubmitted,
-                      onChangedFunction: loginPinOnChanged,
-                      blocBuildNotify: BlocBuilder<PinAuthCubit, PinAuthState>(
-                        builder: (context, state) {
-                          bool isPinFailure =
-                              state.pinAuthStatus == PinAuthStatus.failure;
-                          return Text(
-                            isPinFailure ? 'Incorrect PIN' : '',
+                  ),
+                  InputPinWidget(
+                    bodytitle: 'Masuk Artefak',
+                    bodySubTitle: 'Masukkan 6 digit PIN untuk masuk ke akunmu',
+                    appBarTitle: 'PIN',
+                    onCompleteFunction: loginPinOnComplete,
+                    onSubmittedFunction: loginPinOnSubmitted,
+                    onChangedFunction: loginPinOnChanged,
+                    blocBuildNotify: BlocBuilder<PinAuthCubit, PinAuthState>(
+                      builder: (context, state) {
+                        bool isPinFailure =
+                            state.pinAuthStatus == PinAuthStatus.failure;
+                        return Text(
+                          isPinFailure ? 'Incorrect PIN' : '',
+                          style: _textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w400,
+                            color: _themeData.errorColor,
+                          ),
+                        );
+                      },
+                    ),
+                    blocBuildButton: BlocBuilder<PinAuthCubit, PinAuthState>(
+                      builder: (context, state) {
+                        bool isPinFilled =
+                            state.pinAuthStatus == PinAuthStatus.filled;
+                        return ElevatedButton(
+                          child: Text(
+                            'Masuk',
                             style: _textTheme.bodyLarge?.copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: _themeData.errorColor,
+                                fontWeight: FontWeight.w400,
+                                color: isPinFilled
+                                    ? _themeData.textSelectionColor
+                                    : _themeData.textSelectionColor
+                                        .withOpacity(0.5)),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(size.width * 0.9, 48),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100.0),
                             ),
-                          );
-                        },
-                      ),
-                      blocBuildButton: BlocBuilder<PinAuthCubit, PinAuthState>(
-                        builder: (context, state) {
-                          bool isPinFilled =
-                              state.pinAuthStatus == PinAuthStatus.filled;
-                          return ElevatedButton(
-                            child: Text(
-                              'Masuk',
-                              style: _textTheme.bodyLarge?.copyWith(
-                                  fontWeight: FontWeight.w400,
-                                  color: isPinFilled
-                                      ? _themeData.textSelectionColor
-                                      : _themeData.textSelectionColor
-                                          .withOpacity(0.5)),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: Size(size.width * 0.9, 48),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(100.0),
-                              ),
-                            ),
-                            onPressed: () => isPinFilled
-                                ? context.read<PinAuthCubit>().pinVerified()
-                                : null,
-                          );
-                        },
-                      ),
+                          ),
+                          onPressed: () => isPinFilled
+                              ? context.read<PinAuthCubit>().pinVerified()
+                              : null,
+                        );
+                      },
                     ),
-                  ],
-                ),
-              // ),
+                  ),
+                ],
+              ),
             );
           },
         ),
