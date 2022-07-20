@@ -1,13 +1,14 @@
 import 'package:artefak/logic/auth/auth.dart';
+import 'package:artefak/logic/otp/confirm_otp/cubit/confirm_otp_cubit.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/widgets/input_otp_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InputOTP extends StatefulWidget {
-  const InputOTP({Key? key, required this.phoneNumber}) : super(key: key);
+  const InputOTP({Key? key, this.phoneNumber}) : super(key: key);
 
-  final String phoneNumber;
+  final String? phoneNumber;
 
   @override
   State<InputOTP> createState() => _InputOTPState();
@@ -26,8 +27,8 @@ class _InputOTPState extends State<InputOTP> {
     });
   }
 
-  void inputOtpOnComplete(){
-
+  void inputOtpOnComplete(String value, BuildContext context){
+    context.read<ConfirmOtpCubit>().otpValidatedOnCompleted(value);
   }
 
   void inputOtpOnSubmitted(){
@@ -83,13 +84,13 @@ class _InputOTPState extends State<InputOTP> {
               onSubmittedFunction: inputOtpOnSubmitted,
               onChangedFunction: inputOtpOnChanged,
               blocBuildNotify:
-              BlocBuilder<InputOtpCubit, InputOtpState>(
+              BlocBuilder<ConfirmOtpCubit, ConfirmOtpState>(
                 buildWhen: (previous, current) =>
-                (current.createPinStatus ==
-                    InputOtpStatus.inputInvalid &&
+                (current.createOtpStatus ==
+                    ConfirmOtpStatus.inputInvalid &&
                     previous.invalid != current.invalid) ||
-                    previous.createPinStatus ==
-                        InputOtpStatus.inputInvalid,
+                    previous.createOtpStatus ==
+                        ConfirmOtpStatus.inputInvalid,
                 builder: (context, state) {
                   if (state.invalid ==
                       OtpInputValidationError.nonNumberInput) {
@@ -115,16 +116,16 @@ class _InputOTPState extends State<InputOTP> {
                 },
               ),
               blocBuildButton:
-              BlocBuilder<InputOtpCubit, InputOtpState>(
+              BlocBuilder<ConfirmOtpCubit, ConfirmOtpState>(
                 buildWhen: (previous, current) =>
                 previous != current &&
-                    (current.createPinStatus ==
-                        InputOtpStatus.inputValid ||
-                        previous.createPinStatus ==
-                            InputOtpStatus.inputValid),
+                    (current.createOtpStatus ==
+                        ConfirmOtpStatus.inputValid ||
+                        previous.createOtpStatus ==
+                            ConfirmOtpStatus.inputValid),
                 builder: (context, state) {
-                  bool isPinValid = state.createPinStatus ==
-                      InputOtpStatus.inputValid;
+                  bool isOtpValid = state.createOtpStatus ==
+                      ConfirmOtpStatus.inputValid;
                   return ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(size.width * 0.9, 48),
@@ -132,14 +133,14 @@ class _InputOTPState extends State<InputOTP> {
                         borderRadius: BorderRadius.circular(100.0),
                       ),
                     ),
-                    onPressed: () => isPinValid
-                        ? context.read<InputOtpCubit>().pinSucceed()
+                    onPressed: () => isOtpValid
+                        ? context.read<ConfirmOtpCubit>().on()
                         : null,
                     child: Text(
                       "Input PIN",
                       style: _textTheme.bodyLarge?.copyWith(
                         fontWeight: FontWeight.w400,
-                        color: isPinValid
+                        color: isOtpValid
                             ? _themeData.textSelectionColor
                             : _themeData.textSelectionColor
                             .withOpacity(0.5),
