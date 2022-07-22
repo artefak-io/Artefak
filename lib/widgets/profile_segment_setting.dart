@@ -36,22 +36,23 @@ class ProfileSegmentSetting extends StatelessWidget {
           Column(
             children: settingItems
                 .map(
-                  (settingItem) => Container(
+                  (settingItem) => GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        settingItem.uri,
+                      );
+                    },
+                    child: Container(
                     margin: EdgeInsets.only(bottom: 24.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          settingItem.uri,
-                        );
-                      },
-                      child: Row(
+                    child:  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(settingItem.name,
                               style: _textTheme.titleMedium
                                   ?.copyWith(fontWeight: FontWeight.w400),
                               textAlign: TextAlign.start),
-                          Spacer(),
                           Icon(
                             Icons.arrow_forward_rounded,
                             color: Colors.white,

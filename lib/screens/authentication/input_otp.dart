@@ -56,24 +56,25 @@ class _InputOTPState extends State<InputOTP> {
         title: const Text("Input SMS Code"),
       ),
       body: SingleChildScrollView(
-          child: BlocListener<AuthBloc, AuthState>(
-        listenWhen: (previous, current) =>
-            previous != current &&
-            current.authenticationStatus == AuthenticationStatus.authenticated,
-        listener: (context, state) {
-          Navigator.pop(context);
-        },
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              left: 20,
-              top: -165,
-              child: Image.asset(
-                'assets/bggrad.png',
-                fit: BoxFit.fitHeight,
-                height: 350,
-              ),
-            ),
+          child:
+        //   BlocListener<AuthBloc, AuthState>(
+        // listenWhen: (previous, current) =>
+        //     previous != current &&
+        //     current.authenticationStatus == AuthenticationStatus.authenticated,
+        // listener: (context, state) {
+        //   Navigator.pop(context);
+        // },
+        // child: Stack(
+        //   children: <Widget>[
+        //     Positioned(
+        //       left: 20,
+        //       top: -165,
+        //       child: Image.asset(
+        //         'assets/bggrad.png',
+        //         fit: BoxFit.fitHeight,
+        //         height: 350,
+        //       ),
+        //     ),
             // InputOtpWidget(
             //   bodytitle: 'Cek Kode OTP',
             //   bodySubTitle:
@@ -149,74 +150,74 @@ class _InputOTPState extends State<InputOTP> {
             //     },
             //   ),
             // ),
-          ],
-        ),
-        // Column(
-        //   children: <Widget>[
-        //     Row(
-        //       children: [
-        //         Text(widget.phoneNumber),
-        //         ElevatedButton(
-        //           onPressed: () {
-        //             Navigator.pop(context);
-        //           },
-        //           child: const Text("Wrong Number"),
-        //         ),
-        //       ],
-        //     ),
-        //     const SizedBox(
-        //       height: 10,
-        //     ),
-        //     Form(
-        //       key: _formKey,
-        //       child: Column(
-        //         children: <Widget>[
-        //           TextFormField(
-        //             controller: _codeController,
-        //             decoration: const InputDecoration(
-        //               hintText: "Input OTP Code",
-        //             ),
-        //             validator: (String? value) {
-        //               if (value == null || value.isEmpty) {
-        //                 return '*please input phone number';
-        //               } else if (int.tryParse(value) == null) {
-        //                 return '*please input valid phone number';
-        //               } else {
-        //                 return null;
-        //               }
-        //             },
-        //           ),
-        //           Row(
-        //             children: [
-        //               ElevatedButton(
-        //                 onPressed: () async {
-        //                   if (_formKey.currentState!.validate()) {
-        //                     await AuthService().loginWithPhone(
-        //                         verificationId: verificationId,
-        //                         smsCode: _codeController.text);
-        //                   }
-        //                 },
-        //                 child: const Text("Confirm"),
-        //               ),
-        //               // needs countdown counter for 30 seconds
-        //               ElevatedButton(
-        //                 onPressed: () {
-        //                   AuthService().requestOTP(
-        //                     phoneNumber: widget.phoneNumber,
-        //                     setTokenId: setTokenId,
-        //                     resendToken: resendToken,
-        //                   );
-        //                 },
-        //                 child: const Text("Resend Code"),
-        //               ),
-        //             ],
-        //           ),
-        //         ],
-        //       ),
-        //     ),
         //   ],
         // ),
-      )),
+        Column(
+          children: <Widget>[
+            Row(
+              children: [
+                Text(widget.phoneNumber),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Wrong Number"),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    controller: _codeController,
+                    decoration: const InputDecoration(
+                      hintText: "Input OTP Code",
+                    ),
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return '*please input phone number';
+                      } else if (int.tryParse(value) == null) {
+                        return '*please input valid phone number';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            await AuthService().loginWithPhone(
+                                verificationId: verificationId,
+                                smsCode: _codeController.text);
+                          }
+                        },
+                        child: const Text("Confirm"),
+                      ),
+                      // needs countdown counter for 30 seconds
+                      ElevatedButton(
+                        onPressed: () {
+                          AuthService().requestOTP(
+                            phoneNumber: widget.phoneNumber,
+                            setTokenId: setTokenId,
+                            resendToken: resendToken,
+                          );
+                        },
+                        child: const Text("Resend Code"),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )
     );
   }
 }
