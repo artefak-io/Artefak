@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class BottomActionBar extends StatelessWidget {
   const BottomActionBar({
     Key? key,
     required this.subTitleAbove,
     required this.textButton,
-    required this.priceDisplay,
+    required this.titleBottom,
     required this.onClickButton,
-  })  : super(key: key);
+  }) : super(key: key);
 
   final String subTitleAbove, textButton;
-  final double priceDisplay;
+  final String titleBottom;
   final Function onClickButton;
 
   @override
@@ -41,7 +40,7 @@ class BottomActionBar extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Rp${NumberFormat.decimalPattern('id').format(priceDisplay)}',
+                  titleBottom,
                   style: _textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w400,
                   ),

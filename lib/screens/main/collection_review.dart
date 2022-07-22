@@ -5,6 +5,7 @@ import 'package:artefak/widgets/payment_sliding_panel.dart';
 import 'package:artefak/widgets/select_card_payment.dart';
 import 'package:artefak/widgets/total_collection_review.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CollectionReview extends StatefulWidget {
   const CollectionReview({Key? key}) : super(key: key);
@@ -112,7 +113,8 @@ class _CollectionReviewState extends State<CollectionReview> {
           ? null
           : BottomActionBar(
               subTitleAbove: "Total Pembayaran",
-              priceDisplay: 750000,
+              titleBottom:
+                  "Rp${NumberFormat.decimalPattern('id').format(750000)}",
               textButton: "Proses Sekarang",
               onClickButton: () => Navigator.pushNamed(
                   context, '/payment_process',

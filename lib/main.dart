@@ -2,6 +2,7 @@ import 'package:artefak/logic/auth/auth.dart';
 import 'package:artefak/logic/auth/view/collection_wrapper.dart';
 import 'package:artefak/logic/bloc_observer.dart';
 import 'package:artefak/logic/pin/pin.dart';
+import 'package:artefak/screens/main/asset_detail.dart';
 import 'package:artefak/screens/main/collection_review.dart';
 import 'package:artefak/screens/main/favorite.dart';
 import 'package:artefak/screens/main/notification_page.dart';
@@ -129,6 +130,7 @@ class _MyAppState extends State<MyApp> {
                   '/notification': (context) => const NotificationPage(),
                   '/update_profile': (context) => const UpdateProfile(),
                   '/asset/product_detail': (context) => ProductDetail(),
+                  '/asset/asset_detail': (context) => AssetDetail(),
                   '/collection_review': (context) => const CollectionReview(),
                   '/payment_process': (context) => const PaymentProcess(),
                   '/auth': (context) => const Authenticate(),

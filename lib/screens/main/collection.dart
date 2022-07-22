@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/services/auth.dart';
-import 'package:artefak/services/transaction_service.dart';
 import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:artefak/widgets/collection_row_item.dart';
@@ -24,7 +23,7 @@ class Collection extends StatefulWidget {
 class _CollectionState extends State<Collection> {
   List<CustomRadioModel> filterList = <CustomRadioModel>[];
 
-  late final Stream<QuerySnapshot> _collectionStream;
+  late final Stream<QuerySnapshot> _assetStream;
 
   void _showDialog(BuildContext context) {
     showModalBottomSheet(
@@ -52,8 +51,7 @@ class _CollectionState extends State<Collection> {
     if (AuthService.user == null) {
       return const Authenticate();
     } else {
-      _collectionStream =
-          TransactionService().personalTransaction(AuthService.user!.uid);
+      _assetStream = FirebaseFirestore.instance.collection('Asset').snapshots();
       return AppLayout(
         child: Scaffold(
           extendBody: true,
@@ -109,11 +107,68 @@ class _CollectionState extends State<Collection> {
                       SizedBox(
                         height: 64.0,
                       ),
-                      CollectionRowItem(onPressedShowTicket: _showDialog),
-                      SizedBox(
-                        height: 16.0,
-                      ),
-                      CollectionRowItem(onPressedShowTicket: _showDialog),
+                      StreamBuilder<QuerySnapshot>(
+                          stream: _assetStream,
+                          builder:
+                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              return Center(
+                                child: Text('An error has occurred!',
+                                    style: _textTheme.bodyMedium),
+                              );
+                            } else if (snapshot.hasData) {
+                              return MediaQuery.removePadding(
+                                removeTop: true,
+                                context: context,
+                                child: ListView.builder(
+                                  itemCount: snapshot.data!.docs.length,
+                                  scrollDirection: Axis.vertical,
+                                  physics: ClampingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, '/asset/asset_detail',
+                                            arguments: <String, dynamic>{
+                                              'id':
+                                                  snapshot.data!.docs[index].id,
+                                              'currentOwner': snapshot.data!
+                                                  .docs[index]['currentOwner'],
+                                              'creator': snapshot
+                                                  .data!.docs[index]['creator'],
+                                              'name': snapshot.data!.docs[index]
+                                                  ['name'],
+                                              'description': snapshot.data!
+                                                  .docs[index]['description'],
+                                              'coverImage': snapshot.data!
+                                                  .docs[index]['coverImage'],
+                                              'views': snapshot
+                                                  .data!.docs[index]['views'],
+                                              'contractAddress':
+                                                  snapshot.data!.docs[index]
+                                                      ['contractAddress'],
+                                              'tokenId': snapshot
+                                                  .data!.docs[index]['tokenId'],
+                                              'price': snapshot
+                                                  .data!.docs[index]['price'],
+                                            });
+                                      },
+                                      // needs loading indicator when image being reloaded
+                                      child: CollectionRowItem(
+                                        onPressedShowTicket: _showDialog,
+                                        dataItem: snapshot.data!.docs[index],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            } else {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          }),
                       SizedBox(
                         height: 80.0,
                       ),

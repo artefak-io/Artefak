@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
-  final Stream<QuerySnapshot> _assetStream =
+  final Stream<QuerySnapshot> _collectionStream =
   FirebaseFirestore.instance.collection('Asset').snapshots();
 
   static const index = 0;
@@ -89,7 +89,7 @@ class Home extends StatelessWidget {
                     Container(
                       height: 200,
                       child: ItemTwoAxisScroll(
-                        assetStream: _assetStream,
+                        assetStream: _collectionStream,
                         isHorizontal: true,
                         heightPhoto: 120,
                         widthPhoto: size.width * 0.80,
@@ -110,7 +110,7 @@ class Home extends StatelessWidget {
                       isSeeAll: true,
                     ),
                     ItemTwoAxisScroll(
-                      assetStream: _assetStream,
+                      assetStream: _collectionStream,
                       isHorizontal: false,
                       heightPhoto: 270,
                       widthPhoto: size.width - 32.0,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -31,7 +32,7 @@ class ItemTwoAxisScroll extends StatelessWidget {
           return MediaQuery.removePadding(
             removeTop: true,
             context: context,
-            child:  ListView.builder(
+            child: ListView.builder(
               itemCount: snapshot.data!.docs.length,
               scrollDirection: isHorizontal ? Axis.horizontal : Axis.vertical,
               physics: isHorizontal
@@ -50,7 +51,8 @@ class ItemTwoAxisScroll extends StatelessWidget {
                           'name': snapshot.data!.docs[index]['name'],
                           'description': snapshot.data!.docs[index]
                               ['description'],
-                          'coverImage': snapshot.data!.docs[index]['coverImage'],
+                          'coverImage': snapshot.data!.docs[index]
+                              ['coverImage'],
                           'views': snapshot.data!.docs[index]['views'],
                           'contractAddress': snapshot.data!.docs[index]
                               ['contractAddress'],
@@ -105,10 +107,13 @@ class _ItemCardCustomState extends State<ItemCardCustom> {
         : '${myString.substring(0, cutoff)}...';
   }
 
+  late dynamic profileData;
+
   @override
   Widget build(BuildContext context) {
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
+    print(widget.dataEach.toString());
 
     return Container(
       margin: widget.isHorizontal
@@ -198,6 +203,61 @@ class _ItemCardCustomState extends State<ItemCardCustom> {
                     ),
                   ],
                 ),
+                FutureBuilder<DocumentSnapshot>(
+                    future: FirebaseFirestore.instance
+                        .doc(widget.dataEach['creator'].path)
+                        .get(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        Map<String, dynamic> data =
+                            snapshot.data!.data() as Map<String, dynamic>;
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(right: 8.0),
+                                  child: ClipOval(
+                                    child: CachedNetworkImage(
+                                      imageUrl: data['profilePicture'],
+                                      fit: BoxFit.cover,
+                                      width: 25.0,
+                                      height: 25.0,
+                                      placeholder: (context, url) =>
+                                          CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  data['displayName'],
+                                  style: _textTheme.bodySmall
+                                      ?.copyWith(fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 0, vertical: 0),
+                                child: Text(
+                                  '231/300 Token',
+                                  style: _textTheme.bodySmall?.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: _themeData.indicatorColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                      return Text("loading");
+                    }),
               ],
             ),
           ),
