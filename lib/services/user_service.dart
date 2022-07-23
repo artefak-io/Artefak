@@ -33,21 +33,6 @@ class UserService {
     }
   }
 
-  Future<String> getProfilePicture(User user) async {
-    try {
-      firebase_firestore.DocumentSnapshot<Map<String, dynamic>> result =
-      await _firebaseFirestore
-          .collection("User")
-          .doc(user.uid)
-          .get();
-      return result.data()!["profilePicture"];
-    } on firebase_firestore.FirebaseException catch (error) {
-      throw Exception(error.message);
-    } catch (error) {
-      throw Exception("get profile picture error");
-    }
-  }
-
   Future<Map<String, dynamic>> getUser(String userid) async {
     try {
       firebase_firestore.DocumentSnapshot<Map<String, dynamic>> result =
