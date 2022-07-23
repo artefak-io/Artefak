@@ -1,7 +1,5 @@
-import 'package:artefak/logic/auth/auth.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InputOTP extends StatefulWidget {
   const InputOTP({Key? key, required this.phoneNumber}) : super(key: key);
@@ -39,13 +37,6 @@ class _InputOTPState extends State<InputOTP> {
         title: const Text("Input SMS Code"),
       ),
       body: SingleChildScrollView(
-          child: BlocListener<AuthBloc, AuthState>(
-        listenWhen: (previous, current) =>
-            previous != current &&
-            current.authenticationStatus == AuthenticationStatus.authenticated,
-        listener: (context, state) {
-          Navigator.pop(context);
-        },
         child: Column(
           children: <Widget>[
             Row(
@@ -111,7 +102,7 @@ class _InputOTPState extends State<InputOTP> {
             ),
           ],
         ),
-      )),
+      ),
     );
   }
 }
