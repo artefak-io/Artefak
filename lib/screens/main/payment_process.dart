@@ -16,7 +16,7 @@ class PaymentProcess extends StatelessWidget {
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
     final Map<String, dynamic> _data =
-    ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     return AppLayout(
       appBar: AppBar(
@@ -53,46 +53,6 @@ class PaymentProcess extends StatelessWidget {
                   color: _themeData.cursorColor,
                 ),
                 DescCollectionReview(),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 24.0,
-                      ),
-                      Row(
-                        children: [
-                          RankSales(
-                            textTheme: _textTheme,
-                            saleCode: _data['codeSale'],
-                          ),
-                          SizedBox(
-                            width: 8.0,
-                          ),
-                          Text('3 Token',
-                              style: _textTheme.bodyLarge
-                                  ?.copyWith(fontWeight: FontWeight.w400),
-                              textAlign: TextAlign.start),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8.0,
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                            'Nomor Token akan sesuai ketentuan pemilik proyek',
-                            style: _textTheme.bodySmall?.copyWith(
-                                fontWeight: FontWeight.w400,
-                                color: _themeData.focusColor),
-                            textAlign: TextAlign.start),
-                      ),
-                      SizedBox(
-                        height: 16.0,
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ],

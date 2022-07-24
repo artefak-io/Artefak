@@ -23,57 +23,6 @@ class TotalCollectionReview extends StatelessWidget {
 
     return Column(
       children: [
-        Container(
-          width: size.width,
-          padding: EdgeInsets.only(
-              left: 16.0,
-              right: 16.0),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 24.0,
-              ),
-              Row(
-                children: [
-                  RankSales(
-                    textTheme: _textTheme,
-                    saleCode: _data['codeSale'],
-                  ),
-                  SizedBox(
-                    width: 8.0,
-                  ),
-                  Text('3 Token',
-                      style: _textTheme.bodyLarge
-                          ?.copyWith(fontWeight: FontWeight.w400),
-                      textAlign: TextAlign.start),
-                  Spacer(),
-                  Text('Rp250.000',
-                      style: _textTheme.bodyLarge
-                          ?.copyWith(fontWeight: FontWeight.w400),
-                      textAlign: TextAlign.start),
-                ],
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Text('Nomor Token akan sesuai ketentuan pemilik proyek',
-                    style: _textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w400,
-                        color: _themeData.focusColor),
-                    textAlign: TextAlign.start),
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-            ],
-          ),
-        ),
-        Divider(
-          height: 0,
-          color: _themeData.cursorColor,
-        ),
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 16.0,
@@ -101,8 +50,8 @@ class TotalCollectionReview extends StatelessWidget {
           height: 32.0,
         ),
         ChosenPaymentMethod(
-            onPressedPaymentMethod: onPressedPaymentMethod,
-            indexBank: indexBank,
+          onPressedPaymentMethod: onPressedPaymentMethod,
+          indexBank: indexBank,
         ),
       ],
     );
