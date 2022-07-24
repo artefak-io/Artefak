@@ -14,6 +14,11 @@
   "engines": {
     "node": "16"
   },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "!*test.ts"
+    ]
+  },
   "main": "lib/index.js",
   "dependencies": {
     "axios": "^0.27.2",
