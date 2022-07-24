@@ -1,11 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CollectionRowItem extends StatelessWidget {
   const CollectionRowItem({
-    Key? key, required this.onPressedShowTicket,
+    Key? key,
+    required this.onPressedShowTicket,
+    required this.dataItem,
   }) : super(key: key);
 
   final Function onPressedShowTicket;
+  final QueryDocumentSnapshot dataItem;
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +18,9 @@ class CollectionRowItem extends StatelessWidget {
     TextTheme _textTheme = Theme.of(context).textTheme;
 
     return Container(
+      margin: EdgeInsets.only(
+        bottom: 16.0,
+      ),
       child: Column(
         children: [
           Container(
@@ -30,8 +38,7 @@ class CollectionRowItem extends StatelessWidget {
               children: [
                 Container(
                   child: CircleAvatar(
-                    child: Text('H',
-                        style: _textTheme.bodySmall),
+                    child: Text('H', style: _textTheme.bodySmall),
                     radius: 32,
                     backgroundColor: Colors.white30,
                   ),
@@ -39,15 +46,14 @@ class CollectionRowItem extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
-                    mainAxisAlignment:
-                    MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         child: Text(
                           'Tiket',
-                          style: _textTheme.bodyLarge?.copyWith(
-                              fontWeight: FontWeight.w400),
+                          style: _textTheme.bodyLarge
+                              ?.copyWith(fontWeight: FontWeight.w400),
                         ),
                       ),
                       Container(
@@ -68,10 +74,12 @@ class CollectionRowItem extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     child: Text(
                       "Koleksi Aktif",
-                      style: _textTheme.bodySmall?.copyWith(color: Colors.black),
+                      style:
+                          _textTheme.bodySmall?.copyWith(color: Colors.black),
                     ),
                   ),
                 )
@@ -80,7 +88,10 @@ class CollectionRowItem extends StatelessWidget {
           ),
           Container(
             height: 328,
-            child: SizedBox(),
+            child: Image.network(
+              dataItem['coverImage'],
+              fit: BoxFit.cover,
+            ),
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 12.0),
@@ -96,35 +107,54 @@ class CollectionRowItem extends StatelessWidget {
             child: Row(
               children: [
                 Column(
-                  mainAxisAlignment:
-                  MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       margin: EdgeInsets.only(bottom: 4.0),
                       child: Text(
-                        'Konser “Kita - Kamu - Aku”',
-                        style: _textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.w400),
+                        dataItem['name'],
+                        style: _textTheme.bodyLarge
+                            ?.copyWith(fontWeight: FontWeight.w400),
                       ),
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: 7.25),
-                          child: CircleAvatar(
-                            child: Text('H',
-                                style: _textTheme.bodySmall),
-                            radius: 12,
-                            backgroundColor: Colors.white30,
-                          ),
-                        ),
-                        Text(
-                          'Monalisa Anita',
-                          style: _textTheme.bodySmall?.copyWith(
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],),
+                    FutureBuilder<DocumentSnapshot>(
+                      future: FirebaseFirestore.instance
+                          .doc(dataItem['creator'].path)
+                          .get(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<DocumentSnapshot> snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          Map<String, dynamic> data =
+                              snapshot.data!.data() as Map<String, dynamic>;
+                          return Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(right: 8.0),
+                                child: ClipOval(
+                                  child: CachedNetworkImage(
+                                    imageUrl: data['profilePicture'],
+                                    fit: BoxFit.cover,
+                                    width: 35.0,
+                                    height: 35.0,
+                                    placeholder: (context, url) =>
+                                        CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                data['displayName'],
+                                style: _textTheme.bodySmall
+                                    ?.copyWith(fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          );
+                        }
+                        return Text("loading");
+                      },
+                    ),
                   ],
                 ),
                 Spacer(),
@@ -134,7 +164,9 @@ class CollectionRowItem extends StatelessWidget {
                     Container(
                       child: Text(
                         "#888",
-                        style: _textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,),
+                        style: _textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                     ElevatedButton(

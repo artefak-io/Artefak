@@ -1,16 +1,14 @@
 import 'package:artefak/screens/app_layout.dart';
-import 'package:artefak/services/auth.dart';
-import 'package:artefak/services/transfer_service.dart';
 import 'package:artefak/widgets/account_description_row.dart';
 import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/widgets/asset_preview.dart';
 import 'package:artefak/widgets/bottom_action_bar.dart';
 import 'package:artefak/widgets/card_item_custom.dart';
-import 'package:artefak/widgets/sale_price_widget.dart';
 import 'package:artefak/widgets/title_mint_token_info.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class SalePackages {
   final int code;
@@ -55,23 +53,12 @@ class ProductDetail extends StatelessWidget {
                 data: _data,
               ),
               TitleMintTokenInfo(
+                mintTokenCollection: MintTokenCollection(false, 231, 300, 0),
                 data: _data,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 200,
-                      child: listSaleWidget(
-                        assetList: sales,
-                      ),
-                    ),
-                  ],
-                ),
+              AccountDescriptionRow(
+                data: _data,
               ),
-              AccountDescriptionRow(),
               Column(
                 children: [
                   Container(
@@ -84,51 +71,8 @@ class ProductDetail extends StatelessWidget {
                       widthPhoto: size.width * 0.80,
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (AuthService.user == null) {
-                        Navigator.pushNamed(context, '/auth');
-                      }
-                      // else if (check if this user still has active unpaid account or not)
-
-                      else {
-                        Navigator.pushNamed(context, '/payment',
-                            arguments: <String, dynamic>{
-                              'id': _data['id'],
-                              'price': _data['price'],
-                              'assetName': _data['name'],
-                            });
-                      }
-                    },
-                    child: const Text('Buy'),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(
-                      top: 10.0,
-                    ),
-                    child: Text(
-                      'This "Yoink Button" is extremely fragile. Please use it wisely',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.red),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (AuthService.user == null) {
-                        Navigator.pushNamed(context, '/auth');
-                      } else {
-                        TransferService().transferNft(
-                            _data['id'],
-                            AuthService.user!.uid,
-                            _data['name'],
-                            _data['description'],
-                            _data['coverImage'],
-                            _data['contractAddress'],
-                            _data['tokenId'],
-                            _data['price']);
-                      }
-                    },
-                    child: const Text('YOINK!!!'),
+                  SizedBox(
+                    height: 16.0,
                   ),
                 ],
               ),
@@ -137,7 +81,7 @@ class ProductDetail extends StatelessWidget {
         ),
         bottomNavigationBar: BottomActionBar(
           subTitleAbove: "Jumlah Token: 3",
-          priceDisplay: 750000,
+          titleBottom: "Rp${NumberFormat.decimalPattern('id').format(750000)}",
           textButton: "Beli Sekarang",
           onClickButton: () => Navigator.pushNamed(
               context, '/collection_review',

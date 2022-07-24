@@ -4,14 +4,15 @@ class TitleMintTokenInfo extends StatelessWidget {
   const TitleMintTokenInfo({
     Key? key,
     required Map<String, dynamic> data,
+    required this.mintTokenCollection,
   })  : _data = data,
         super(key: key);
 
   final Map<String, dynamic> _data;
+  final MintTokenCollection mintTokenCollection;
 
   @override
   Widget build(BuildContext context) {
-    ThemeData _themeData = Theme.of(context);
     TextTheme _textTheme = Theme.of(context).textTheme;
 
     return Padding(
@@ -27,18 +28,6 @@ class TitleMintTokenInfo extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 4,
-          ),
-          Container(
-            child: Text(
-              "Mint 7 April 2022",
-              style: _textTheme.bodySmall?.copyWith(
-                  color: _themeData.focusColor,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.0),
-            ),
-          ),
-          SizedBox(
             height: 16,
           ),
           Container(
@@ -51,29 +40,59 @@ class TitleMintTokenInfo extends StatelessWidget {
                       color: Colors.green,
                       fontWeight: FontWeight.w700),
                 ),
-                Text(
-                  "231/300 Token",
-                  style: _textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w400, letterSpacing: 0.0),
-                ),
+                mintTokenCollection.isTokenized
+                    ? Text(
+                        "Aktif #" + mintTokenCollection.nftSeries.toString(),
+                        style: _textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w400, letterSpacing: 0.0),
+                      )
+                    : Text(
+                        mintTokenCollection.amountOwnToken.toString() +
+                            "/" +
+                            mintTokenCollection.totalAllToken.toString() +
+                            " Token",
+                        style: _textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.w400,
+                          letterSpacing: 0.0,
+                        ),
+                      ),
               ],
             ),
           ),
-          Container(
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              child: LinearProgressIndicator(
-                value: 231 / 300,
-                backgroundColor: Colors.grey,
-                minHeight: 8,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 16,
-          ),
+          mintTokenCollection.isTokenized
+              ? Container()
+              : Column(
+                  children: [
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        child: LinearProgressIndicator(
+                          value: mintTokenCollection.amountOwnToken /
+                              mintTokenCollection.totalAllToken,
+                          backgroundColor: Colors.grey,
+                          minHeight: 8,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                  ],
+                ),
         ],
       ),
     );
   }
+}
+
+class MintTokenCollection {
+  final bool isTokenized;
+  final int amountOwnToken;
+  final int totalAllToken;
+  final int nftSeries;
+
+  MintTokenCollection(this.isTokenized, this.amountOwnToken, this.totalAllToken,
+      this.nftSeries);
 }
