@@ -53,7 +53,7 @@ class ProductDetail extends StatelessWidget {
                 data: _data,
               ),
               TitleMintTokenInfo(
-                mintTokenCollection: MintTokenCollection(true, 231, 300, 0),
+                mintTokenCollection: MintTokenCollection(false, 231, 300, 0),
                 data: _data,
               ),
               AccountDescriptionRow(

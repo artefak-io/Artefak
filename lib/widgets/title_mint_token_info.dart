@@ -40,29 +40,34 @@ class TitleMintTokenInfo extends StatelessWidget {
                       color: Colors.green,
                       fontWeight: FontWeight.w700),
                 ),
-                mintTokenCollection.isCollection
+                mintTokenCollection.isTokenized
                     ? Text(
+                        "Aktif #" + mintTokenCollection.nftSeries.toString(),
+                        style: _textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w400, letterSpacing: 0.0),
+                      )
+                    : Text(
                         mintTokenCollection.amountOwnToken.toString() +
                             "/" +
                             mintTokenCollection.totalAllToken.toString() +
                             " Token",
                         style: _textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.w400, letterSpacing: 0.0),
-                      )
-                    : Text(
-                        "Aktif #" + mintTokenCollection.nftSeries.toString(),
-                        style: _textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.w400, letterSpacing: 0.0),
+                          fontWeight: FontWeight.w400,
+                          letterSpacing: 0.0,
+                        ),
                       ),
               ],
             ),
           ),
-          mintTokenCollection.isCollection
-              ? Column(
+          mintTokenCollection.isTokenized
+              ? Container()
+              : Column(
                   children: [
                     Container(
                       child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
                         child: LinearProgressIndicator(
                           value: mintTokenCollection.amountOwnToken /
                               mintTokenCollection.totalAllToken,
@@ -75,8 +80,7 @@ class TitleMintTokenInfo extends StatelessWidget {
                       height: 16,
                     ),
                   ],
-                )
-              : Container(),
+                ),
         ],
       ),
     );
@@ -84,11 +88,11 @@ class TitleMintTokenInfo extends StatelessWidget {
 }
 
 class MintTokenCollection {
-  final bool isCollection;
+  final bool isTokenized;
   final int amountOwnToken;
   final int totalAllToken;
   final int nftSeries;
 
-  MintTokenCollection(this.isCollection, this.amountOwnToken,
-      this.totalAllToken, this.nftSeries);
+  MintTokenCollection(this.isTokenized, this.amountOwnToken, this.totalAllToken,
+      this.nftSeries);
 }

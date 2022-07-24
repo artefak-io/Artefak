@@ -66,7 +66,7 @@ class AssetDetail extends StatelessWidget {
                 data: _dataAssetDetail,
               ),
               TitleMintTokenInfo(
-                mintTokenCollection: MintTokenCollection(false, 0, 0, 888),
+                mintTokenCollection: MintTokenCollection(true, 0, 0, 888),
                 data: _dataAssetDetail,
               ),
               AccountDescriptionRow(data: _dataAssetDetail,),
