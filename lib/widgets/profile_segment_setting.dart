@@ -88,7 +88,7 @@ List<ProfileSetting> listProfileSetting = [
   ProfileSetting(
     title: 'Profil',
     listSettingItem: [
-      MenuSetting(name: 'Ubah Data Profil', uri: 'uri'),
+      MenuSetting(name: 'Ubah Data Profil', uri: '/update_profile'),
       MenuSetting(name: 'Ubah PIN', uri: 'uri'),
       MenuSetting(name: 'Ubah Email', uri: 'uri'),
     ],
