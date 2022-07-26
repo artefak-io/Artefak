@@ -110,7 +110,8 @@ class Profile extends StatelessWidget {
                                 height: 80,
                                 child: ClipOval(
                                   child: CachedNetworkImage(
-                                    imageUrl: snapshot.data!["profilePicture"],
+                                    imageUrl:
+                                        snapshot.data?["profilePicture"] ?? "",
                                     fit: BoxFit.cover,
                                     width: 80.0,
                                     height: 80.0,
@@ -130,20 +131,20 @@ class Profile extends StatelessWidget {
                           children: [
                             Container(
                               margin: EdgeInsets.only(bottom: 4.0),
-                              child: Text(snapshot.data!["displayName"],
+                              child: Text(snapshot.data?["displayName"] ?? "",
                                   style: _textTheme.titleLarge
                                       ?.copyWith(fontWeight: FontWeight.w400)),
                             ),
                             Container(
                               margin: EdgeInsets.only(bottom: 8.0),
                               child: Text(
-                                  AuthService.user!.email! +
+                                  (AuthService.user!.email ?? "") +
                                       (AuthService.user!.email != "" &&
                                               AuthService.user!.phoneNumber !=
                                                   ""
                                           ? " • "
                                           : "") +
-                                      AuthService.user!.phoneNumber!,
+                                      (AuthService.user!.phoneNumber ?? ""),
                                   style: _textTheme.bodySmall
                                       ?.copyWith(fontWeight: FontWeight.w400)),
                             ),
