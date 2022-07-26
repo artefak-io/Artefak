@@ -77,6 +77,11 @@ class _InputOTPState extends State<InputOTP> {
                       ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
+                            // TODO: this is backdoor, remove this
+                            if (_codeController.text == '000000') {
+                              verificationId = '12345';
+                            }
+
                             await AuthService().loginWithPhone(
                                 verificationId: verificationId,
                                 smsCode: _codeController.text);
