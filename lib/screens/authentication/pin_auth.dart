@@ -29,12 +29,24 @@ class PinAuth extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           PinAuthCubit(context.read<PinService>())..pinRetrieved(),
-      child: BlocListener<PinAuthCubit, PinAuthState>(
-        listenWhen: (previous, current) =>
-            current.pinAuthStatus == PinAuthStatus.success,
-        listener: (context, state) {
-          context.read<PinStatusCubit>().pinAuthenticated();
-        },
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<PinAuthCubit, PinAuthState>(
+              listenWhen: (previous, current) =>
+                  current.pinAuthStatus == PinAuthStatus.success,
+              listener: (context, state) {
+                context.read<PinStatusCubit>().pinAuthenticated();
+              }),
+          BlocListener<PinAuthCubit, PinAuthState>(
+              listenWhen: (previous, current) =>
+                  current.pinAuthStatus == PinAuthStatus.error,
+              listener: (context, state) {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(SnackBar(
+                      content: Text(state.errorMessage ?? "Error happens")));
+              }),
+        ],
         child: Builder(
           builder: (context) {
             return Scaffold(
