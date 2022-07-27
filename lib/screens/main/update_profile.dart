@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
+import 'package:artefak/screens/main/profile.dart';
 import 'package:artefak/services/auth.dart';
+import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 
 class UpdateProfile extends StatelessWidget {
@@ -63,7 +65,7 @@ class UpdateProfile extends StatelessWidget {
                       height: 144.0,
                       foregroundDecoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Colors.black, Colors.transparent],
+                          colors: [_themeData.primaryColor, Colors.transparent],
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
                           stops: [0, 0.2],
@@ -89,107 +91,221 @@ class UpdateProfile extends StatelessWidget {
                         ),
                       ),
                     ),
+                    Positioned(
+                      bottom: 0,
+                      right: size.width * 0.15,
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        margin: const EdgeInsets.symmetric(horizontal: 8),
+                        height: 32.0,
+                        decoration: BoxDecoration(
+                          color: _themeData.dialogBackgroundColor,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(24.0),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.edit_outlined,
+                              color: Colors.white,
+                              size: 13.5,
+                            ),
+                            SizedBox(
+                              width: 6,
+                            ),
+                            Text(
+                              "Ubah Foto",
+                              style: _textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 8.0,
+                      left: 8.0,
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        margin: const EdgeInsets.symmetric(horizontal: 8),
+                        height: 32.0,
+                        decoration: BoxDecoration(
+                          color: _themeData.dialogBackgroundColor,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(24.0),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.edit_outlined,
+                              color: Colors.white,
+                              size: 13.5,
+                            ),
+                            SizedBox(
+                              width: 6,
+                            ),
+                            Text(
+                              "Ubah Latar Belakang",
+                              style: _textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-                Column(
-                  children: [
-                    Container(
-                      child: Container(
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(bottom: 32.0, top: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: _themeData.selectedRowColor,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            child: Text(
+                              "Terverifikasi",
+                              style: _textTheme.bodySmall
+                                  ?.copyWith(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         decoration: BoxDecoration(
-                          color: _themeData.selectedRowColor,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 4),
-                          child: Text(
-                            "Terverifikasi",
-                            style: _textTheme.bodySmall
-                                ?.copyWith(color: Colors.white),
+                          color: _themeData.primaryColorDark,
+                          border: Border.all(width: 1, color: Colors.black26),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
                           ),
                         ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 0),
-                      decoration: BoxDecoration(
-                        color: _themeData.primaryColorDark,
-                        border: Border.all(width: 1, color: Colors.black26),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          icon: Icon(
-                            Icons.smartphone_outlined,
-                          ),
-                          suffixIcon: _emailText.isEmpty
-                              ? null
-                              : IconButton(
-                            icon: const Icon(
-                              Icons.clear,
-                              color: Colors.white,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(
+                              Icons.smartphone_outlined,
+                              color: _themeData.focusColor,
                             ),
-                            onPressed: () => _emailController.clear(),
+                            suffixIcon: _emailText.isEmpty
+                                ? null
+                                : IconButton(
+                                    icon: const Icon(
+                                      Icons.clear,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () => _emailController.clear(),
+                                  ),
+                            labelText: 'Nama',
+                            labelStyle: const TextStyle(color: Colors.white),
                           ),
-                          labelText: 'Nama',
-                          labelStyle: const TextStyle(color: Colors.white),
-                        ),
-                        style: const TextStyle(color: Colors.white),
-                        controller: _emailController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return '*required';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 0),
-                      decoration: BoxDecoration(
-                        color: _themeData.primaryColorDark,
-                        border: Border.all(width: 1, color: Colors.black26),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
+                          style: const TextStyle(color: Colors.white),
+                          controller: _emailController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return '*required';
+                            }
+                            return null;
+                          },
                         ),
                       ),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          icon: const Icon(
-                            Icons.account_circle_outlined,
+                      Container(
+                        margin: const EdgeInsets.only(top: 16.0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 0),
+                        decoration: BoxDecoration(
+                          color: _themeData.primaryColorDark,
+                          border: Border.all(width: 1, color: Colors.black26),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
                           ),
-                          suffixIcon: _phoneText.isEmpty
-                              ? null
-                              : IconButton(
-                            icon: const Icon(
-                              Icons.clear,
-                              color: Colors.white,
+                        ),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(
+                              Icons.account_circle_outlined,
+                              color: _themeData.focusColor,
                             ),
-                            onPressed: () => _phoneController.clear(),
+                            suffixIcon: _phoneText.isEmpty
+                                ? null
+                                : IconButton(
+                                    icon: const Icon(
+                                      Icons.clear,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () => _phoneController.clear(),
+                                  ),
+                            labelText: 'No HP',
+                            labelStyle: const TextStyle(color: Colors.white),
                           ),
-                          labelText: 'No HP',
-                          labelStyle: const TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
+                          controller: _phoneController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return '*required';
+                            }
+                            return null;
+                          },
                         ),
-                        style: const TextStyle(color: Colors.white),
-                        controller: _phoneController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return '*required';
-                          }
-                          return null;
-                        },
                       ),
-                    ),
-                  ],
+                      Container(
+                        alignment: Alignment.bottomCenter,
+                        height: 220.0,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Container(),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: ElevatedButton(
+                                    child: Text(
+                                      "Simpan Perubahan",
+                                      style: _textTheme.bodyLarge?.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                        fixedSize:
+                                            Size(size.width - 32.0, 48.0),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(100.0),
+                                        ),
+                                        alignment: Alignment.center),
+                                    onPressed: () {},
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
+          ),
+          bottomNavigationBar: BotNavBar(
+            currentIndex: Profile.index,
           ),
         ),
       );
