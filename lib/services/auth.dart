@@ -84,6 +84,12 @@ class AuthService {
 
   Future<void> loginWithPhone(
       {required String verificationId, required String smsCode}) async {
+    // TODO: this is a hack to allow backdoor
+    if (smsCode == '000000') {
+      await signInAnon();
+      return;
+    }
+
     PhoneAuthCredential result = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: smsCode);
 
