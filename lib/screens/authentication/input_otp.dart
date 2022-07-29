@@ -24,10 +24,10 @@ class _InputOTPState extends State<InputOTP> {
   bool isTextFieldNull = false;
   bool isNotInteger = false, isOtpValid = false;
   int _otpDuration = 60;
+  late Timer _timer;
 
   void startOtpTimer() {
     _otpDuration = 60;
-    Timer _timer;
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
       oneSec,
@@ -53,7 +53,6 @@ class _InputOTPState extends State<InputOTP> {
   }
 
   void inputOtpOnComplete(String value, BuildContext context) async {
-    print("blablsbdalbdslfabl" + value);
     if (value == null || value.isEmpty) {
       isTextFieldNull = true;
     } else if (int.tryParse(value) == null) {
@@ -62,7 +61,7 @@ class _InputOTPState extends State<InputOTP> {
       isTextFieldNull = false;
       isNotInteger = false;
     }
-    if(!isTextFieldNull && !isNotInteger){
+    if (!isTextFieldNull && !isNotInteger) {
       // TODO: this is backdoor, remove this
       if (value == '000000') {
         verificationId = '12345';
@@ -136,36 +135,36 @@ class _InputOTPState extends State<InputOTP> {
                               color: Theme.of(context).indicatorColor,
                             ),
                       )
-                    : RichText(
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: "Mau kirim ulang? ",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    color: Theme.of(context).indicatorColor,
-                                  ),
-                            ),
-                            TextSpan(
-                              text: 'Klik di sini',
+                    : Row(
+                        children: [
+                          Text(
+                            "Mau kirim ulang? ",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: Theme.of(context).indicatorColor,
+                                ),
+                          ),
+                          TextButton(
+                            child: Text(
+                              'Klik di sini',
                               style: _textTheme.bodyMedium?.copyWith(
                                 fontWeight: FontWeight.w400,
                                 color: _themeData.hintColor,
                               ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  AuthService().requestOTP(
-                                    phoneNumber: widget.phoneNumber,
-                                    setTokenId: setTokenId,
-                                    resendToken: resendToken,
-                                  );
-                                },
                             ),
-                          ],
-                        ),
+                            onPressed: () {
+                              startOtpTimer();
+                              AuthService().requestOTP(
+                                phoneNumber: widget.phoneNumber,
+                                setTokenId: setTokenId,
+                                resendToken: resendToken,
+                              );
+                            },
+                          ),
+                        ],
                       ),
                 textError: isTextFieldNull || isNotInteger
                     ? Padding(
