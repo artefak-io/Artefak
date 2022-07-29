@@ -130,13 +130,8 @@ class Profile extends StatelessWidget {
                         Column(
                           children: [
                             Container(
-<<<<<<< HEAD
-                              margin: EdgeInsets.only(bottom: 4.0, top: 16.0),
-                              child: Text(snapshot.data!["displayName"],
-=======
                               margin: EdgeInsets.only(bottom: 4.0),
                               child: Text(snapshot.data?["displayName"] ?? "",
->>>>>>> f74dd5a4c519708e3fb3e290df8f5a54f3551910
                                   style: _textTheme.titleLarge
                                       ?.copyWith(fontWeight: FontWeight.w400)),
                             ),
