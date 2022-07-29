@@ -200,7 +200,6 @@ class _InputOtpWidgetState extends State<InputOtpWidget> {
               textAlign: TextAlign.start,
             ),
           ),
-<<<<<<< HEAD
           Row(
             children: [
               Container(
@@ -226,29 +225,6 @@ class _InputOtpWidgetState extends State<InputOtpWidget> {
                 ),
               ),
             ],
-=======
-          Container(
-            width: 200.0,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                fixedSize: Size(170, 48.0),
-                backgroundColor: Colors.transparent,
-                side: BorderSide(
-                  color: _themeData.focusColor,
-                ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100)),
-              ),
-              child: Text(
-                "Ganti Nomor HP",
-                style:
-                    _textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400),
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
->>>>>>> fcbbd17 (create input otp ui page, add focus to input phone, change icon)
           ),
         ],
       ),
