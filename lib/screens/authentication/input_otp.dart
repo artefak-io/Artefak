@@ -192,7 +192,7 @@ class _InputOTPState extends State<InputOTP> {
                   ),
                   onPressed: () {},
                   child: Text(
-                    "Input PIN",
+                    "Verifikasi Sekarang",
                     style: _textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w400,
                       color: isOtpValid
