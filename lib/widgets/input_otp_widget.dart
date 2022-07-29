@@ -200,27 +200,31 @@ class _InputOtpWidgetState extends State<InputOtpWidget> {
               textAlign: TextAlign.start,
             ),
           ),
-          Container(
-            width: 200.0,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                fixedSize: Size(170, 48.0),
-                backgroundColor: Colors.transparent,
-                side: BorderSide(
-                  color: _themeData.focusColor,
+          Row(
+            children: [
+              Container(
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: Size(165, 47.0),
+                    maximumSize: Size(170, 48.0),
+                    backgroundColor: Colors.transparent,
+                    side: BorderSide(
+                      color: _themeData.focusColor,
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100)),
+                  ),
+                  child: Text(
+                    "Ganti Nomor HP",
+                    style:
+                        _textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100)),
               ),
-              child: Text(
-                "Ganti Nomor HP",
-                style:
-                    _textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400),
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
+            ],
           ),
         ],
       ),
