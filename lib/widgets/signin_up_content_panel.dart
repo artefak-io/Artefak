@@ -86,10 +86,11 @@ Widget SignInUpSlidingPanel(ValueChanged<int> page, BuildContext context,
                             ),
                           ),
                           child: TextFormField(
+                            autofocus: true,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              icon: const Icon(
-                                Icons.email_outlined,
+                              icon: Icon(
+                                Icons.person_pin_outlined,
                                 color: Colors.white,
                               ),
                               suffixIcon: _emailPhoneText.isEmpty

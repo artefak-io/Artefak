@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:artefak/logic/auth/auth.dart';
 import 'package:artefak/services/auth.dart';
+import 'package:artefak/widgets/input_otp_widget.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,6 +21,29 @@ class _InputOTPState extends State<InputOTP> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late int resendToken;
   late String verificationId;
+  bool isTextFieldNull = false;
+  bool isNotInteger = false, isOtpValid = false;
+  int _otpDuration = 60;
+
+  void startOtpTimer() {
+    _otpDuration = 60;
+    Timer _timer;
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (_otpDuration == 0) {
+          setState(() {
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            _otpDuration--;
+          });
+        }
+      },
+    );
+  }
 
   void setTokenId(int token, String id) {
     setState(() {
@@ -25,15 +52,49 @@ class _InputOTPState extends State<InputOTP> {
     });
   }
 
+  void inputOtpOnComplete(String value, BuildContext context) async {
+    print("blablsbdalbdslfabl" + value);
+    if (value == null || value.isEmpty) {
+      isTextFieldNull = true;
+    } else if (int.tryParse(value) == null) {
+      isNotInteger = true;
+    } else {
+      isTextFieldNull = false;
+      isNotInteger = false;
+    }
+    if(!isTextFieldNull && !isNotInteger){
+      // TODO: this is backdoor, remove this
+      if (value == '000000') {
+        verificationId = '12345';
+      }
+      // TODO: if value false add return value
+      await AuthService()
+          .loginWithPhone(verificationId: verificationId, smsCode: value);
+    }
+  }
+
+  void inputOtpOnSubmitted(BuildContext context) {
+    if (!isTextFieldNull && !isNotInteger) {
+      isOtpValid = true;
+    }
+  }
+
+  void inputOtpOnChanged(String value, BuildContext context) {}
+
   @override
   void initState() {
     super.initState();
+    startOtpTimer();
     AuthService()
         .requestOTP(phoneNumber: widget.phoneNumber, setTokenId: setTokenId);
   }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    TextTheme _textTheme = Theme.of(context).textTheme;
+    ThemeData _themeData = Theme.of(context);
+
     return BlocListener<AuthBloc, AuthState>(
       listenWhen: (previous, current) =>
           previous != current &&
@@ -43,75 +104,102 @@ class _InputOTPState extends State<InputOTP> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Input SMS Code"),
+          title: Text(
+            "Verifikasi Nomor HP",
+            style: _textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w400),
+          ),
         ),
         body: SingleChildScrollView(
-          child: Column(
+          child: Stack(
             children: <Widget>[
-              Row(
-                children: [
-                  Text(widget.phoneNumber),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text("Wrong Number"),
-                  ),
-                ],
+              Positioned(
+                left: 20,
+                top: -165,
+                child: Image.asset(
+                  'assets/bggrad.png',
+                  fit: BoxFit.fitHeight,
+                  height: 350,
+                ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    TextFormField(
-                      controller: _codeController,
-                      decoration: const InputDecoration(
-                        hintText: "Input OTP Code",
+              InputOtpWidget(
+                bodytitle: 'Cek Kode OTP',
+                bodySubTitle: widget.phoneNumber,
+                appBarTitle: 'Verifikasi Nomor HP',
+                onCompleteFunction: inputOtpOnComplete,
+                onSubmittedFunction: inputOtpOnSubmitted,
+                onChangedFunction: inputOtpOnChanged,
+                textCountdown: _otpDuration != 0
+                    ? Text(
+                        "Mohon tunggu dalam 00:$_otpDuration untuk kirim ulang",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: Theme.of(context).indicatorColor,
+                            ),
+                      )
+                    : RichText(
+                        text: TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: "Mau kirim ulang? ",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: Theme.of(context).indicatorColor,
+                                  ),
+                            ),
+                            TextSpan(
+                              text: 'Klik di sini',
+                              style: _textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.w400,
+                                color: _themeData.hintColor,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  AuthService().requestOTP(
+                                    phoneNumber: widget.phoneNumber,
+                                    setTokenId: setTokenId,
+                                    resendToken: resendToken,
+                                  );
+                                },
+                            ),
+                          ],
+                        ),
                       ),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return '*please input phone number';
-                        } else if (int.tryParse(value) == null) {
-                          return '*please input valid phone number';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    Row(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              // TODO: this is backdoor, remove this
-                              if (_codeController.text == '000000') {
-                                verificationId = '12345';
-                              }
-
-                              await AuthService().loginWithPhone(
-                                  verificationId: verificationId,
-                                  smsCode: _codeController.text);
-                            }
-                          },
-                          child: const Text("Confirm"),
+                textError: isTextFieldNull || isNotInteger
+                    ? Padding(
+                        padding: EdgeInsets.only(bottom: 16.0),
+                        child: Text(
+                          isTextFieldNull
+                              ? "Input must be 6 digits"
+                              : isNotInteger
+                                  ? "Input must be a number"
+                                  : "",
+                          style: _textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w400,
+                            color: _themeData.errorColor,
+                          ),
                         ),
-                        // needs countdown counter for 30 seconds
-                        ElevatedButton(
-                          onPressed: () {
-                            AuthService().requestOTP(
-                              phoneNumber: widget.phoneNumber,
-                              setTokenId: setTokenId,
-                              resendToken: resendToken,
-                            );
-                          },
-                          child: const Text("Resend Code"),
-                        ),
-                      ],
+                      )
+                    : null,
+                buildButton: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(size.width * 0.9, 48),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100.0),
                     ),
-                  ],
+                  ),
+                  onPressed: () {},
+                  child: Text(
+                    "Input PIN",
+                    style: _textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w400,
+                      color: isOtpValid
+                          ? _themeData.textSelectionColor
+                          : _themeData.textSelectionColor.withOpacity(0.5),
+                    ),
+                  ),
                 ),
               ),
             ],
