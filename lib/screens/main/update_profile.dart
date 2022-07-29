@@ -1,19 +1,60 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
 import 'package:artefak/screens/main/profile.dart';
 import 'package:artefak/services/auth.dart';
+import 'package:artefak/services/image_picker_service.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class UpdateProfile extends StatelessWidget {
+class UpdateProfile extends StatefulWidget {
   UpdateProfile({Key? key}) : super(key: key);
 
-  final _emailController = TextEditingController();
-  String _emailText = "";
+  @override
+  State<UpdateProfile> createState() => _UpdateProfileState();
+}
+
+class _UpdateProfileState extends State<UpdateProfile> {
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
+  String _nameText = "";
   String _phoneText = "";
+  File? _profilePicture;
+
+  ImageProvider? _previewImage() {
+    if (_profilePicture != null) {
+      return FileImage(_profilePicture!);
+    } else if (AuthService.user!.photoURL != null) {
+      return NetworkImage(AuthService.user!.photoURL!);
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> _restrieveLostData() async {
+    File? result = await ImagePickerService().retrieveLostData();
+    if (result != null) {
+      setState(() {
+        _profilePicture = result;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (AuthService.user!.displayName != null) {
+      _nameController.text = AuthService.user!.displayName!;
+    }
+    if (kIsWeb != true && defaultTargetPlatform == TargetPlatform.android) {
+      _restrieveLostData();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,41 +135,53 @@ class UpdateProfile extends StatelessWidget {
                     Positioned(
                       bottom: 0,
                       right: size.width * 0.15,
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        margin: const EdgeInsets.symmetric(horizontal: 8),
-                        height: 32.0,
-                        decoration: BoxDecoration(
-                          color: _themeData.dialogBackgroundColor,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(24.0),
+                      child: InkWell(
+                        onTap: () {
+                            ImagePickerService().retrieveImage().then((value) {
+                              setState(() {
+                                _profilePicture = File(value!.path);
+                              });
+                            }).catchError(
+                                    (error) => print('error happen $error'));
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          height: 32.0,
+                          decoration: BoxDecoration(
+                            color: _themeData.dialogBackgroundColor,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(24.0),
+                            ),
                           ),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.edit_outlined,
-                              color: Colors.white,
-                              size: 13.5,
-                            ),
-                            SizedBox(
-                              width: 6,
-                            ),
-                            Text(
-                              "Ubah Foto",
-                              style: _textTheme.bodySmall?.copyWith(
-                                fontWeight: FontWeight.w400,
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.edit_outlined,
+                                color: Colors.white,
+                                size: 13.5,
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                width: 6,
+                              ),
+                              Text(
+                                "Ubah Foto",
+                                style: _textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                     Positioned(
                       top: 8.0,
                       left: 8.0,
-                      child: Container(
+                      child: InkWell(
+                        onTap: () {},
+                        child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -157,6 +210,7 @@ class UpdateProfile extends StatelessWidget {
                             ),
                           ],
                         ),
+                      ),
                       ),
                     ),
                   ],
@@ -197,23 +251,23 @@ class UpdateProfile extends StatelessWidget {
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
-                              Icons.smartphone_outlined,
+                              Icons.account_circle_outlined,
                               color: _themeData.focusColor,
                             ),
-                            suffixIcon: _emailText.isEmpty
+                            suffixIcon: _nameText.isEmpty
                                 ? null
                                 : IconButton(
                                     icon: const Icon(
                                       Icons.clear,
                                       color: Colors.white,
                                     ),
-                                    onPressed: () => _emailController.clear(),
+                                    onPressed: () => _nameController.clear(),
                                   ),
                             labelText: 'Nama',
                             labelStyle: const TextStyle(color: Colors.white),
                           ),
                           style: const TextStyle(color: Colors.white),
-                          controller: _emailController,
+                          controller: _nameController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return '*required';
@@ -237,7 +291,7 @@ class UpdateProfile extends StatelessWidget {
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
-                              Icons.account_circle_outlined,
+                              Icons.smartphone_outlined,
                               color: _themeData.focusColor,
                             ),
                             suffixIcon: _phoneText.isEmpty

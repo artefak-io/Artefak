@@ -204,9 +204,7 @@ class _ItemCardCustomState extends State<ItemCardCustom> {
                   ],
                 ),
                 FutureBuilder<DocumentSnapshot>(
-                    future: FirebaseFirestore.instance
-                        .doc(widget.dataEach['creator'].path)
-                        .get(),
+                    future: widget.dataEach['creator'].get(),
                     builder: (BuildContext context,
                         AsyncSnapshot<DocumentSnapshot> snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
