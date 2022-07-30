@@ -216,8 +216,8 @@ class _InputOtpWidgetState extends State<InputOtpWidget> {
                   ),
                   child: Text(
                     "Ganti Nomor HP",
-                    style:
-                        _textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w400),
+                    style: _textTheme.bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.w400),
                   ),
                   onPressed: () {
                     Navigator.pop(context);
