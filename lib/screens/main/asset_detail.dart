@@ -22,7 +22,7 @@ class AssetDetail extends StatelessWidget {
   AssetDetail({Key? key}) : super(key: key);
 
   final Stream<QuerySnapshot> _assetStream =
-  FirebaseFirestore.instance.collection('Asset').snapshots();
+      FirebaseFirestore.instance.collection('Asset').snapshots();
 
   void _showDialog(BuildContext context) {
     showModalBottomSheet(
@@ -36,9 +36,9 @@ class AssetDetail extends StatelessWidget {
             maxChildSize: 0.6,
             builder:
                 (BuildContext context, ScrollController scrollController) =>
-                QrTicketSlidingPanel(
-                  scrollController: scrollController,
-                ),
+                    QrTicketSlidingPanel(
+              scrollController: scrollController,
+            ),
           );
         });
   }
@@ -48,7 +48,7 @@ class AssetDetail extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     final Map<String, dynamic> _dataAssetDetail =
-    ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     return AppLayout(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -70,7 +70,9 @@ class AssetDetail extends StatelessWidget {
                 mintTokenCollection: MintTokenCollection(true, 0, 0, 888),
                 data: _dataAssetDetail,
               ),
-              AccountDescriptionRow(data: _dataAssetDetail,),
+              AccountDescriptionRow(
+                data: _dataAssetDetail,
+              ),
               Column(
                 children: [
                   Padding(
@@ -92,7 +94,9 @@ class AssetDetail extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 16.0,)
+              SizedBox(
+                height: 16.0,
+              )
             ],
           ),
         ),
