@@ -1,5 +1,4 @@
 import 'package:artefak/widgets/description_state_class.dart';
-import 'package:artefak/widgets/sub_head_title.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -86,10 +85,6 @@ class AccountDescriptionRow extends StatelessWidget {
             ),
           ),
           DescriptionStateClass(data: _data),
-          SubHeadTitle(
-            title: "Menarik Lainnya",
-            isSeeAll: true,
-          ),
         ],
       ),
     );
