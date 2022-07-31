@@ -51,7 +51,7 @@ exports.mintBasedOnTransaction = functions.firestore
             "artefak.io",
         );
 
-        return change.after.ref.set({
+        return await change.after.ref.set({
             blockchainTransactionAddress: mint['txId'],
         });
     });
