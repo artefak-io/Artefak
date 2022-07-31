@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:artefak/screens/app_layout.dart';
@@ -12,8 +13,10 @@ import 'package:flutter/material.dart';
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
+  Random random = new Random();
+
   final Stream<QuerySnapshot> _collectionStream =
-  FirebaseFirestore.instance.collection('Asset').snapshots();
+      FirebaseFirestore.instance.collection('Asset').snapshots();
 
   static const index = 0;
 
@@ -21,6 +24,8 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     ThemeData _themeData = Theme.of(context);
+    TextTheme _textTheme = Theme.of(context).textTheme;
+    int pickOne = random.nextInt(4);
 
     return AppLayout(
       child: Scaffold(
@@ -72,6 +77,57 @@ class Home extends StatelessWidget {
                       title: "Proyek Terbaik saat ini",
                       isSeeAll: false,
                     ),
+                    StreamBuilder<QuerySnapshot>(
+                      stream: _collectionStream,
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return Center(
+                            child: Text('An error has occurred!',
+                                style: _textTheme.bodyMedium),
+                          );
+                        } else if (snapshot.hasData) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, '/asset/product_detail',
+                                  arguments: <String, dynamic>{
+                                    'id': snapshot.data!.docs[pickOne].id,
+                                    'currentOwner': snapshot.data!.docs[pickOne]
+                                        ['currentOwner'],
+                                    'creator': snapshot.data!.docs[pickOne]
+                                        ['creator'],
+                                    'name': snapshot.data!.docs[pickOne]
+                                        ['name'],
+                                    'description': snapshot.data!.docs[pickOne]
+                                        ['description'],
+                                    'coverImage': snapshot.data!.docs[pickOne]
+                                        ['coverImage'],
+                                    'views': snapshot.data!.docs[pickOne]
+                                        ['views'],
+                                    'contractAddress': snapshot
+                                        .data!.docs[pickOne]['contractAddress'],
+                                    'tokenId': snapshot.data!.docs[pickOne]
+                                        ['tokenId'],
+                                    'price': snapshot.data!.docs[pickOne]
+                                        ['price'],
+                                  });
+                            },
+                            // needs loading indicator when image being reloaded
+                            child: ItemCardCustom(
+                              isHorizontal: false,
+                              heightPhoto: 270,
+                              widthPhoto: size.width - 32.0,
+                              dataEach: snapshot.data!.docs[pickOne],
+                            ),
+                          );
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -82,9 +138,12 @@ class Home extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SubHeadTitle(
-                      title: "Sedang Popular",
-                      isSeeAll: true,
+                    Padding(
+                      padding: EdgeInsets.only(right: 16),
+                      child: SubHeadTitle(
+                        title: "Sedang Popular",
+                        isSeeAll: true,
+                      ),
                     ),
                     Container(
                       height: 200,
