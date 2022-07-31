@@ -250,24 +250,32 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           horizontal: 16.0, vertical: 0),
                       child: Column(
                         children: [
-                          Container(
-                            margin: EdgeInsets.only(bottom: 32.0, top: 16.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: _themeData.selectedRowColor,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 4),
-                                child: Text(
-                                  "Terverifikasi",
-                                  style: _textTheme.bodySmall
-                                      ?.copyWith(color: Colors.white),
+                          snapshot.data?["isVerified"]
+                                      .toString()
+                                      .toLowerCase() ==
+                                  'true'
+                              ? Container(
+                                  margin:
+                                      EdgeInsets.only(bottom: 32.0, top: 16.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: _themeData.selectedRowColor,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 4),
+                                      child: Text(
+                                        "Terverifikasi",
+                                        style: _textTheme.bodySmall
+                                            ?.copyWith(color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : SizedBox(
+                                  height: 48.0,
                                 ),
-                              ),
-                            ),
-                          ),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             decoration: BoxDecoration(
