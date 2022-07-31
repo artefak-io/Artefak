@@ -4,6 +4,7 @@ import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/widgets/asset_preview.dart';
 import 'package:artefak/widgets/bottom_action_bar.dart';
 import 'package:artefak/widgets/card_item_custom.dart';
+import 'package:artefak/widgets/sub_head_title.dart';
 import 'package:artefak/widgets/title_mint_token_info.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -61,6 +62,13 @@ class ProductDetail extends StatelessWidget {
               ),
               Column(
                 children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: SubHeadTitle(
+                      title: "Menarik Lainnya",
+                      isSeeAll: true,
+                    ),
+                  ),
                   Container(
                     padding: const EdgeInsets.only(left: 16),
                     height: 200,
