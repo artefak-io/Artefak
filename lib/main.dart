@@ -10,7 +10,7 @@ import 'package:artefak/screens/main/payment_process.dart';
 import 'package:artefak/screens/main/privacy_policy.dart';
 import 'package:artefak/themes/artefak_theme.dart';
 import 'package:artefak/screens/authentication/authenticate.dart';
-import 'package:artefak/screens/authentication/update_profile.dart';
+import 'package:artefak/screens/main/update_profile.dart';
 import 'package:artefak/screens/main/product_detail.dart';
 import 'package:artefak/screens/main/mint.dart';
 import 'package:artefak/screens/main/payment.dart';
@@ -128,7 +128,7 @@ class _MyAppState extends State<MyApp> {
                   '/bill': (context) => const TransactionWrapper(),
                   '/favorite': (context) => const Favorite(),
                   '/notification': (context) => const NotificationPage(),
-                  '/update_profile': (context) => const UpdateProfile(),
+                  '/update_profile': (context) => UpdateProfile(),
                   '/asset/product_detail': (context) => ProductDetail(),
                   '/asset/asset_detail': (context) => AssetDetail(),
                   '/collection_review': (context) => const CollectionReview(),

@@ -89,7 +89,7 @@ class Profile extends StatelessWidget {
                               height: 144.0,
                               foregroundDecoration: BoxDecoration(
                                 gradient: LinearGradient(
-                                  colors: [Colors.black, Colors.transparent],
+                                  colors: [_themeData.primaryColor, Colors.transparent],
                                   begin: Alignment.bottomCenter,
                                   end: Alignment.topCenter,
                                   stops: [0, 0.2],
