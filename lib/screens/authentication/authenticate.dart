@@ -1,4 +1,4 @@
-import 'package:artefak/screens/authentication/input_phone.dart';
+import 'package:artefak/screens/main/home.dart';
 import 'package:flutter/material.dart';
 
 class Authenticate extends StatelessWidget {
@@ -6,6 +6,6 @@ class Authenticate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const InputPhone();
+    return Home(); // TODO: this should be home with sign_in panel
   }
 }
