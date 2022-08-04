@@ -40,7 +40,8 @@ class ConfirmPin extends StatelessWidget {
           child: Builder(
             builder: (context) {
               return Scaffold(
-                backgroundColor: Theme.of(context).backgroundColor,
+                resizeToAvoidBottomInset: false,
+                backgroundColor: Colors.transparent,
                 appBar: AppBar(
                   title: Text(
                     "Buat PIN",
@@ -154,7 +155,7 @@ class ConfirmPin extends StatelessWidget {
                                           .pinSucceed()
                                       : null,
                                   child: Text(
-                                    "Input PIN",
+                                    "Simpan",
                                     style: _textTheme.bodyLarge?.copyWith(
                                       fontWeight: FontWeight.w400,
                                       color: isPinValid

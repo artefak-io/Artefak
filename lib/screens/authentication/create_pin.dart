@@ -1,9 +1,10 @@
+import 'dart:ui';
+
 import 'package:artefak/logic/pin/pin.dart';
 import 'package:artefak/screens/authentication/confirm_pin.dart';
 import 'package:artefak/widgets/input_pin_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 
 class CreatePin extends StatelessWidget {
   const CreatePin({Key? key}) : super(key: key);
@@ -45,19 +46,38 @@ class CreatePin extends StatelessWidget {
           child: Builder(
             builder: (context) {
               return Scaffold(
-                backgroundColor: Theme.of(context).backgroundColor,
-                appBar: AppBar(
-                  title: Text(
-                    "Buat PIN",
-                    style: _textTheme.titleLarge
-                        ?.copyWith(fontWeight: FontWeight.w400),
+                resizeToAvoidBottomInset: false,
+                backgroundColor: Theme.of(context).primaryColor,
+                appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(64.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ClipRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(
+                            sigmaX: 5.0,
+                            sigmaY: 5.0,
+                          ),
+                          child: AppBar(
+                            toolbarHeight: 64.0,
+                            automaticallyImplyLeading: false,
+                            title: Text(
+                              'Buat PIN',
+                              style: _textTheme.titleLarge
+                                  ?.copyWith(fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 body: SingleChildScrollView(
                   child: Stack(
                     children: <Widget>[
                       Positioned(
-                        left: 20,
+                        left: 0,
                         top: -165,
                         child: Image.asset(
                           'assets/bggrad.png',
@@ -127,7 +147,7 @@ class CreatePin extends StatelessWidget {
                                   ? context.read<CreatePinCubit>().pinSucceed()
                                   : null,
                               child: Text(
-                                "Input PIN",
+                                "Sekali Lagi",
                                 style: _textTheme.bodyLarge?.copyWith(
                                   fontWeight: FontWeight.w400,
                                   color: isPinValid

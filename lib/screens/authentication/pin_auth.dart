@@ -50,6 +50,7 @@ class PinAuth extends StatelessWidget {
         child: Builder(
           builder: (context) {
             return Scaffold(
+              resizeToAvoidBottomInset: false,
               backgroundColor: Theme.of(context).primaryColor,
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(64.0),
