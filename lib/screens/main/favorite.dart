@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
-import 'package:artefak/widgets/custom_blank_page.dart';
+import 'package:artefak/screens/main/custom_blank_page.dart';
 import 'package:flutter/material.dart';
 
 class Favorite extends StatelessWidget {
