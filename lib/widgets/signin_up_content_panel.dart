@@ -8,7 +8,8 @@ Widget SignInUpSlidingPanel(ValueChanged<int> page, BuildContext context,
   ThemeData _themeData = Theme.of(context);
 
   const String idnCode = "+62";
-  var emailRex = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+  var emailRex = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   final phoneNumberRex = RegExp(r'^(?:[+0][1-9])?[0-9]{10,12}$');
 
   return Column(
@@ -73,85 +74,85 @@ Widget SignInUpSlidingPanel(ValueChanged<int> page, BuildContext context,
                   SizedBox(
                     height: 24.0,
                   ),
-                Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 0),
-                          decoration: BoxDecoration(
-                            color: _themeData.primaryColorDark,
-                            border: Border.all(width: 1, color: Colors.black26),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(10),
-                            ),
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 0),
+                        decoration: BoxDecoration(
+                          color: _themeData.primaryColorDark,
+                          border: Border.all(width: 1, color: Colors.black26),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
                           ),
-                          child: TextFormField(
-                            autofocus: true,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              icon: Icon(
-                                Icons.person_pin_outlined,
-                                color: Colors.white,
-                              ),
-                              suffixIcon: _emailPhoneText.isEmpty
-                                  ? null
-                                  : IconButton(
-                                      icon: const Icon(
-                                        Icons.clear,
-                                        color: Colors.white,
-                                      ),
-                                      onPressed: () => _emailController.clear(),
+                        ),
+                        child: TextFormField(
+                          autofocus: true,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(
+                              Icons.person_pin_outlined,
+                              color: Colors.white,
+                            ),
+                            suffixIcon: _emailPhoneText.isEmpty
+                                ? null
+                                : IconButton(
+                                    icon: const Icon(
+                                      Icons.clear,
+                                      color: Colors.white,
                                     ),
-                              labelText: 'Email / no HP',
-                              labelStyle: const TextStyle(color: Colors.white),
-                            ),
-                            style: const TextStyle(color: Colors.white),
-                            controller: _emailController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return '*required';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          height: 24.0,
-                        ),
-                        ElevatedButton(
-                          child: Text(
-                            'Mulai Sekarang!',
-                            style: _textTheme.bodyLarge?.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                              minimumSize: Size(size.width * 0.9, 48.0),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(100.0),
-                              ),
-                              alignment: Alignment.center),
-                          onPressed: () async {
-                              if (emailRex.hasMatch(_emailPhoneText)) {
-                                // add open gmail and wait for authenticated status
-                                page(1);
-                              } else if (phoneNumberRex
-                                  .hasMatch(_emailPhoneText)) {
-                                print(idnCode + _emailPhoneText);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: ((context) => InputOTP(
-                                          phoneNumber:
-                                              idnCode + _emailPhoneText,
-                                        )),
+                                    onPressed: () => _emailController.clear(),
                                   ),
-                                );
-                              }
+                            labelText: 'Email / no HP',
+                            labelStyle: const TextStyle(color: Colors.white),
+                          ),
+                          style: const TextStyle(color: Colors.white),
+                          controller: _emailController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return '*required';
+                            }
+                            return null;
                           },
                         ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(
+                        height: 24.0,
+                      ),
+                      ElevatedButton(
+                        child: Text(
+                          'Mulai Sekarang!',
+                          style: _textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: Size(size.width * 0.9, 48.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100.0),
+                            ),
+                            alignment: Alignment.center),
+                        onPressed: () async {
+                          if (emailRex.hasMatch(_emailPhoneText)) {
+                            // add open gmail and wait for authenticated status
+                            page(1);
+                          } else if (phoneNumberRex.hasMatch(_emailPhoneText)) {
+                            print(idnCode + _emailPhoneText);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: ((context) => InputOTP(
+                                      phoneNumber: idnCode +
+                                          _emailPhoneText.replaceFirst(
+                                              new RegExp(r'^0+'), ''),
+                                    )),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
                   SizedBox(
                     height: 24.0,
                   ),
