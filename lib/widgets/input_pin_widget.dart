@@ -64,7 +64,6 @@ class _InputPinWidgetState extends State<InputPinWidget> {
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
     Size size = MediaQuery.of(context).size;
-    print(size.height * 0.16);
 
     return Container(
       height: size.height - size.height * 0.16,
