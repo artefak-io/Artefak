@@ -113,7 +113,6 @@ class _ItemCardCustomState extends State<ItemCardCustom> {
   Widget build(BuildContext context) {
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
-    print(widget.dataEach.toString());
 
     return Container(
       margin: widget.isHorizontal
