@@ -151,8 +151,8 @@ class ConfirmPin extends StatelessWidget {
                                   ),
                                   onPressed: () => isPinValid
                                       ? context
-                                          .read<CreatePinCubit>()
-                                          .pinSucceed()
+                                          .read<ConfirmPinCubit>()
+                                          .pinCreated()
                                       : null,
                                   child: Text(
                                     "Simpan",
