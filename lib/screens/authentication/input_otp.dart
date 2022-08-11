@@ -54,7 +54,10 @@ class _InputOTPState extends State<InputOTP> {
     });
   }
 
-  _showWaitDialog(context) {
+  _showWaitDialog(context,
+      {required String titleText,
+      required String contentText,
+      String? buttonText}) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -64,6 +67,7 @@ class _InputOTPState extends State<InputOTP> {
                 borderRadius: BorderRadius.circular(16.0)),
             child: Container(
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16.0),
                 color: Theme.of(context).cardColor,
               ),
               constraints: BoxConstraints(maxHeight: 124.0),
@@ -76,15 +80,19 @@ class _InputOTPState extends State<InputOTP> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Mohon tunggu ✨",
+                      titleText,
                       style: Theme.of(context).textTheme.displaySmall?.copyWith(
                             fontWeight: FontWeight.w700,
                           ),
                     ),
+                    SizedBox(
+                      height: 12.0,
+                    ),
                     Text(
-                      "Sedang kami proses...",
+                      contentText,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.w700,
+                            color: Theme.of(context).indicatorColor,
                           ),
                     ),
                   ],
@@ -105,7 +113,8 @@ class _InputOTPState extends State<InputOTP> {
       isNotInteger = false;
     }
     if (!isTextFieldNull && !isNotInteger) {
-      _showWaitDialog(context);
+      _showWaitDialog(context,
+          titleText: "Mohon tunggu ✨", contentText: "Sedang kami proses...");
       // TODO: this is backdoor, remove this
       if (value == '000000') {
         verificationId = '12345';
@@ -153,14 +162,14 @@ class _InputOTPState extends State<InputOTP> {
                     Text(
                       "Nomor tidak bisa kami kirim OTP 😰",
                       style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+                            fontWeight: FontWeight.w700,
+                          ),
                     ),
                     Text(
                       "Pastikan nomor HPmu aktif dan dapat dihubungi... Coba lagi ya",
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+                            fontWeight: FontWeight.w700,
+                          ),
                     ),
                     Row(
                       children: [
@@ -178,7 +187,9 @@ class _InputOTPState extends State<InputOTP> {
                             ),
                             child: Text(
                               "Coba Masukkan Nomor HP Lagi",
-                              style: Theme.of(context).textTheme.bodyLarge
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
                                   ?.copyWith(fontWeight: FontWeight.w400),
                             ),
                             onPressed: () {
@@ -201,8 +212,9 @@ class _InputOTPState extends State<InputOTP> {
     super.initState();
     startOtpTimer();
     AuthService()
-        .requestOTP(phoneNumber: widget.phoneNumber, setTokenId: setTokenId).catchError((err) {
-    _showFailedSendOtpDialog(context);
+        .requestOTP(phoneNumber: widget.phoneNumber, setTokenId: setTokenId)
+        .catchError((err) {
+      _showFailedSendOtpDialog(context);
     });
   }
 
