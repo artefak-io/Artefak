@@ -16,7 +16,7 @@ class Home extends StatelessWidget {
   Random random = new Random();
 
   final Stream<QuerySnapshot> _collectionStream =
-      FirebaseFirestore.instance.collection('Asset').snapshots();
+      FirebaseFirestore.instance.collection('Collection').snapshots();
 
   static const index = 0;
 
@@ -93,8 +93,6 @@ class Home extends StatelessWidget {
                                   context, '/asset/product_detail',
                                   arguments: <String, dynamic>{
                                     'id': snapshot.data!.docs[pickOne].id,
-                                    'currentOwner': snapshot.data!.docs[pickOne]
-                                        ['currentOwner'],
                                     'creator': snapshot.data!.docs[pickOne]
                                         ['creator'],
                                     'name': snapshot.data!.docs[pickOne]
@@ -105,10 +103,6 @@ class Home extends StatelessWidget {
                                         ['coverImage'],
                                     'views': snapshot.data!.docs[pickOne]
                                         ['views'],
-                                    'contractAddress': snapshot
-                                        .data!.docs[pickOne]['contractAddress'],
-                                    'tokenId': snapshot.data!.docs[pickOne]
-                                        ['tokenId'],
                                     'price': snapshot.data!.docs[pickOne]
                                         ['price'],
                                   });

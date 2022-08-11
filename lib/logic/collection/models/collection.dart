@@ -79,4 +79,9 @@ class Collection extends Equatable {
       'views': views,
     };
   }
+
+  @override
+  String toString() {
+    return id + '' + description + '' + name;
+  }
 }

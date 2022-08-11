@@ -1,4 +1,6 @@
 import 'package:artefak/screens/app_layout.dart';
+import 'package:artefak/services/auth.dart';
+import 'package:artefak/services/quick_transaction_service.dart';
 import 'package:artefak/widgets/bottom_action_bar.dart';
 import 'package:artefak/widgets/desc_collection_review.dart';
 import 'package:artefak/widgets/payment_sliding_panel.dart';
@@ -16,10 +18,10 @@ class CollectionReview extends StatefulWidget {
 
 List<PaymentChoice> listAllMethod = [
   PaymentChoice(0, title: 'VA BCA', bankPathAsset: "assets/bank_bca.png"),
-  PaymentChoice(1,
+  PaymentChoice(1, title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
+  PaymentChoice(2, title: 'VA BNI', bankPathAsset: "assets/bank_bri.png"),
+  PaymentChoice(3,
       title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
-  PaymentChoice(2, title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
-  PaymentChoice(3, title: 'VA BCA', bankPathAsset: "assets/bank_bca.png"),
   PaymentChoice(4,
       title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
   PaymentChoice(5, title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
@@ -114,13 +116,20 @@ class _CollectionReviewState extends State<CollectionReview> {
           : BottomActionBar(
               subTitleAbove: "Total Pembayaran",
               titleBottom:
-                  "Rp${NumberFormat.decimalPattern('id').format(750000)}",
+                  "Rp${NumberFormat.decimalPattern('id').format(_data['price'])}",
               textButton: "Proses Sekarang",
-              onClickButton: () => Navigator.pushNamed(
-                  context, '/payment_process',
-                  arguments: <String, dynamic>{
-                    'codeSale': 0,
-                  }),
+              onClickButton: () async {
+                Navigator.pushNamed(context, '/payment_process',
+                    arguments: <String, dynamic>{
+                      'codeSale': 0,
+                      'transactionId': await QuickTransaction()
+                          .createTransaction(
+                              amount: _data['price'],
+                              name: _data['name'],
+                              buyerId: AuthService.user!.uid,
+                              index: indexBank),
+                    });
+              },
             ),
     );
   }

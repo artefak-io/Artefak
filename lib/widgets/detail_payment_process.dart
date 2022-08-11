@@ -3,10 +3,11 @@ import 'package:flutter/services.dart';
 
 class DetailPaymentProcess extends StatelessWidget {
   const DetailPaymentProcess({
+    required this.data,
     Key? key,
-  })  : super(key: key);
+  }) : super(key: key);
 
-
+  final Map<String, dynamic> data;
   @override
   Widget build(BuildContext context) {
     ThemeData _themeData = Theme.of(context);
@@ -47,7 +48,12 @@ class DetailPaymentProcess extends StatelessWidget {
                   width: 6.0,
                 ),
                 Text(
-                  '11 Jam 59 menit 59 detik',
+                  DateTime.parse(data['expiredAt']).hour.toString() +
+                      ' Jam ' +
+                      DateTime.parse(data['expiredAt']).minute.toString() +
+                      ' menit ' +
+                      DateTime.parse(data['expiredAt']).second.toString() +
+                      ' detik',
                   style: _textTheme.displaySmall?.copyWith(
                       fontWeight: FontWeight.w700,
                       color: _themeData.toggleableActiveColor),
@@ -84,7 +90,7 @@ class DetailPaymentProcess extends StatelessWidget {
                     ),
                     Spacer(),
                     Text(
-                      'Menunggu Pembayaran',
+                      data['status'],
                       style: _textTheme.bodyLarge?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
@@ -124,7 +130,7 @@ class DetailPaymentProcess extends StatelessWidget {
                     ),
                     Spacer(),
                     Text(
-                      'PT Artefak NFT',
+                      data['displayName'],
                       style: _textTheme.bodyLarge?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
@@ -147,7 +153,7 @@ class DetailPaymentProcess extends StatelessWidget {
                               color: _themeData.focusColor),
                         ),
                         Text(
-                          '89878951132',
+                          data['paymentNumber'],
                           style: _textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.w700,
                           ),
@@ -170,9 +176,9 @@ class DetailPaymentProcess extends StatelessWidget {
                           size: 18.0,
                         ),
                       ),
-                      onTap: () =>
-                          Clipboard.setData(ClipboardData(text: "89878951132"))
-                              .then(
+                      onTap: () => Clipboard.setData(
+                              ClipboardData(text: data['paymentNumber']))
+                          .then(
                         (value) {
                           final snackBar = SnackBar(
                             content: Text('Copied to Clipboard'),
@@ -203,7 +209,7 @@ class DetailPaymentProcess extends StatelessWidget {
                               color: _themeData.focusColor),
                         ),
                         Text(
-                          'Rp757.500',
+                          data['amount'].toString(),
                           style: _textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.w700,
                           ),
@@ -226,20 +232,20 @@ class DetailPaymentProcess extends StatelessWidget {
                           size: 18.0,
                         ),
                       ),
-                      onTap: () =>
-                          Clipboard.setData(ClipboardData(text: "757500"))
-                              .then(
-                                (value) {
-                              final snackBar = SnackBar(
-                                content: Text('Copied to Clipboard'),
-                                action: SnackBarAction(
-                                  label: 'Undo',
-                                  onPressed: () {},
-                                ),
-                              );
-                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                            },
-                          ),
+                      onTap: () => Clipboard.setData(
+                              ClipboardData(text: data['amount'].toString()))
+                          .then(
+                        (value) {
+                          final snackBar = SnackBar(
+                            content: Text('Copied to Clipboard'),
+                            action: SnackBarAction(
+                              label: 'Undo',
+                              onPressed: () {},
+                            ),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        },
+                      ),
                     )
                   ],
                 ),

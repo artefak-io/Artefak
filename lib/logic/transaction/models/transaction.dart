@@ -6,11 +6,13 @@ import '../enum/transaction_enum.dart';
 
 class Transaction extends Equatable {
   final String id;
+  //TODO: unsure if this needs to be a Collection type instead
   final String assetId;
+  //TODO: unsure if this needs to be a ArtefakUser type instead
   final String buyerId;
   final TransactionStatus status;
-  final int amount;
-  final String epiredAt;
+  final double amount;
+  final String expiredAt;
   final String paymentMethodId;
   final PaymentMethodType paymentMethodType;
   final String? paymentNumber;
@@ -21,7 +23,7 @@ class Transaction extends Equatable {
     required this.buyerId,
     required this.status,
     required this.amount,
-    required this.epiredAt,
+    required this.expiredAt,
     required this.paymentMethodId,
     required this.paymentMethodType,
     this.paymentNumber,
@@ -112,7 +114,7 @@ class Transaction extends Equatable {
         buyerId: '',
         status: TransactionStatus.unknown,
         amount: 0,
-        epiredAt: '',
+        expiredAt: '',
         paymentMethodId: '',
         paymentMethodType: PaymentMethodType.unknown,
         displayName: '');
@@ -125,8 +127,8 @@ class Transaction extends Equatable {
       assetId: assetId,
       buyerId: buyerId,
       status: _transactionStatusFromXfers(status: invoice.attributes.status),
-      amount: int.parse(invoice.attributes.amount),
-      epiredAt: invoice.attributes.expiredAt,
+      amount: double.parse(invoice.attributes.amount),
+      expiredAt: invoice.attributes.expiredAt,
       paymentMethodId: invoice.attributes.paymentMethod.id,
       paymentMethodType: _paymentMethodTypeFromXfers(
         xfersPaymentMethodType: invoice.attributes.paymentMethod.type,
@@ -134,17 +136,17 @@ class Transaction extends Equatable {
             invoice.attributes.paymentMethod.instructions.bankShortCode,
       ),
       displayName: invoice.attributes.paymentMethod.instructions.displayName,
+      paymentNumber: invoice.attributes.paymentMethod.instructions.accountNo,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
       'assetId': assetId,
       'buyerId': buyerId,
       'status': status.name,
       'amount': amount,
-      'epiredAt': epiredAt,
+      'expiredAt': expiredAt,
       'paymentMethodId': paymentMethodId,
       'paymentMethodType': paymentMethodType.name,
       'paymentNumber': paymentNumber,
@@ -159,7 +161,7 @@ class Transaction extends Equatable {
       assetId,
       buyerId,
       amount,
-      epiredAt,
+      expiredAt,
       paymentMethodId,
       paymentMethodType,
       displayName,
@@ -173,8 +175,8 @@ class Transaction extends Equatable {
       assetId: map['assetId'] as String,
       buyerId: map['buyerId'] as String,
       status: _transactionStatusFromString(status: map['status'] as String),
-      amount: map['amount'] as int,
-      epiredAt: map['epiredAt'] as String,
+      amount: map['amount'] as double,
+      expiredAt: map['expiredAt'] as String,
       paymentMethodId: map['paymentMethodId'] as String,
       paymentMethodType: _paymentMethodTypeFromString(
           paymentMethodType: map['paymentMethodType'] as String),

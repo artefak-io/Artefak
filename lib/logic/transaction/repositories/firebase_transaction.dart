@@ -23,7 +23,7 @@ class FirebaseTransaction {
     }
   }
 
-  //TODO: Should be a stream
+  //TODO: Should be a stream for bloc input
   Future<artefak_transaction.Transaction> getTransaction(String id) async {
     DocumentSnapshot<Map<String, dynamic>> result =
         await _firestore.collection('Transaction').doc(id).get();

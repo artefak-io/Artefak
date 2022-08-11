@@ -12,8 +12,6 @@ class CollectionCubit extends Cubit<CollectionState> {
   final FirebaseCollection _firebaseCollection;
 
   void collectionFetched(String id) async {
-    emit(state.copyWith(collectionStatus: CollectionStatus.loading));
-
     try {
       emit(state.copyWith(
         collectionStatus: CollectionStatus.success,

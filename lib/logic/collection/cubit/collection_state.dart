@@ -1,7 +1,6 @@
 part of 'collection_cubit.dart';
 
 enum CollectionStatus {
-  initial,
   loading,
   success,
   failure,
@@ -9,7 +8,7 @@ enum CollectionStatus {
 
 class CollectionState extends Equatable {
   CollectionState({
-    this.collectionStatus = CollectionStatus.initial,
+    this.collectionStatus = CollectionStatus.loading,
     Collection? collection,
   }) : collection = collection ?? Collection.empty();
 
