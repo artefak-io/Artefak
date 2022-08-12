@@ -4,6 +4,7 @@ import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:artefak/widgets/desc_collection_review.dart';
 import 'package:artefak/widgets/detail_payment_process.dart';
 import 'package:artefak/widgets/sale_price_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class PaymentProcess extends StatelessWidget {
@@ -42,18 +43,34 @@ class PaymentProcess extends StatelessWidget {
                 height: 350,
               ),
             ),
-            Column(
-              children: [
-                DetailPaymentProcess(),
-                SizedBox(
-                  height: 24.0,
-                ),
-                Divider(
-                  height: 0,
-                  color: _themeData.cursorColor,
-                ),
-                DescCollectionReview(),
-              ],
+            FutureBuilder<DocumentSnapshot>(
+              future: FirebaseFirestore.instance
+                  .collection('Transaction')
+                  .doc(_data['transactionId'])
+                  .get(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  Map<String, dynamic> data =
+                      snapshot.data!.data() as Map<String, dynamic>;
+                  return Column(
+                    children: [
+                      DetailPaymentProcess(data: data),
+                      SizedBox(
+                        height: 24.0,
+                      ),
+                      Divider(
+                        height: 0,
+                        color: _themeData.cursorColor,
+                      ),
+                      DescCollectionReview(),
+                    ],
+                  );
+                } else if (snapshot.hasError) {
+                  return const Text("error");
+                } else {
+                  return const Text("please wait");
+                }
+              },
             ),
           ],
         ),
