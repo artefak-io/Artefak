@@ -95,6 +95,46 @@ class _InputOTPState extends State<InputOTP> {
                             color: Theme.of(context).indicatorColor,
                           ),
                     ),
+                    buttonText != null
+                        ? Column(
+                            children: [
+                              SizedBox(
+                                height: 12.0,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    child: OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                        minimumSize: Size(165, 47.0),
+                                        maximumSize: Size(170, 48.0),
+                                        backgroundColor: Colors.transparent,
+                                        side: BorderSide(
+                                          color: Theme.of(context).focusColor,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        buttonText,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.copyWith(
+                                                fontWeight: FontWeight.w400),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )
+                        : SizedBox(),
                   ],
                 ),
               ),
@@ -138,75 +178,6 @@ class _InputOTPState extends State<InputOTP> {
     _otpInputValue = value;
   }
 
-  _showFailedSendOtpDialog(context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          _dialogContextWait = context;
-          return Dialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0)),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).cardColor,
-              ),
-              constraints: BoxConstraints(maxHeight: 124.0),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 16.0,
-                  horizontal: 12.0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Nomor tidak bisa kami kirim OTP 😰",
-                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
-                    ),
-                    Text(
-                      "Pastikan nomor HPmu aktif dan dapat dihubungi... Coba lagi ya",
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              minimumSize: Size(165, 47.0),
-                              maximumSize: Size(170, 48.0),
-                              backgroundColor: Colors.transparent,
-                              side: BorderSide(
-                                color: Theme.of(context).focusColor,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100)),
-                            ),
-                            child: Text(
-                              "Coba Masukkan Nomor HP Lagi",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(fontWeight: FontWeight.w400),
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -214,7 +185,13 @@ class _InputOTPState extends State<InputOTP> {
     AuthService()
         .requestOTP(phoneNumber: widget.phoneNumber, setTokenId: setTokenId)
         .catchError((err) {
-      _showFailedSendOtpDialog(context);
+      _showWaitDialog(
+        context,
+        titleText: "Nomor tidak bisa kami kirim OTP 😰",
+        contentText:
+            "Pastikan nomor HPmu aktif dan dapat dihubungi... Coba lagi ya",
+        buttonText: "Coba Masukkan Nomor HP Lagi",
+      );
     });
   }
 
