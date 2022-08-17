@@ -1,10 +1,11 @@
-const admin = require('firebase-admin');
-
-admin.initializeApp();
-const functions = require("firebase-functions");
-const axios = require("axios");
-
+import * as admin from 'firebase-admin';
+admin.initializeApp(); // IMPORTANT TO DO THIS FIRST
 const db = admin.firestore();
+
+import * as functions from 'firebase-functions';
+import axios from 'axios';
+
+export * from './callback';
 
 const TATUM_API_KEY = "52a0d1b3-06b7-4a87-a4d5-e7ba5eba6529";
 
@@ -45,6 +46,7 @@ exports.mintBasedOnTransaction = functions.firestore
                 buyer = await newValue.buyer.get();
             }
         }
+
         const buyerData = buyer.data();
 
         // If we're here means we're shifting from X -> Completed
@@ -133,7 +135,7 @@ async function getBlockchainDetail(blockchain: string) {
 // Tatum Documentation: https://docs.tatum.io/guides/blockchain/how-to-create-nft-token
 async function mintNFTToBSC(fromPrivateKey: any, receiverAddress: any, externalURL: any) {
     const blockChainDetailObject = await getBlockchainDetail("BSC Testnet");
-    const blockChainDetail = blockChainDetailObject.data();
+    const blockChainDetail = blockChainDetailObject.data()!;
 
     const body = {
         "chain": "BSC",
@@ -154,14 +156,9 @@ async function mintNFTToBSC(fromPrivateKey: any, receiverAddress: any, externalU
             }
         });
 
-    console.log('berhasil!');
-
-    // TODO: Increment tokenID
     await blockChainDetailObject.ref.update({
         tokenId: blockChainDetail['tokenId'] + 1,
     });
-
-    console.log(response.data);
 
     return response.data;
 }
