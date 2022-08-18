@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class InputPinWidget extends StatefulWidget {
+class LoginPinWidget extends StatefulWidget {
   final String appBarTitle;
   final String bodytitle;
   final String bodySubTitle;
@@ -14,25 +14,25 @@ class InputPinWidget extends StatefulWidget {
   final Widget blocBuildNotify;
   final Widget blocBuildButton;
 
-  const InputPinWidget(
+  const LoginPinWidget(
       {Key? key,
-      required this.appBarTitle,
-      required this.bodytitle,
-      required this.bodySubTitle,
-      required this.onCompleteFunction,
-      required this.onSubmittedFunction,
-      required this.onChangedFunction,
-      required this.blocBuildNotify,
-      required this.blocBuildButton})
+        required this.appBarTitle,
+        required this.bodytitle,
+        required this.bodySubTitle,
+        required this.onCompleteFunction,
+        required this.onSubmittedFunction,
+        required this.onChangedFunction,
+        required this.blocBuildNotify,
+        required this.blocBuildButton})
       : super(key: key);
 
   @override
-  State<InputPinWidget> createState() => _InputPinWidgetState();
+  State<LoginPinWidget> createState() => _LoginPinWidgetState();
 }
 
-class _InputPinWidgetState extends State<InputPinWidget> {
+class _LoginPinWidgetState extends State<LoginPinWidget> {
   StreamController<ErrorAnimationType> errorController =
-      StreamController<ErrorAnimationType>();
+  StreamController<ErrorAnimationType>();
   var onTapRecognizer;
   TextEditingController textEditingController = TextEditingController();
   bool hasError = false;
@@ -77,7 +77,7 @@ class _InputPinWidgetState extends State<InputPinWidget> {
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 16, bottom: 20, right: 16),
+                    const EdgeInsets.only(left: 16, bottom: 20, right: 16),
                     child: Text(widget.bodytitle,
                         style: _textTheme.displaySmall?.copyWith(
                           fontWeight: FontWeight.w700,
@@ -91,7 +91,7 @@ class _InputPinWidgetState extends State<InputPinWidget> {
                   Expanded(
                     child: Padding(
                       padding:
-                          const EdgeInsets.only(left: 16, bottom: 16, right: 16),
+                      const EdgeInsets.only(left: 16, bottom: 16, right: 16),
                       child: Text(widget.bodySubTitle,
                           style: _textTheme.bodyLarge?.copyWith(
                               fontWeight: FontWeight.w400,
@@ -107,7 +107,7 @@ class _InputPinWidgetState extends State<InputPinWidget> {
               key: formKey,
               child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
                   child: PinCodeTextField(
                     appContext: context,
                     onCompleted: (value) =>
@@ -132,7 +132,7 @@ class _InputPinWidgetState extends State<InputPinWidget> {
                       fieldHeight: 50,
                       fieldWidth: 45,
                       activeFillColor:
-                          hasError ? Colors.orange : _themeData.primaryColorDark,
+                      hasError ? Colors.orange : _themeData.primaryColorDark,
                       selectedFillColor: _themeData.primaryColorDark,
                       activeColor: _themeData.primaryColorDark,
                       selectedColor: _themeData.primaryColorDark,
@@ -170,8 +170,8 @@ class _InputPinWidgetState extends State<InputPinWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: widget.blocBuildButton,
+                  margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: widget.blocBuildButton,
                 ),
               ],
             ),
