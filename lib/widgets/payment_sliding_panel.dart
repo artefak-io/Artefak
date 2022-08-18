@@ -22,7 +22,6 @@ class PaymentSlidingPanel extends StatefulWidget {
 
 
 class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
-  String? _qris;
   Queue queuePaymentMethodSelect = Queue<PaymentChoice>();
 
   @override
@@ -54,7 +53,7 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                 alignment: Alignment.topCenter,
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 8.0),
-                  height: 8.0,
+                  height: 4.0,
                   width: 55.0,
                   decoration: BoxDecoration(
                       color: Colors.grey[400],
@@ -62,7 +61,7 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                 ),
               ),
               Container(
-                height: size.height * 0.8 - 24.0,
+                height: size.height * 0.63 - 24.0,
                 child: ListView(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   children: [
@@ -101,7 +100,7 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                         crossAxisSpacing: 16.0,
                         mainAxisSpacing: 16.0,
                         children:
-                        List.generate(listAllMethod.length - 1, (index) {
+                        List.generate(listAllMethod.length, (index) {
                           return Container(
                             child: SelectCardPayment(
                               paymentChoice: listAllMethod[index],
@@ -111,7 +110,6 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                                   index,
                               onSelectValue: (bool value) {
                                 setState(() {
-                                  _qris = null;
                                   if (queuePaymentMethodSelect.isNotEmpty)
                                     queuePaymentMethodSelect.removeFirst();
                                   queuePaymentMethodSelect.addLast(
@@ -122,46 +120,6 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                           );
                         }),
                       ),
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.only(bottom: 8.0, top: 32.0),
-                      child: Text('QRIS',
-                          style: _textTheme.displaySmall
-                              ?.copyWith(fontWeight: FontWeight.w700),
-                          textAlign: TextAlign.start),
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: Text('Bayar praktis dengan scan QRIS',
-                          style: _textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: _themeData.focusColor),
-                          textAlign: TextAlign.start),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text('Pembayaran menggunakan QRIS',
-                            style: _textTheme.titleSmall?.copyWith(
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white),
-                            textAlign: TextAlign.start),
-                        Spacer(),
-                        Radio(
-                          value: listAllMethod.length.toString(),
-                          groupValue: _qris,
-                          onChanged: (value) {
-                            setState(() {
-                              _qris = value.toString();
-                              if (queuePaymentMethodSelect.isNotEmpty)
-                                queuePaymentMethodSelect.removeFirst();
-                              queuePaymentMethodSelect.addLast(
-                                  listAllMethod[listAllMethod.length - 1]);
-                            });
-                          },
-                        ),
-                      ],
                     ),
                     Wrap(
                       children: List.generate(widget.listVA.length, (index) {

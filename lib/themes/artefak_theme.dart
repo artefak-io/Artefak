@@ -19,6 +19,7 @@ ThemeData lightTheme = ThemeData(
   errorColor: const Color(0xFFEA7D7D),
   cardColor: const Color(0xFF4C4C4C),
   dialogBackgroundColor: const Color(0xFFDC2626),
+  textSelectionHandleColor: const Color(0xFF111827),
 
   // App Bar
   appBarTheme: const AppBarTheme(

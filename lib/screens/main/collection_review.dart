@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:ffi';
+
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/widgets/bottom_action_bar.dart';
 import 'package:artefak/widgets/desc_collection_review.dart';
@@ -19,14 +22,11 @@ List<PaymentChoice> listAllMethod = [
   PaymentChoice(1,
       title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
   PaymentChoice(2, title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
-  PaymentChoice(3, title: 'VA BCA', bankPathAsset: "assets/bank_bca.png"),
-  PaymentChoice(4,
-      title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
-  PaymentChoice(5, title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
-  PaymentChoice(6, title: "QRIS", bankPathAsset: "")
+  PaymentChoice(3, title: 'VA BNI', bankPathAsset: "assets/bank_bni.png"),
 ];
 
-class _CollectionReviewState extends State<CollectionReview> {
+class _CollectionReviewState extends State<CollectionReview>
+    with TickerProviderStateMixin {
   bool updatedIsPanelOpen = false;
   int indexBank = -1;
   List<String> listVA = [];
@@ -54,9 +54,9 @@ class _CollectionReviewState extends State<CollectionReview> {
         isScrollControlled: true,
         builder: (BuildContext context) {
           return DraggableScrollableSheet(
-            initialChildSize: 0.8,
+            initialChildSize: 0.63,
             minChildSize: 0.5,
-            maxChildSize: 0.8,
+            maxChildSize: 0.63,
             builder:
                 (BuildContext context, ScrollController scrollController) =>
                     PaymentSlidingPanel(
@@ -74,6 +74,7 @@ class _CollectionReviewState extends State<CollectionReview> {
     ThemeData _themeData = Theme.of(context);
     final Map<String, dynamic> _data =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    // _controller.stop();
 
     return AppLayout(
       appBar: AppBar(
@@ -116,11 +117,12 @@ class _CollectionReviewState extends State<CollectionReview> {
               titleBottom:
                   "Rp${NumberFormat.decimalPattern('id').format(750000)}",
               textButton: "Proses Sekarang",
-              onClickButton: () => Navigator.pushNamed(
-                  context, '/payment_process',
-                  arguments: <String, dynamic>{
-                    'codeSale': 0,
-                  }),
+              onClickButton: indexBank != -1
+                  ? () => Navigator.pushNamed(context, '/payment_process',
+                          arguments: <String, dynamic>{
+                            'codeSale': 0,
+                          })
+                  : () {}
             ),
     );
   }
