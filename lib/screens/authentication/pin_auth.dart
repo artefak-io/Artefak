@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:artefak/logic/pin/pin.dart';
-import 'package:artefak/widgets/input_pin_widget.dart';
+import 'package:artefak/widgets/login_pin_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -113,7 +113,7 @@ class _PinAuthState extends State<PinAuth> with TickerProviderStateMixin {
                       height: 350,
                     ),
                   ),
-                  InputPinWidget(
+                  LoginPinWidget(
                     bodytitle: 'Masuk Artefak',
                     bodySubTitle: 'Masukkan 6 digit PIN untuk masuk ke akunmu',
                     appBarTitle: 'PIN',

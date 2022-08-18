@@ -1,6 +1,7 @@
 import 'package:artefak/logic/auth/auth.dart';
 import 'package:artefak/logic/auth/view/collection_wrapper.dart';
 import 'package:artefak/logic/bloc_observer.dart';
+import 'package:artefak/logic/collection/collection.dart';
 import 'package:artefak/logic/pin/pin.dart';
 import 'package:artefak/screens/main/asset_detail.dart';
 import 'package:artefak/screens/main/collection_review.dart';
@@ -87,6 +88,9 @@ class _MyAppState extends State<MyApp> {
         ),
         RepositoryProvider(
           create: (_) => PinService(_firebaseAuth, _firebaseFirestore),
+        ),
+        RepositoryProvider(
+          create: (_) => FirebaseCollection(_firebaseFirestore),
         ),
       ],
       child: MultiBlocProvider(
