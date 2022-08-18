@@ -21,10 +21,12 @@ class _InputOTPState extends State<InputOTP> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late int resendToken;
   late String verificationId;
+  late String _otpInputValue;
   bool isTextFieldNull = false;
   bool isNotInteger = false, isOtpValid = false;
   int _otpDuration = 60;
   late Timer _timer;
+  late BuildContext _dialogContextWait;
 
   void startOtpTimer() {
     _otpDuration = 60;
@@ -52,6 +54,95 @@ class _InputOTPState extends State<InputOTP> {
     });
   }
 
+  _showWaitDialog(context,
+      {required String titleText,
+      required String contentText,
+      String? buttonText}) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          _dialogContextWait = context;
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0)),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16.0),
+                color: Theme.of(context).cardColor,
+              ),
+              constraints: BoxConstraints(maxHeight: 124.0),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16.0,
+                  horizontal: 12.0,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      titleText,
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                    ),
+                    SizedBox(
+                      height: 12.0,
+                    ),
+                    Text(
+                      contentText,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).indicatorColor,
+                          ),
+                    ),
+                    buttonText != null
+                        ? Column(
+                            children: [
+                              SizedBox(
+                                height: 12.0,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    child: OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                        minimumSize: Size(165, 47.0),
+                                        maximumSize: Size(170, 48.0),
+                                        backgroundColor: Colors.transparent,
+                                        side: BorderSide(
+                                          color: Theme.of(context).focusColor,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        buttonText,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.copyWith(
+                                                fontWeight: FontWeight.w400),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )
+                        : SizedBox(),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
   void inputOtpOnComplete(String value, BuildContext context) async {
     if (value == null || value.isEmpty) {
       isTextFieldNull = true;
@@ -62,13 +153,18 @@ class _InputOTPState extends State<InputOTP> {
       isNotInteger = false;
     }
     if (!isTextFieldNull && !isNotInteger) {
+      _showWaitDialog(context,
+          titleText: "Mohon tunggu ✨", contentText: "Sedang kami proses...");
       // TODO: this is backdoor, remove this
       if (value == '000000') {
         verificationId = '12345';
       }
       // TODO: if value false add return value
       await AuthService()
-          .loginWithPhone(verificationId: verificationId, smsCode: value);
+          .loginWithPhone(verificationId: verificationId, smsCode: value)
+          .then(
+            (value) => Navigator.pop(_dialogContextWait),
+          );
     }
   }
 
@@ -78,14 +174,25 @@ class _InputOTPState extends State<InputOTP> {
     }
   }
 
-  void inputOtpOnChanged(String value, BuildContext context) {}
+  void inputOtpOnChanged(String value, BuildContext context) {
+    _otpInputValue = value;
+  }
 
   @override
   void initState() {
     super.initState();
     startOtpTimer();
     AuthService()
-        .requestOTP(phoneNumber: widget.phoneNumber, setTokenId: setTokenId);
+        .requestOTP(phoneNumber: widget.phoneNumber, setTokenId: setTokenId)
+        .catchError((err) {
+      _showWaitDialog(
+        context,
+        titleText: "Nomor tidak bisa kami kirim OTP 😰",
+        contentText:
+            "Pastikan nomor HPmu aktif dan dapat dihubungi... Coba lagi ya",
+        buttonText: "Coba Masukkan Nomor HP Lagi",
+      );
+    });
   }
 
   @override
@@ -189,7 +296,7 @@ class _InputOTPState extends State<InputOTP> {
                       borderRadius: BorderRadius.circular(100.0),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () => inputOtpOnComplete(_otpInputValue, context),
                   child: Text(
                     "Verifikasi Sekarang",
                     style: _textTheme.bodyLarge?.copyWith(
