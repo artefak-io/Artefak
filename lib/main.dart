@@ -42,6 +42,9 @@ Future<void> main() {
 
 ThemeManager _themeManager = ThemeManager();
 
+final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -112,6 +115,7 @@ class _MyAppState extends State<MyApp> {
               return const SplashScreen();
             } else {
               return MaterialApp(
+                scaffoldMessengerKey: rootScaffoldMessengerKey,
                 theme: lightTheme,
                 themeMode: _themeManager.themeMode,
                 localizationsDelegates: const [

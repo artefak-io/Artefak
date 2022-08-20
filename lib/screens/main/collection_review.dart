@@ -1,3 +1,4 @@
+import 'package:artefak/main.dart';
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/services/auth.dart';
 import 'package:artefak/services/quick_transaction_service.dart';
@@ -72,10 +73,35 @@ class _CollectionReviewState extends State<CollectionReview> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
     final Map<String, dynamic> _data =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    final SnackBar _snackBar = SnackBar(
+      backgroundColor: const Color(0xFFF3F4F6),
+      content: Container(
+        alignment: Alignment.center,
+        height: 48.0,
+        child: Text('Pilih metode pembayaran terlebih dulu 💸', style: TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 14,
+          color: Colors.black,
+          height: 1.20,
+          fontWeight: FontWeight.w400,
+        ),),
+      ),
+      duration: const Duration(seconds: 3),
+      width: size.width * 0.9,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8.0,
+      ),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+    );
 
     return AppLayout(
       appBar: AppBar(
@@ -119,7 +145,7 @@ class _CollectionReviewState extends State<CollectionReview> {
                   "Rp${NumberFormat.decimalPattern('id').format(_data['price'])}",
               textButton: "Proses Sekarang",
               onClickButton: () async {
-                Navigator.pushNamed(context, '/payment_process',
+                indexBank != -1 ? Navigator.pushNamed(context, '/payment_process',
                     arguments: <String, dynamic>{
                       'codeSale': 0,
                       'transactionId': await QuickTransaction()
@@ -128,7 +154,7 @@ class _CollectionReviewState extends State<CollectionReview> {
                               name: _data['name'],
                               buyerId: AuthService.user!.uid,
                               index: indexBank),
-                    });
+                    }) : rootScaffoldMessengerKey.currentState?.showSnackBar(_snackBar);
               },
             ),
     );
