@@ -40,6 +40,7 @@ class QuickTransaction {
     required String name,
     required String buyerId,
     required int index,
+    required String collectionId,
   }) async {
     String transactionId = _uuid.v4();
     Order order = _xfersClient.createOrder(
@@ -54,7 +55,8 @@ class QuickTransaction {
     Invoice invoice = await _xfersClient.getInvoice(order: order);
 
     artefak_transaction.Transaction transaction =
-        artefak_transaction.Transaction.fromXfers(invoice, _uuid.v4(), buyerId);
+        artefak_transaction.Transaction.fromXfers(
+            invoice, _uuid.v4(), buyerId, collectionId);
 
     await _transactiondb.doc(transaction.id).set(transaction.toMap());
 

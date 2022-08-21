@@ -127,7 +127,8 @@ class _CollectionReviewState extends State<CollectionReview> {
                               amount: _data['price'],
                               name: _data['name'],
                               buyerId: AuthService.user!.uid,
-                              index: indexBank),
+                              index: indexBank,
+                              collectionId: _data['collectionId']),
                     });
               },
             ),
