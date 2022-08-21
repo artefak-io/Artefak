@@ -12,12 +12,14 @@ class Transaction extends Equatable {
   final String buyerId;
   final TransactionStatus status;
   final double amount;
+  final String collectionId;
   final String expiredAt;
   final String paymentMethodId;
   final PaymentMethodType paymentMethodType;
   final String? paymentNumber;
   final String displayName;
   const Transaction({
+    required this.collectionId,
     required this.id,
     required this.assetId,
     required this.buyerId,
@@ -109,6 +111,7 @@ class Transaction extends Equatable {
 
   factory Transaction.empty() {
     return const Transaction(
+        collectionId: '',
         id: '',
         assetId: '',
         buyerId: '',
@@ -121,8 +124,9 @@ class Transaction extends Equatable {
   }
 
   factory Transaction.fromXfers(
-      Invoice invoice, String assetId, String buyerId) {
+      Invoice invoice, String assetId, String buyerId, String collectionId) {
     return Transaction(
+      collectionId: collectionId,
       id: invoice.attributes.referenceId,
       assetId: assetId,
       buyerId: buyerId,
@@ -142,6 +146,7 @@ class Transaction extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'collectionId': collectionId,
       'assetId': assetId,
       'buyerId': buyerId,
       'status': status.name,
@@ -157,6 +162,7 @@ class Transaction extends Equatable {
   @override
   List<Object> get props {
     return [
+      collectionId,
       id,
       assetId,
       buyerId,
@@ -171,6 +177,7 @@ class Transaction extends Equatable {
   factory Transaction.fromMap(
       {required Map<String, dynamic> map, required String id}) {
     return Transaction(
+      collectionId: map['collectionId'] as String,
       id: id,
       assetId: map['assetId'] as String,
       buyerId: map['buyerId'] as String,
