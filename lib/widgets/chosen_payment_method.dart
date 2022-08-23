@@ -1,16 +1,25 @@
+import 'dart:async';
+
 import 'package:artefak/screens/main/collection_review.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ChosenPaymentMethod extends StatelessWidget {
+class ChosenPaymentMethod extends StatefulWidget {
   const ChosenPaymentMethod({
     Key? key,
     required this.onPressedPaymentMethod,
     required this.indexBank,
-  })  : super(key: key);
+  }) : super(key: key);
 
   final int indexBank;
   final Function onPressedPaymentMethod;
+
+  @override
+  State<ChosenPaymentMethod> createState() => _ChosenPaymentMethodState();
+}
+
+class _ChosenPaymentMethodState extends State<ChosenPaymentMethod>
+    with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
@@ -29,146 +38,159 @@ class ChosenPaymentMethod extends StatelessWidget {
           SizedBox(
             height: 16.0,
           ),
-          indexBank == -1
+          widget.indexBank == -1
               ? Column(
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 56,
-                    height: 40,
-                    margin: EdgeInsets.only(right: 8.0),
-                    decoration: BoxDecoration(
-                      color: _themeData.shadowColor,
-                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                    ),
-                    child: SvgPicture.asset(
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: 56,
+                          height: 40,
+                          margin: EdgeInsets.only(right: 8.0),
+                          decoration: BoxDecoration(
+                            color: _themeData.shadowColor,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(4.0)),
+                          ),
+                          child: SvgPicture.asset(
                             'assets/exclamation_triangle.svg',
                             fit: BoxFit.scaleDown,
                           ),
-                  ),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      side: BorderSide(
-                        color: _themeData.focusColor,
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100)),
+                        ),
+                        OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            side: BorderSide(
+                              color: _themeData.focusColor,
+                            ),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100)),
+                          ),
+                          child: Text(
+                            "Pilih Metode Pembayaranmu",
+                            style: _textTheme.bodyMedium
+                                ?.copyWith(fontWeight: FontWeight.w400),
+                          ),
+                          onPressed: () =>
+                              widget.onPressedPaymentMethod(context),
+                        ),
+                      ],
                     ),
-                    child: Text(
-                      "Pilih Metode Pembayaranmu",
-                      style: _textTheme.bodyMedium
-                          ?.copyWith(fontWeight: FontWeight.w400),
-                    ),
-                    onPressed: () => onPressedPaymentMethod(context),
-                  ),
-                ],
-              ),
-              Text('Sebelum lanjut, pilih metode pembayaran ya',
+                    Text(
+                      'Sebelum lanjut, pilih metode pembayaran ya',
                       style: _textTheme.bodySmall?.copyWith(
-                          fontWeight: FontWeight.w400, color: _themeData.errorColor),
-                      textAlign: TextAlign.start),
-            ],
-          ) : SizedBox(),
-          indexBank == -1
-              ? SizedBox() :
-          Column(
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 56,
-                    height: 40,
-                    margin: EdgeInsets.only(right: 8.0),
-                    decoration: BoxDecoration(
-                      color: _themeData.shadowColor,
-                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                          fontWeight: FontWeight.w400,
+                          color: _themeData.errorColor),
+                      textAlign: TextAlign.start,
                     ),
-                    child: Image.asset(listAllMethod[indexBank].bankPathAsset),
-                  ),
-                  Text(listAllMethod[indexBank].title,
-                      style: _textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w400,),
-                      textAlign: TextAlign.start)
-                ],
-              ),
-              Row(
-                children: [
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      side: BorderSide(
-                        color: _themeData.focusColor,
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100)),
+                  ],
+                )
+              : SizedBox(),
+          widget.indexBank == -1
+              ? SizedBox()
+              : Column(
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: 56,
+                          height: 40,
+                          margin: EdgeInsets.only(right: 8.0),
+                          decoration: BoxDecoration(
+                            color: _themeData.shadowColor,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(4.0)),
+                          ),
+                          child: Image.asset(
+                              listAllMethod[widget.indexBank].bankPathAsset),
+                        ),
+                        Text(listAllMethod[widget.indexBank].title,
+                            style: _textTheme.bodyLarge?.copyWith(
+                              fontWeight: FontWeight.w400,
+                            ),
+                            textAlign: TextAlign.start)
+                      ],
                     ),
-                    child: Text(
-                      "Ganti Metode Lainnya",
-                      style: _textTheme.bodyMedium
-                          ?.copyWith(fontWeight: FontWeight.w400),
+                    SizedBox(height: 12.0,),
+                    Row(
+                      children: [
+                        OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            side: BorderSide(
+                              color: _themeData.focusColor,
+                            ),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100)),
+                          ),
+                          child: Text(
+                            "Ganti Metode Lainnya",
+                            style: _textTheme.bodyMedium
+                                ?.copyWith(fontWeight: FontWeight.w400),
+                          ),
+                          onPressed: () =>
+                              widget.onPressedPaymentMethod(context),
+                        ),
+                      ],
                     ),
-                    onPressed: () => onPressedPaymentMethod(context),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 24.0,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Biaya Lainnya",
-                    style: _textTheme.titleSmall
-                        ?.copyWith(fontWeight: FontWeight.w400, color: _themeData.focusColor,),
-                  ),
-                  Divider(
-                    height: 16.0,
-                    color: _themeData.cursorColor,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Biaya Admin Bank",
-                        style: _textTheme.bodyMedium
-                            ?.copyWith(fontWeight: FontWeight.w400),
-                      ),
-                      Spacer(),
-                      Text(
-                        "Rp 5.500",
-                        style: _textTheme.bodyMedium
-                            ?.copyWith(fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                  Divider(
-                    height: 16.0,
-                    color: _themeData.cursorColor,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Biaya Gas Fee",
-                        style: _textTheme.bodyMedium
-                            ?.copyWith(fontWeight: FontWeight.w400),
-                      ),
-                      Spacer(),
-                      Text(
-                        "Rp 2.000",
-                        style: _textTheme.bodyMedium
-                            ?.copyWith(fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 24.0,
-                  )
-                ],
-              )
-            ],
-          ),
+                    SizedBox(
+                      height: 24.0,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Biaya Lainnya",
+                          style: _textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w400,
+                            color: _themeData.focusColor,
+                          ),
+                        ),
+                        Divider(
+                          height: 16.0,
+                          color: _themeData.cursorColor,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Biaya Admin Bank",
+                              style: _textTheme.bodyMedium
+                                  ?.copyWith(fontWeight: FontWeight.w400),
+                            ),
+                            Spacer(),
+                            Text(
+                              "Rp 5.500",
+                              style: _textTheme.bodyMedium
+                                  ?.copyWith(fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          height: 16.0,
+                          color: _themeData.cursorColor,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Biaya Gas Fee",
+                              style: _textTheme.bodyMedium
+                                  ?.copyWith(fontWeight: FontWeight.w400),
+                            ),
+                            Spacer(),
+                            Text(
+                              "Rp 2.000",
+                              style: _textTheme.bodyMedium
+                                  ?.copyWith(fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 24.0,
+                        )
+                      ],
+                    )
+                  ],
+                ),
         ],
       ),
     );

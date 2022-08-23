@@ -19,17 +19,14 @@ class CollectionReview extends StatefulWidget {
 
 List<PaymentChoice> listAllMethod = [
   PaymentChoice(0, title: 'VA BCA', bankPathAsset: "assets/bank_bca.png"),
-  PaymentChoice(1, title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
-  PaymentChoice(2, title: 'VA BNI', bankPathAsset: "assets/bank_bri.png"),
-  PaymentChoice(3,
+  PaymentChoice(1,
       title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
-  PaymentChoice(4,
-      title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
-  PaymentChoice(5, title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
-  PaymentChoice(6, title: "QRIS", bankPathAsset: "")
+  PaymentChoice(2, title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
+  PaymentChoice(3, title: 'VA BNI', bankPathAsset: "assets/bank_bni.png"),
 ];
 
-class _CollectionReviewState extends State<CollectionReview> {
+class _CollectionReviewState extends State<CollectionReview>
+    with TickerProviderStateMixin {
   bool updatedIsPanelOpen = false;
   int indexBank = -1;
   List<String> listVA = [];
@@ -57,9 +54,9 @@ class _CollectionReviewState extends State<CollectionReview> {
         isScrollControlled: true,
         builder: (BuildContext context) {
           return DraggableScrollableSheet(
-            initialChildSize: 0.8,
+            initialChildSize: 0.66,
             minChildSize: 0.5,
-            maxChildSize: 0.8,
+            maxChildSize: 0.66,
             builder:
                 (BuildContext context, ScrollController scrollController) =>
                     PaymentSlidingPanel(

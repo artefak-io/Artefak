@@ -24,7 +24,7 @@ class SelectCardPayment extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color:
-                isSelected ? _themeData.shadowColor : _themeData.highlightColor,
+                isSelected ? _themeData.hintColor : _themeData.highlightColor,
             border: Border.all(
               color: isSelected
                   ? _themeData.textSelectionColor
@@ -42,8 +42,15 @@ class SelectCardPayment extends StatelessWidget {
                 width: 70.0,
                 height: 50,
               ),
-              Text(paymentChoice.title, style: _textTheme.bodySmall),
-              SizedBox(height: 8.0,),
+              SizedBox(
+                height: 6.0,
+              ),
+              Text(paymentChoice.title,
+                  style: _textTheme.bodySmall?.copyWith(
+                    color: isSelected
+                        ? _themeData.textSelectionHandleColor
+                        : _themeData.textSelectionColor,
+                  )),
             ],
           ),
         ),
@@ -63,9 +70,8 @@ class PaymentChoice {
 
 List<PaymentChoice> choices = [
   PaymentChoice(0, title: 'VA BCA', bankPathAsset: "assets/bank_bca.png"),
-  PaymentChoice(1, title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
+  PaymentChoice(1,
+      title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
   PaymentChoice(2, title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
-  PaymentChoice(3, title: 'VA BCA', bankPathAsset: "assets/bank_bca.png"),
-  PaymentChoice(4, title: 'VA Mandiri', bankPathAsset: "assets/bank_mandiri.png"),
-  PaymentChoice(5, title: 'VA BRI', bankPathAsset: "assets/bank_bri.png"),
+  PaymentChoice(3, title: 'VA BNI', bankPathAsset: "assets/bank_bca.png"),
 ];
