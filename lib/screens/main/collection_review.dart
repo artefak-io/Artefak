@@ -84,13 +84,16 @@ class _CollectionReviewState extends State<CollectionReview> {
       content: Container(
         alignment: Alignment.center,
         height: 48.0,
-        child: Text('Pilih metode pembayaran terlebih dulu 💸', style: TextStyle(
-          fontFamily: 'Inter',
-          fontSize: 14,
-          color: Colors.black,
-          height: 1.20,
-          fontWeight: FontWeight.w400,
-        ),),
+        child: Text(
+          'Pilih metode pembayaran terlebih dulu 💸',
+          style: TextStyle(
+            fontFamily: 'Inter',
+            fontSize: 14,
+            color: Colors.black,
+            height: 1.20,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
       ),
       duration: const Duration(seconds: 3),
       width: size.width * 0.9,
@@ -145,16 +148,20 @@ class _CollectionReviewState extends State<CollectionReview> {
                   "Rp${NumberFormat.decimalPattern('id').format(_data['price'])}",
               textButton: "Proses Sekarang",
               onClickButton: () async {
-                indexBank != -1 ? Navigator.pushNamed(context, '/payment_process',
-                    arguments: <String, dynamic>{
-                      'codeSale': 0,
-                      'transactionId': await QuickTransaction()
-                          .createTransaction(
-                              amount: _data['price'],
-                              name: _data['name'],
-                              buyerId: AuthService.user!.uid,
-                              index: indexBank),
-                    }) : rootScaffoldMessengerKey.currentState?.showSnackBar(_snackBar);
+                indexBank != -1
+                    ? Navigator.pushNamed(context, '/payment_process',
+                        arguments: <String, dynamic>{
+                            'codeSale': 0,
+                            'transactionId': await QuickTransaction()
+                                .createTransaction(
+                                    amount: _data['price'],
+                                    name: _data['name'],
+                                    buyerId: AuthService.user!.uid,
+                                    index: indexBank,
+                                    collectionId: _data['collectionId']),
+                          })
+                    : rootScaffoldMessengerKey.currentState
+                        ?.showSnackBar(_snackBar);
               },
             ),
     );
