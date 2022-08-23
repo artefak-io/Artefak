@@ -61,7 +61,7 @@ class _PaymentSlidingPanelState extends State<PaymentSlidingPanel> {
                 ),
               ),
               Container(
-                height: size.height * 0.63 - 24.0,
+                height: size.height * 0.66 - 24.0,
                 child: ListView(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   children: [

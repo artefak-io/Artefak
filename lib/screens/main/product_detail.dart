@@ -89,12 +89,16 @@ class ProductDetail extends StatelessWidget {
         ),
         bottomNavigationBar: BottomActionBar(
           subTitleAbove: "Jumlah Token: 3",
-          titleBottom: "Rp${NumberFormat.decimalPattern('id').format(750000)}",
+          titleBottom:
+              "Rp${NumberFormat.decimalPattern('id').format(_data['price'])}",
           textButton: "Beli Sekarang",
           onClickButton: () => Navigator.pushNamed(
               context, '/collection_review',
               arguments: <String, dynamic>{
                 'codeSale': 0,
+                'collectionId': _data['id'],
+                'price': _data['price'],
+                'name': _data['name'],
               }),
         ),
       ),

@@ -1,5 +1,4 @@
 import 'package:artefak/widgets/chosen_payment_method.dart';
-import 'package:artefak/widgets/sale_price_widget.dart';
 import 'package:flutter/material.dart';
 
 class TotalCollectionReview extends StatelessWidget {
@@ -17,7 +16,6 @@ class TotalCollectionReview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     ThemeData _themeData = Theme.of(context);
     TextTheme _textTheme = Theme.of(context).textTheme;
 

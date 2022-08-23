@@ -1,7 +1,7 @@
-import 'dart:async';
-import 'dart:ffi';
-
+import 'package:artefak/main.dart';
 import 'package:artefak/screens/app_layout.dart';
+import 'package:artefak/services/auth.dart';
+import 'package:artefak/services/quick_transaction_service.dart';
 import 'package:artefak/widgets/bottom_action_bar.dart';
 import 'package:artefak/widgets/desc_collection_review.dart';
 import 'package:artefak/widgets/payment_sliding_panel.dart';
@@ -54,9 +54,9 @@ class _CollectionReviewState extends State<CollectionReview>
         isScrollControlled: true,
         builder: (BuildContext context) {
           return DraggableScrollableSheet(
-            initialChildSize: 0.63,
+            initialChildSize: 0.66,
             minChildSize: 0.5,
-            maxChildSize: 0.63,
+            maxChildSize: 0.66,
             builder:
                 (BuildContext context, ScrollController scrollController) =>
                     PaymentSlidingPanel(
@@ -70,11 +70,38 @@ class _CollectionReviewState extends State<CollectionReview>
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
     final Map<String, dynamic> _data =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    // _controller.stop();
+
+    final SnackBar _snackBar = SnackBar(
+      backgroundColor: const Color(0xFFF3F4F6),
+      content: Container(
+        alignment: Alignment.center,
+        height: 48.0,
+        child: Text(
+          'Pilih metode pembayaran terlebih dulu 💸',
+          style: TextStyle(
+            fontFamily: 'Inter',
+            fontSize: 14,
+            color: Colors.black,
+            height: 1.20,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+      ),
+      duration: const Duration(seconds: 3),
+      width: size.width * 0.9,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8.0,
+      ),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+    );
 
     return AppLayout(
       appBar: AppBar(
@@ -115,14 +142,24 @@ class _CollectionReviewState extends State<CollectionReview>
           : BottomActionBar(
               subTitleAbove: "Total Pembayaran",
               titleBottom:
-                  "Rp${NumberFormat.decimalPattern('id').format(750000)}",
+                  "Rp${NumberFormat.decimalPattern('id').format(_data['price'])}",
               textButton: "Proses Sekarang",
-              onClickButton: indexBank != -1
-                  ? () => Navigator.pushNamed(context, '/payment_process',
-                          arguments: <String, dynamic>{
+              onClickButton: () async {
+                indexBank != -1
+                    ? Navigator.pushNamed(context, '/payment_process',
+                        arguments: <String, dynamic>{
                             'codeSale': 0,
+                            'transactionId': await QuickTransaction()
+                                .createTransaction(
+                                    amount: _data['price'],
+                                    name: _data['name'],
+                                    buyerId: AuthService.user!.uid,
+                                    index: indexBank,
+                                    collectionId: _data['collectionId']),
                           })
-                  : () {}
+                    : rootScaffoldMessengerKey.currentState
+                        ?.showSnackBar(_snackBar);
+              },
             ),
     );
   }

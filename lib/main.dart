@@ -1,6 +1,7 @@
 import 'package:artefak/logic/auth/auth.dart';
 import 'package:artefak/logic/auth/view/collection_wrapper.dart';
 import 'package:artefak/logic/bloc_observer.dart';
+import 'package:artefak/logic/collection/collection.dart';
 import 'package:artefak/logic/pin/pin.dart';
 import 'package:artefak/screens/main/asset_detail.dart';
 import 'package:artefak/screens/main/collection_review.dart';
@@ -40,6 +41,9 @@ Future<void> main() {
 }
 
 ThemeManager _themeManager = ThemeManager();
+
+final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -88,6 +92,9 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider(
           create: (_) => PinService(_firebaseAuth, _firebaseFirestore),
         ),
+        RepositoryProvider(
+          create: (_) => FirebaseCollection(_firebaseFirestore),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -108,6 +115,7 @@ class _MyAppState extends State<MyApp> {
               return const SplashScreen();
             } else {
               return MaterialApp(
+                scaffoldMessengerKey: rootScaffoldMessengerKey,
                 theme: lightTheme,
                 themeMode: _themeManager.themeMode,
                 localizationsDelegates: const [

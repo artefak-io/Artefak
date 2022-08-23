@@ -45,8 +45,6 @@ class ItemTwoAxisScroll extends StatelessWidget {
                     Navigator.pushNamed(context, '/asset/product_detail',
                         arguments: <String, dynamic>{
                           'id': snapshot.data!.docs[index].id,
-                          'currentOwner': snapshot.data!.docs[index]
-                              ['currentOwner'],
                           'creator': snapshot.data!.docs[index]['creator'],
                           'name': snapshot.data!.docs[index]['name'],
                           'description': snapshot.data!.docs[index]
@@ -54,9 +52,6 @@ class ItemTwoAxisScroll extends StatelessWidget {
                           'coverImage': snapshot.data!.docs[index]
                               ['coverImage'],
                           'views': snapshot.data!.docs[index]['views'],
-                          'contractAddress': snapshot.data!.docs[index]
-                              ['contractAddress'],
-                          'tokenId': snapshot.data!.docs[index]['tokenId'],
                           'price': snapshot.data!.docs[index]['price'],
                         });
                   },

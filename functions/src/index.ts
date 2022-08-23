@@ -1,10 +1,11 @@
-const admin = require('firebase-admin');
-
-admin.initializeApp();
-const functions = require("firebase-functions");
-const axios = require("axios");
-
+import * as admin from 'firebase-admin';
+admin.initializeApp(); // IMPORTANT TO DO THIS FIRST
 const db = admin.firestore();
+
+import * as functions from 'firebase-functions';
+import axios from 'axios';
+
+export * from './callback';
 
 const TATUM_API_KEY = "52a0d1b3-06b7-4a87-a4d5-e7ba5eba6529";
 
@@ -28,7 +29,7 @@ exports.mintBasedOnTransaction = functions.firestore
             return;
         }
 
-        if (newStatus != "Completed") {
+        if (newStatus.toLowerCase() != "completed") {
             // Not interested if status is not Completed yet
             return;
         }
@@ -39,12 +40,16 @@ exports.mintBasedOnTransaction = functions.firestore
             // TODO: this is dumb, but I just want to test this
             buyer = await db.doc('User/' + newValue.testUserID).get();
         } else {
-            buyer = await newValue.buyer.get();
+            if (typeof newValue.buyerId === 'string' || newValue.buyerId instanceof String) {
+                buyer = await db.doc('User/' + newValue.buyerId).get();
+            } else {
+                buyer = await newValue.buyer.get();
+            }
         }
+
         const buyerData = buyer.data();
 
         // If we're here means we're shifting from X -> Completed
-        // TODO: do minting here, call Tatum API
         const mint = await mintNFTToBSC(
             "0xbbbbace6992147c0b16c49c3fb66e7d9268ac765e1deed0cb83c07e727ddceb8", // TODO: make Artefak minter ID
             buyerData['publicKey'], // TODO: get user's public address
@@ -53,7 +58,7 @@ exports.mintBasedOnTransaction = functions.firestore
 
         return await change.after.ref.set({
             blockchainTransactionAddress: mint['txId'],
-        });
+        }, { merge: true });
     });
 
 exports.createWalletOnAuth = functions.auth.user().onCreate(async (user: any) => {
@@ -124,13 +129,13 @@ async function generatePrivateKey(mnemonic: any, index: any) {
 }
 
 async function getBlockchainDetail(blockchain: string) {
-    const data = await db.doc('Blockchain/' + blockchain).get();
-    return data.data();
+    return await db.doc('Blockchain/' + blockchain).get();
 }
 
 // Tatum Documentation: https://docs.tatum.io/guides/blockchain/how-to-create-nft-token
 async function mintNFTToBSC(fromPrivateKey: any, receiverAddress: any, externalURL: any) {
-    const blockChainDetail = await getBlockchainDetail("BSC Testnet");
+    const blockChainDetailObject = await getBlockchainDetail("BSC Testnet");
+    const blockChainDetail = blockChainDetailObject.data()!;
 
     const body = {
         "chain": "BSC",
@@ -150,6 +155,10 @@ async function mintNFTToBSC(fromPrivateKey: any, receiverAddress: any, externalU
                 "Content-Type": "application/json"
             }
         });
+
+    await blockChainDetailObject.ref.update({
+        tokenId: blockChainDetail['tokenId'] + 1,
+    });
 
     return response.data;
 }
