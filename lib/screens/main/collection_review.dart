@@ -7,6 +7,7 @@ import 'package:artefak/widgets/desc_collection_review.dart';
 import 'package:artefak/widgets/payment_sliding_panel.dart';
 import 'package:artefak/widgets/select_card_payment.dart';
 import 'package:artefak/widgets/total_collection_review.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -30,6 +31,8 @@ class _CollectionReviewState extends State<CollectionReview>
   bool updatedIsPanelOpen = false;
   int indexBank = -1;
   List<String> listVA = [];
+
+  late final Map<String, dynamic> _data;
 
   void onPressedPaymentMethod() {
     setState(() {
@@ -73,8 +76,9 @@ class _CollectionReviewState extends State<CollectionReview>
     Size size = MediaQuery.of(context).size;
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
-    final Map<String, dynamic> _data =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    _data = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final Stream<DocumentSnapshot<Map<String, dynamic>>> _collectionStream =
+    FirebaseFirestore.instance.collection('Collection').doc(_data['collectionId']).snapshots();
 
     final SnackBar _snackBar = SnackBar(
       backgroundColor: const Color(0xFFF3F4F6),
@@ -126,8 +130,11 @@ class _CollectionReviewState extends State<CollectionReview>
             ),
             Column(
               children: [
-                DescCollectionReview(),
+                DescCollectionReview(
+                  collectionStream: _collectionStream,
+                ),
                 TotalCollectionReview(
+                  collectionStream: _collectionStream,
                   data: _data,
                   onPressedPaymentMethod: _showDialog,
                   indexBank: indexBank,
