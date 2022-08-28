@@ -18,6 +18,8 @@ class PaymentProcess extends StatelessWidget {
     ThemeData _themeData = Theme.of(context);
     final Map<String, dynamic> _data =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final Stream<DocumentSnapshot<Map<String, dynamic>>> _collectionStream =
+    FirebaseFirestore.instance.collection('Collection').doc(_data['collectionId']).snapshots();
 
     return AppLayout(
       appBar: AppBar(
@@ -62,7 +64,9 @@ class PaymentProcess extends StatelessWidget {
                         height: 0,
                         color: _themeData.cursorColor,
                       ),
-                      DescCollectionReview(),
+                      DescCollectionReview(
+                        collectionStream: _collectionStream,
+                      ),
                     ],
                   );
                 } else if (snapshot.hasError) {
