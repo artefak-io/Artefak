@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class DetailPaymentProcess extends StatelessWidget {
   const DetailPaymentProcess({
@@ -8,6 +9,7 @@ class DetailPaymentProcess extends StatelessWidget {
   }) : super(key: key);
 
   final Map<String, dynamic> data;
+
   @override
   Widget build(BuildContext context) {
     ThemeData _themeData = Theme.of(context);
@@ -147,7 +149,7 @@ class DetailPaymentProcess extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'No. Virtual Account BCA',
+                          'No. Virtual Account ${data['paymentMethodType'].replaceAll("va", "").toUpperCase()}',
                           style: _textTheme.bodyLarge?.copyWith(
                               fontWeight: FontWeight.w400,
                               color: _themeData.focusColor),
@@ -161,22 +163,33 @@ class DetailPaymentProcess extends StatelessWidget {
                       ],
                     ),
                     Spacer(),
-                    GestureDetector(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: _themeData.highlightColor,
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        side: BorderSide(
+                          color: _themeData.focusColor,
                         ),
-                        height: 32.0,
-                        width: 32.0,
-                        alignment: Alignment.center,
-                        child: Icon(
-                          Icons.content_copy,
-                          color: Colors.white,
-                          size: 18.0,
-                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100)),
                       ),
-                      onTap: () => Clipboard.setData(
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.content_copy,
+                            color: Colors.white,
+                            size: 12.0,
+                          ),
+                          SizedBox(
+                            width: 6.0,
+                          ),
+                          Text(
+                            "Salin",
+                            style: _textTheme.bodySmall
+                                ?.copyWith(fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                      onPressed: () => Clipboard.setData(
                               ClipboardData(text: data['paymentNumber']))
                           .then(
                         (value) {
@@ -209,7 +222,7 @@ class DetailPaymentProcess extends StatelessWidget {
                               color: _themeData.focusColor),
                         ),
                         Text(
-                          data['amount'].toString(),
+                          "Rp${NumberFormat.decimalPattern('id').format(data['amount'])}",
                           style: _textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.w700,
                           ),
@@ -217,22 +230,33 @@ class DetailPaymentProcess extends StatelessWidget {
                       ],
                     ),
                     Spacer(),
-                    GestureDetector(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: _themeData.highlightColor,
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        side: BorderSide(
+                          color: _themeData.focusColor,
                         ),
-                        height: 32.0,
-                        width: 32.0,
-                        alignment: Alignment.center,
-                        child: Icon(
-                          Icons.content_copy,
-                          color: Colors.white,
-                          size: 18.0,
-                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100)),
                       ),
-                      onTap: () => Clipboard.setData(
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.content_copy,
+                            color: Colors.white,
+                            size: 12.0,
+                          ),
+                          SizedBox(
+                            width: 6.0,
+                          ),
+                          Text(
+                            "Salin",
+                            style: _textTheme.bodySmall
+                                ?.copyWith(fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                      onPressed: () => Clipboard.setData(
                               ClipboardData(text: data['amount'].toString()))
                           .then(
                         (value) {
@@ -246,7 +270,7 @@ class DetailPaymentProcess extends StatelessWidget {
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         },
                       ),
-                    )
+                    ),
                   ],
                 ),
               ],
