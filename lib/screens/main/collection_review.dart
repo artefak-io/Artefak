@@ -32,8 +32,6 @@ class _CollectionReviewState extends State<CollectionReview>
   int indexBank = -1;
   List<String> listVA = [];
 
-  late final Map<String, dynamic> _data;
-
   void onPressedPaymentMethod() {
     setState(() {
       updatedIsPanelOpen = true;
@@ -76,7 +74,7 @@ class _CollectionReviewState extends State<CollectionReview>
     Size size = MediaQuery.of(context).size;
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
-    _data = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final Map<String, dynamic> _data = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final Stream<DocumentSnapshot<Map<String, dynamic>>> _collectionStream =
     FirebaseFirestore.instance.collection('Collection').doc(_data['collectionId']).snapshots();
 
