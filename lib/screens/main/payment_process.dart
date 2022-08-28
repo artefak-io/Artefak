@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class PaymentProcess extends StatelessWidget {
   const PaymentProcess({Key? key}) : super(key: key);
 
-  static const index = 2; // TODO: In what index is this?
+  static const index = 3;
 
   @override
   Widget build(BuildContext context) {
