@@ -125,11 +125,11 @@ class DescCollectionReview extends StatelessWidget {
                                           ),
                                         ],
                                       );
-                                    }
-                                    ;
+                                    };
                                     return Container();
                                   },
                                 ),
+
                               ],
                             ),
                           ),

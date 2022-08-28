@@ -67,7 +67,7 @@ class TransactionRowItem extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     child: Text(
-                      "Menunggu Pembayaran",
+                      "Pending",
                       style:
                           _textTheme.bodySmall?.copyWith(color: Colors.black),
                     ),
