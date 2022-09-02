@@ -27,6 +27,8 @@ exports.paymentResult = functions.https.onRequest((request: functions.Request, r
             status: 'completed'
         });
 
+        // TODO: create Asset from Collection
+
         response.status(200).send(body);
     });
 });
