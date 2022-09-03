@@ -72,7 +72,6 @@ class _PinAuthState extends State<PinAuth> {
                         ),
                         child: AppBar(
                           toolbarHeight: 64.0,
-                          automaticallyImplyLeading: false,
                           title: Text(
                             'PIN',
                             style: _textTheme.titleLarge

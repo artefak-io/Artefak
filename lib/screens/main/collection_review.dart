@@ -52,18 +52,32 @@ class _CollectionReviewState extends State<CollectionReview>
     showModalBottomSheet(
         context: context,
         backgroundColor: Colors.transparent,
+        isDismissible: true,
+        useRootNavigator: true,
+        enableDrag: true,
         isScrollControlled: true,
         builder: (BuildContext context) {
-          return DraggableScrollableSheet(
-            initialChildSize: 0.66,
-            minChildSize: 0.5,
-            maxChildSize: 0.66,
-            builder:
-                (BuildContext context, ScrollController scrollController) =>
-                    PaymentSlidingPanel(
-              scrollController: scrollController,
-              updateBankAssetState: updateBankAssetState,
-              listVA: listVA,
+          return GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: ColoredBox(
+              color: Colors.transparent,
+              child: SizedBox(
+                child: DraggableScrollableSheet(
+                  initialChildSize: 0.66,
+                  minChildSize: 0.5,
+                  maxChildSize: 0.66,
+                  builder: (BuildContext context,
+                          ScrollController scrollController) =>
+                      GestureDetector(
+                    onTap: () {},
+                    child: PaymentSlidingPanel(
+                      scrollController: scrollController,
+                      updateBankAssetState: updateBankAssetState,
+                      listVA: listVA,
+                    ),
+                  ),
+                ),
+              ),
             ),
           );
         });
@@ -74,11 +88,13 @@ class _CollectionReviewState extends State<CollectionReview>
     Size size = MediaQuery.of(context).size;
     TextTheme _textTheme = Theme.of(context).textTheme;
     ThemeData _themeData = Theme.of(context);
-    final Map<String, dynamic> _data = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final Map<String, dynamic> _data =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final Stream<DocumentSnapshot<Map<String, dynamic>>> _collectionStream =
-    FirebaseFirestore.instance.collection('Collection').doc(_data['collectionId']).snapshots();
-
-    print(_collectionStream);
+        FirebaseFirestore.instance
+            .collection('Collection')
+            .doc(_data['collectionId'])
+            .snapshots();
 
     final SnackBar _snackBar = SnackBar(
       backgroundColor: const Color(0xFFF3F4F6),

@@ -41,8 +41,8 @@ class Home extends StatelessWidget {
               ClipRect(
                 child: BackdropFilter(
                   filter: ImageFilter.blur(
-                    sigmaX: 5.0,
-                    sigmaY: 5.0,
+                    sigmaX: 30.0,
+                    sigmaY: 30.0,
                   ),
                   child: AppBar(
                     toolbarHeight: 64.0,

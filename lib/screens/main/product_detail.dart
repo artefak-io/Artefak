@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:artefak/screens/app_layout.dart';
 import 'package:artefak/widgets/account_description_row.dart';
 import 'package:artefak/widgets/appbar_actions_button.dart';
@@ -33,18 +35,44 @@ class ProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    ThemeData _themeData = Theme.of(context);
+    TextTheme _textTheme = Theme.of(context).textTheme;
 
     final Map<String, dynamic> _data =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     return AppLayout(
       child: Scaffold(
+        extendBody: true,
+        extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          title: Text('Proyek'),
-          actions: [
-            AppbarActionsButton(),
-          ],
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(64.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: 30.0,
+                    sigmaY: 30.0,
+                  ),
+                  child: AppBar(
+                    toolbarHeight: 64.0,
+                    backgroundColor: _themeData.highlightColor,
+                    title: Text(
+                      'Proyek',
+                      style: _textTheme.titleLarge
+                          ?.copyWith(fontWeight: FontWeight.w400),
+                    ),
+                    actions: [
+                      AppbarActionsButton(),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(

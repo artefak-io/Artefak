@@ -88,6 +88,8 @@ class CollectionRowItem extends StatelessWidget {
           ),
           Container(
             height: 328,
+            width: double.infinity,
+            color: _themeData.primaryColorDark,
             child: Image.network(
               dataItem['coverImage'],
               fit: BoxFit.cover,
