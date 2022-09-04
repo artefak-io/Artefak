@@ -14,6 +14,7 @@ class AccountDescriptionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     ThemeData _themeData = Theme.of(context);
     TextTheme _textTheme = Theme.of(context).textTheme;
     return Padding(
@@ -61,20 +62,18 @@ class AccountDescriptionRow extends StatelessWidget {
                             ?.copyWith(fontWeight: FontWeight.w400),
                       ),
                       Spacer(),
-                      OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          side: BorderSide(
-                            color: _themeData.focusColor,
-                          ),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100)),
-                        ),
+                      ElevatedButton(
                         child: Text(
                           "Ikuti",
                           style: _textTheme.bodySmall
                               ?.copyWith(fontWeight: FontWeight.w400),
                         ),
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: Size(56.0, 32.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100.0),
+                            ),
+                            alignment: Alignment.center),
                         onPressed: () {},
                       ),
                     ],

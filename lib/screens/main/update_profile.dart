@@ -59,6 +59,17 @@ class _UpdateProfileState extends State<UpdateProfile> {
     if (kIsWeb != true && defaultTargetPlatform == TargetPlatform.android) {
       _restrieveLostData();
     }
+    // Text Field Controller
+    _nameController.addListener(() {
+      setState(() {
+        _nameText = _nameController.text;
+      });
+    });
+    _phoneController.addListener(() {
+      setState(() {
+        _phoneText = _phoneController.text;
+      });
+    });
   }
 
   @override
@@ -84,13 +95,13 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 ClipRect(
                   child: BackdropFilter(
                     filter: ImageFilter.blur(
-                      sigmaX: 5.0,
-                      sigmaY: 5.0,
+                      sigmaX: 30.0,
+                      sigmaY: 30.0,
                     ),
                     child: AppBar(
                       toolbarHeight: 64.0,
                       automaticallyImplyLeading: false,
-                      title: Text('Akun',
+                      title: Text('Ubah Data Profil',
                           style: _textTheme.titleLarge
                               ?.copyWith(fontWeight: FontWeight.w400)),
                     ),

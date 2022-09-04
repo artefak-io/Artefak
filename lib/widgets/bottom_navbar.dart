@@ -53,8 +53,8 @@ class BotNavBar extends StatelessWidget {
     return ClipRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(
-          sigmaX: 5.0,
-          sigmaY: 5.0,
+          sigmaX: 30.0,
+          sigmaY: 30.0,
         ),
         child: SizedBox(
           height: 80,
