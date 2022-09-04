@@ -56,6 +56,8 @@ exports.mintBasedOnTransaction = functions.firestore
             "artefak.io",
         );
 
+        // TODO: create Asset from Collection
+
         return await change.after.ref.set({
             blockchainTransactionAddress: mint['txId'],
         }, { merge: true });
