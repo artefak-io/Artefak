@@ -76,22 +76,6 @@ class AccountDescriptionRow extends StatelessWidget {
                             alignment: Alignment.center),
                         onPressed: () {},
                       ),
-                      // OutlinedButton(
-                      //   style: OutlinedButton.styleFrom(
-                      //     backgroundColor: Colors.transparent,
-                      //     side: BorderSide(
-                      //       color: _themeData.focusColor,
-                      //     ),
-                      //     shape: RoundedRectangleBorder(
-                      //         borderRadius: BorderRadius.circular(100)),
-                      //   ),
-                      //   child: Text(
-                      //     "Ikuti",
-                      //     style: _textTheme.bodySmall
-                      //         ?.copyWith(fontWeight: FontWeight.w400),
-                      //   ),
-                      //   onPressed: () {},
-                      // ),
                     ],
                   );
                 }
