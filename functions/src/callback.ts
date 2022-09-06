@@ -4,23 +4,24 @@ import * as admin from 'firebase-admin';
 
 const db = admin.firestore();
 
-exports.paymentResult = functions.https.onRequest((request: functions.Request, response: functions.Response) => {
+exports.paymentResult = functions.https.onRequest(async (request: functions.Request, response: functions.Response) => {
     if (request.method === 'PUT') {
         response.status(403).send('Forbidden!');
         return;
     }
-    console.log('masuk sini')
 
     cors({ origin: true })(request, response, async () => {
-        const body = request.body;
-
+        const body = JSON.parse(request.body.toString());
         const status = body.data.attributes.status;
-        const transactionId = body.data.attributes.referenceId;
+        const transactionId = body.data.attributes.paymentMethod.referenceId;
+
 
         if (status.toLowerCase() !== 'paid' && status.toLowerCase() !== 'completed') {
             response.status(200).send(body);
             return;
         }
+
+        console.log('changing Transaction status so we can start minting!');
 
         const transactionObject = await db.doc('Transaction/' + transactionId).get();
         await transactionObject.ref.update({
@@ -28,5 +29,6 @@ exports.paymentResult = functions.https.onRequest((request: functions.Request, r
         });
 
         response.status(200).send(body);
+        return;
     });
 });

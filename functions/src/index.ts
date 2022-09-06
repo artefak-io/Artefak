@@ -16,6 +16,7 @@ exports.mintBasedOnTransaction = functions.firestore
             [x: string]: any; data: () => any;
         }; before: { data: () => any; };
     }, _: any) => {
+        console.log('saya di sini');
         // Get an object representing the document
         const newValue = change.after.data();
 
@@ -24,15 +25,22 @@ exports.mintBasedOnTransaction = functions.firestore
         const prevStatus = previousValue.status;
         const newStatus = newValue.status;
 
-        if (prevStatus == newStatus) {
-            // Not interested in same status
-            return;
-        }
-
         if (newStatus.toLowerCase() != "completed") {
             // Not interested if status is not Completed yet
             return;
         }
+
+        console.log('blockchain address? ' + newValue.blockchainTransactionAddress);
+        if (prevStatus == newStatus && newValue.blockchainTransactionAddress != null) {
+            // 2 case here
+            // 1. if the status is different then we should mint
+            // 2. if the status is the same (means it's completed already), but we don't have BSC address
+            // means previous minting fails. Let's try again
+            console.log('keluar early broooo');
+            return;
+        }
+
+        console.log('start minting!!');
 
         let buyer;
 
@@ -55,6 +63,8 @@ exports.mintBasedOnTransaction = functions.firestore
             buyerData['publicKey'], // TODO: get user's public address
             "artefak.io",
         );
+
+        console.log(mint);
 
         // TODO: create Asset from Collection
 
