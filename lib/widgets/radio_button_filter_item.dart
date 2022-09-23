@@ -50,7 +50,7 @@ class _RadioButtonFilterItemState extends State<RadioButtonFilterItem> {
 class CustomRadioModel {
   bool isSelected;
   final String buttonText;
-  final int index;
+  final String keyVal;
 
-  CustomRadioModel(this.isSelected, this.buttonText, this.index);
+  CustomRadioModel(this.isSelected, this.buttonText, this.keyVal);
 }

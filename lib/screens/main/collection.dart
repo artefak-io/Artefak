@@ -7,7 +7,6 @@ import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:artefak/widgets/collection_row_item.dart';
 import 'package:artefak/widgets/qr_ticket_sliding_panel.dart';
-import 'package:artefak/widgets/radio_button_filter_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -21,8 +20,6 @@ class Collection extends StatefulWidget {
 }
 
 class _CollectionState extends State<Collection> {
-  List<CustomRadioModel> filterList = <CustomRadioModel>[];
-
   late final Stream<QuerySnapshot> _assetStream;
 
   void _showDialog(BuildContext context) {
