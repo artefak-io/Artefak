@@ -125,6 +125,10 @@ class _ItemCardCustomState extends State<ItemCardCustom> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: _themeData.primaryColorDark,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
+                    ),
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.only(

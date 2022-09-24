@@ -7,11 +7,16 @@ import 'package:artefak/widgets/appbar_actions_button.dart';
 import 'package:artefak/widgets/bottom_navbar.dart';
 import 'package:artefak/widgets/radio_button_filter_item.dart';
 import 'package:artefak/widgets/transaction_row_item.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/scheduler.dart';
 
-enum TransactionFilter { all, wait, active, missed }
+class TransactionFilter {
+  static const all = 'all';
+  static const pending = 'pending';
+  static const completed = 'completed';
+  static const missed = 'missed';
+}
 
 class Transaction extends StatefulWidget {
   Transaction({Key? key}) : super(key: key);
@@ -25,6 +30,10 @@ class Transaction extends StatefulWidget {
 class _TransactionState extends State<Transaction>
     with TickerProviderStateMixin {
   List<CustomRadioModel> filterList = <CustomRadioModel>[];
+  Query<Map<String, dynamic>> _transactionStream =
+      FirebaseFirestore.instance.collection('Transaction')
+          .where("buyerId", isEqualTo: AuthService.user!.uid);
+  late Stream<QuerySnapshot> _querySnapshotTransaction;
 
   final ScrollController _scrollController = ScrollController();
   late final AnimationController _filterAnimationController =
@@ -37,10 +46,13 @@ class _TransactionState extends State<Transaction>
   @override
   void initState() {
     super.initState();
-    filterList.add(new CustomRadioModel(true, 'Semua', 1));
-    filterList.add(new CustomRadioModel(false, 'Menunggu Pembayaran', 2));
-    filterList.add(new CustomRadioModel(false, 'Koleksi Aktif', 3));
-    filterList.add(new CustomRadioModel(false, 'Terlewatkan', 4));
+    filterList.add(new CustomRadioModel(true, 'Semua', TransactionFilter.all));
+    filterList.add(new CustomRadioModel(
+        false, 'Menunggu Pembayaran', TransactionFilter.pending));
+    filterList.add(new CustomRadioModel(
+        false, 'Koleksi Aktif', TransactionFilter.completed));
+    filterList.add(
+        new CustomRadioModel(false, 'Terlewatkan', TransactionFilter.missed));
   }
 
   @override
@@ -52,6 +64,17 @@ class _TransactionState extends State<Transaction>
     if (AuthService.user == null) {
       return const Authenticate();
     } else {
+      for (var element in filterList) {
+        if (element.isSelected) {
+          if (element.keyVal.toString() == TransactionFilter.all) {
+            _querySnapshotTransaction = _transactionStream.snapshots();
+          } else {
+            _querySnapshotTransaction = _transactionStream
+                .where("status", isEqualTo: element.keyVal.toString())
+                .snapshots();
+          }
+        }
+      }
       return AppLayout(
         child: Scaffold(
           extendBody: true,
@@ -112,7 +135,6 @@ class _TransactionState extends State<Transaction>
                     width: size.width,
                     child: NotificationListener<ScrollNotification>(
                       onNotification: (scrollNotification) {
-                        print('inside the onNotification');
                         if (_scrollController.hasClients) {
                           if (_scrollController.position.userScrollDirection ==
                               ScrollDirection.reverse) {
@@ -135,32 +157,42 @@ class _TransactionState extends State<Transaction>
                                   top: 128.0,
                                   left: 16.0,
                                   right: 16.0,
-                                  bottom: 64.0),
+                                  bottom: 24.0),
                               child: Column(
                                 children: [
-                                  TransactionRowItem(),
-                                  SizedBox(
-                                    height: 16,
-                                  ),
-                                  TransactionRowItem(),
-                                  SizedBox(
-                                    height: 16,
-                                  ),
-                                  TransactionRowItem(),
-                                  SizedBox(
-                                    height: 16,
-                                  ),
-                                  TransactionRowItem(),
-                                  SizedBox(
-                                    height: 16,
-                                  ),
-                                  TransactionRowItem(),
-                                  SizedBox(
-                                    height: 16,
-                                  ),
-                                  TransactionRowItem(),
-                                  SizedBox(
-                                    height: 80.0,
+                                  StreamBuilder<QuerySnapshot>(
+                                    stream: _querySnapshotTransaction,
+                                    builder: (context,
+                                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                                      if (snapshot.hasError) {
+                                        return Center(
+                                          child: Text('An error has occurred!',
+                                              style: _textTheme.bodyMedium),
+                                        );
+                                      } else if (snapshot.hasData) {
+                                        return MediaQuery.removePadding(
+                                          removeTop: true,
+                                          context: context,
+                                          child: ListView.builder(
+                                            itemCount:
+                                                snapshot.data!.docs.length,
+                                            scrollDirection: Axis.vertical,
+                                            physics: ClampingScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, index) {
+                                              return TransactionRowItem(
+                                                transactionItem:
+                                                    snapshot.data!.docs[index],
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      } else {
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      }
+                                    },
                                   ),
                                 ],
                               ),
