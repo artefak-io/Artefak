@@ -24,8 +24,6 @@ class PaymentProcess extends StatelessWidget {
             .doc(_data['collectionId'])
             .snapshots();
 
-    print(_collectionStreamPayment);
-
     return AppLayout(
       appBar: AppBar(
         title: Text(
