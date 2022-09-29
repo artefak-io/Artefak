@@ -18,6 +18,13 @@ class TransactionFilter {
   static const missed = 'missed';
 }
 
+class Status {
+  static const all = 'Semua';
+  static const pending = 'Menunggu Pembayaran';
+  static const completed = 'Selesai';
+  static const missed = 'Terlewatkan';
+}
+
 class Transaction extends StatefulWidget {
   Transaction({Key? key}) : super(key: key);
 
@@ -30,9 +37,9 @@ class Transaction extends StatefulWidget {
 class _TransactionState extends State<Transaction>
     with TickerProviderStateMixin {
   List<CustomRadioModel> filterList = <CustomRadioModel>[];
-  Query<Map<String, dynamic>> _transactionStream =
-      FirebaseFirestore.instance.collection('Transaction')
-          .where("buyerId", isEqualTo: AuthService.user!.uid);
+  Query<Map<String, dynamic>> _transactionStream = FirebaseFirestore.instance
+      .collection('Transaction')
+      .where("buyerId", isEqualTo: AuthService.user!.uid);
   late Stream<QuerySnapshot> _querySnapshotTransaction;
 
   final ScrollController _scrollController = ScrollController();
@@ -46,13 +53,14 @@ class _TransactionState extends State<Transaction>
   @override
   void initState() {
     super.initState();
-    filterList.add(new CustomRadioModel(true, 'Semua', TransactionFilter.all));
-    filterList.add(new CustomRadioModel(
-        false, 'Menunggu Pembayaran', TransactionFilter.pending));
-    filterList.add(new CustomRadioModel(
-        false, 'Koleksi Aktif', TransactionFilter.completed));
+    filterList
+        .add(new CustomRadioModel(true, Status.all, TransactionFilter.all));
     filterList.add(
-        new CustomRadioModel(false, 'Terlewatkan', TransactionFilter.missed));
+        new CustomRadioModel(false, Status.pending, TransactionFilter.pending));
+    filterList.add(new CustomRadioModel(
+        false, Status.completed, TransactionFilter.completed));
+    filterList.add(
+        new CustomRadioModel(false, Status.missed, TransactionFilter.missed));
   }
 
   @override
@@ -180,9 +188,27 @@ class _TransactionState extends State<Transaction>
                                             physics: ClampingScrollPhysics(),
                                             shrinkWrap: true,
                                             itemBuilder: (context, index) {
-                                              return TransactionRowItem(
-                                                transactionItem:
-                                                    snapshot.data!.docs[index],
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pushNamed(context,
+                                                      '/payment_process',
+                                                      arguments: <String,
+                                                          dynamic>{
+                                                        'codeSale': 0,
+                                                        'transactionId':
+                                                            snapshot.data!
+                                                                .docs[index].id,
+                                                        'collectionId': snapshot
+                                                                .data!
+                                                                .docs[index]
+                                                            ['collectionId'],
+                                                      });
+                                                },
+                                                // needs loading indicator when image being reloaded
+                                                child: TransactionRowItem(
+                                                  transactionItem: snapshot
+                                                      .data!.docs[index],
+                                                ),
                                               );
                                             },
                                           ),

@@ -1,14 +1,80 @@
+import 'dart:async';
+
+import 'package:artefak/screens/main/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
-class DetailPaymentProcess extends StatelessWidget {
+class DetailPaymentProcess extends StatefulWidget {
   const DetailPaymentProcess({
     required this.data,
     Key? key,
   }) : super(key: key);
 
   final Map<String, dynamic> data;
+
+  @override
+  State<DetailPaymentProcess> createState() => _DetailPaymentProcessState();
+}
+
+class _DetailPaymentProcessState extends State<DetailPaymentProcess> {
+  late int secondCounter, minuteCounter, hourCounter;
+  late Timer _myTimer;
+  late String status;
+
+  @override
+  void initState() {
+    super.initState();
+    secondCounter =
+        int.parse(DateTime.parse(widget.data['expiredAt']).second.toString());
+    minuteCounter =
+        int.parse(DateTime.parse(widget.data['expiredAt']).minute.toString());
+    hourCounter =
+        int.parse(DateTime.parse(widget.data['expiredAt']).hour.toString());
+    startTimer();
+    switch (widget.data['status']) {
+      case 'pending':
+        status = Status.pending;
+        break;
+      case 'completed':
+        status = Status.completed;
+        break;
+      case 'missed':
+        status = Status.missed;
+        break;
+      default:
+        status = '';
+    }
+  }
+
+  void startTimer() {
+    _myTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        secondCounter--;
+      });
+      if (secondCounter == -1) {
+        setState(() {
+          secondCounter = 59;
+          minuteCounter--;
+        });
+      }
+      if (minuteCounter == -1) {
+        setState(() {
+          minuteCounter = 59;
+          hourCounter--;
+        });
+      }
+      if (hourCounter == 0 && minuteCounter == 0 && secondCounter == 0) {
+        timer.cancel();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _myTimer.cancel(); // Need dispose cancel to make the countdown works
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +116,11 @@ class DetailPaymentProcess extends StatelessWidget {
                   width: 6.0,
                 ),
                 Text(
-                  DateTime.parse(data['expiredAt']).hour.toString() +
+                  hourCounter.toString() +
                       ' Jam ' +
-                      DateTime.parse(data['expiredAt']).minute.toString() +
+                      minuteCounter.toString() +
                       ' menit ' +
-                      DateTime.parse(data['expiredAt']).second.toString() +
+                      secondCounter.toString() +
                       ' detik',
                   style: _textTheme.displaySmall?.copyWith(
                       fontWeight: FontWeight.w700,
@@ -92,7 +158,7 @@ class DetailPaymentProcess extends StatelessWidget {
                     ),
                     Spacer(),
                     Text(
-                      data['status'],
+                      status,
                       style: _textTheme.bodyLarge?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
@@ -132,7 +198,7 @@ class DetailPaymentProcess extends StatelessWidget {
                     ),
                     Spacer(),
                     Text(
-                      data['displayName'],
+                      widget.data['displayName'],
                       style: _textTheme.bodyLarge?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
@@ -149,13 +215,13 @@ class DetailPaymentProcess extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'No. Virtual Account ${data['paymentMethodType'].replaceAll("va", "").toUpperCase()}',
+                          'No. Virtual Account ${widget.data['paymentMethodType'].replaceAll("va", "").toUpperCase()}',
                           style: _textTheme.bodyLarge?.copyWith(
                               fontWeight: FontWeight.w400,
                               color: _themeData.focusColor),
                         ),
                         Text(
-                          data['paymentNumber'],
+                          widget.data['paymentNumber'],
                           style: _textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.w700,
                           ),
@@ -190,7 +256,7 @@ class DetailPaymentProcess extends StatelessWidget {
                         ],
                       ),
                       onPressed: () => Clipboard.setData(
-                              ClipboardData(text: data['paymentNumber']))
+                              ClipboardData(text: widget.data['paymentNumber']))
                           .then(
                         (value) {
                           final snackBar = SnackBar(
@@ -222,7 +288,7 @@ class DetailPaymentProcess extends StatelessWidget {
                               color: _themeData.focusColor),
                         ),
                         Text(
-                          "Rp${NumberFormat.decimalPattern('id').format(data['amount'])}",
+                          "Rp${NumberFormat.decimalPattern('id').format(widget.data['amount'])}",
                           style: _textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.w700,
                           ),
@@ -256,8 +322,8 @@ class DetailPaymentProcess extends StatelessWidget {
                           ),
                         ],
                       ),
-                      onPressed: () => Clipboard.setData(
-                              ClipboardData(text: data['amount'].toString()))
+                      onPressed: () => Clipboard.setData(ClipboardData(
+                              text: widget.data['amount'].toString()))
                           .then(
                         (value) {
                           final snackBar = SnackBar(
